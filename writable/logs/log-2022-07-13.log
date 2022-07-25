@@ -1,0 +1,142 @@
+CRITICAL - 2022-07-13 07:40:09 --> Undefined variable: logo
+#0 D:\wamp64\www\jurnalsimulator\app\Views\login.php(25): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'D:\\wamp64\\www\\j...', 25, Array)
+#1 D:\wamp64\www\jurnalsimulator\system\View\View.php(210): include('D:\\wamp64\\www\\j...')
+#2 D:\wamp64\www\jurnalsimulator\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 D:\wamp64\www\jurnalsimulator\system\Common.php(1089): CodeIgniter\View\View->render('login', Array, true)
+#4 D:\wamp64\www\jurnalsimulator\app\Controllers\Login.php(44): view('login', Array)
+#5 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Login->index()
+#6 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Login))
+#7 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2022-07-13 08:53:59 --> Undefined property: CodeIgniter\View\View::$Mglobals
+#0 D:\wamp64\www\jurnalsimulator\app\Views\head.php(82): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', 'D:\\wamp64\\www\\j...', 82, Array)
+#1 D:\wamp64\www\jurnalsimulator\system\View\View.php(210): include('D:\\wamp64\\www\\j...')
+#2 D:\wamp64\www\jurnalsimulator\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 D:\wamp64\www\jurnalsimulator\system\Common.php(1089): CodeIgniter\View\View->render('head', Array, true)
+#4 D:\wamp64\www\jurnalsimulator\app\Controllers\Home.php(57): view('head', Array)
+#5 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Home->index()
+#6 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+#7 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2022-07-13 08:54:39 --> Undefined property: CodeIgniter\View\View::$Mglobals
+#0 D:\wamp64\www\jurnalsimulator\app\Views\head.php(82): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', 'D:\\wamp64\\www\\j...', 82, Array)
+#1 D:\wamp64\www\jurnalsimulator\system\View\View.php(210): include('D:\\wamp64\\www\\j...')
+#2 D:\wamp64\www\jurnalsimulator\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 D:\wamp64\www\jurnalsimulator\system\Common.php(1089): CodeIgniter\View\View->render('head', Array, true)
+#4 D:\wamp64\www\jurnalsimulator\app\Controllers\Home.php(57): view('head', Array)
+#5 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Home->index()
+#6 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+#7 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2022-07-13 08:54:41 --> Undefined property: CodeIgniter\View\View::$Mglobals
+#0 D:\wamp64\www\jurnalsimulator\app\Views\head.php(82): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', 'D:\\wamp64\\www\\j...', 82, Array)
+#1 D:\wamp64\www\jurnalsimulator\system\View\View.php(210): include('D:\\wamp64\\www\\j...')
+#2 D:\wamp64\www\jurnalsimulator\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 D:\wamp64\www\jurnalsimulator\system\Common.php(1089): CodeIgniter\View\View->render('head', Array, true)
+#4 D:\wamp64\www\jurnalsimulator\app\Controllers\Home.php(57): view('head', Array)
+#5 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Home->index()
+#6 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+#7 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2022-07-13 08:54:43 --> Undefined property: CodeIgniter\View\View::$Mglobals
+#0 D:\wamp64\www\jurnalsimulator\app\Views\head.php(82): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', 'D:\\wamp64\\www\\j...', 82, Array)
+#1 D:\wamp64\www\jurnalsimulator\system\View\View.php(210): include('D:\\wamp64\\www\\j...')
+#2 D:\wamp64\www\jurnalsimulator\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 D:\wamp64\www\jurnalsimulator\system\Common.php(1089): CodeIgniter\View\View->render('head', Array, true)
+#4 D:\wamp64\www\jurnalsimulator\app\Controllers\Home.php(57): view('head', Array)
+#5 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Home->index()
+#6 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+#7 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2022-07-13 08:54:47 --> Undefined property: CodeIgniter\View\View::$Mglobals
+#0 D:\wamp64\www\jurnalsimulator\app\Views\head.php(82): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', 'D:\\wamp64\\www\\j...', 82, Array)
+#1 D:\wamp64\www\jurnalsimulator\system\View\View.php(210): include('D:\\wamp64\\www\\j...')
+#2 D:\wamp64\www\jurnalsimulator\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 D:\wamp64\www\jurnalsimulator\system\Common.php(1089): CodeIgniter\View\View->render('head', Array, true)
+#4 D:\wamp64\www\jurnalsimulator\app\Controllers\Home.php(57): view('head', Array)
+#5 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Home->index()
+#6 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+#7 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2022-07-13 09:32:42 --> Undefined variable: nrp
+#0 D:\wamp64\www\jurnalsimulator\app\Views\profile\index.php(72): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'D:\\wamp64\\www\\j...', 72, Array)
+#1 D:\wamp64\www\jurnalsimulator\system\View\View.php(210): include('D:\\wamp64\\www\\j...')
+#2 D:\wamp64\www\jurnalsimulator\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 D:\wamp64\www\jurnalsimulator\system\Common.php(1089): CodeIgniter\View\View->render('profile/index', Array, true)
+#4 D:\wamp64\www\jurnalsimulator\app\Controllers\Profile.php(74): view('profile/index')
+#5 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Profile->index()
+#6 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Profile))
+#7 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2022-07-13 09:34:01 --> Undefined variable: nrp
+#0 D:\wamp64\www\jurnalsimulator\app\Views\profile\index.php(72): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'D:\\wamp64\\www\\j...', 72, Array)
+#1 D:\wamp64\www\jurnalsimulator\system\View\View.php(210): include('D:\\wamp64\\www\\j...')
+#2 D:\wamp64\www\jurnalsimulator\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 D:\wamp64\www\jurnalsimulator\system\Common.php(1089): CodeIgniter\View\View->render('profile/index', Array, true)
+#4 D:\wamp64\www\jurnalsimulator\app\Controllers\Profile.php(76): view('profile/index')
+#5 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Profile->index()
+#6 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Profile))
+#7 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2022-07-13 09:48:47 --> Undefined variable: nama_personil
+#0 D:\wamp64\www\jurnalsimulator\app\Views\profile\index.php(76): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'D:\\wamp64\\www\\j...', 76, Array)
+#1 D:\wamp64\www\jurnalsimulator\system\View\View.php(210): include('D:\\wamp64\\www\\j...')
+#2 D:\wamp64\www\jurnalsimulator\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 D:\wamp64\www\jurnalsimulator\system\Common.php(1089): CodeIgniter\View\View->render('profile/index', Array, true)
+#4 D:\wamp64\www\jurnalsimulator\app\Controllers\Profile.php(81): view('profile/index')
+#5 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Profile->index()
+#6 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Profile))
+#7 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2022-07-13 09:49:03 --> Undefined variable: satker
+#0 D:\wamp64\www\jurnalsimulator\app\Views\profile\index.php(97): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'D:\\wamp64\\www\\j...', 97, Array)
+#1 D:\wamp64\www\jurnalsimulator\system\View\View.php(210): include('D:\\wamp64\\www\\j...')
+#2 D:\wamp64\www\jurnalsimulator\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 D:\wamp64\www\jurnalsimulator\system\Common.php(1089): CodeIgniter\View\View->render('profile/index', Array, true)
+#4 D:\wamp64\www\jurnalsimulator\app\Controllers\Profile.php(81): view('profile/index')
+#5 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Profile->index()
+#6 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Profile))
+#7 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2022-07-13 10:08:27 --> Undefined variable: nrp
+#0 D:\wamp64\www\jurnalsimulator\app\Views\changepass\index.php(61): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'D:\\wamp64\\www\\j...', 61, Array)
+#1 D:\wamp64\www\jurnalsimulator\system\View\View.php(210): include('D:\\wamp64\\www\\j...')
+#2 D:\wamp64\www\jurnalsimulator\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 D:\wamp64\www\jurnalsimulator\system\Common.php(1089): CodeIgniter\View\View->render('changepass/inde...', Array, true)
+#4 D:\wamp64\www\jurnalsimulator\app\Controllers\Changepass.php(74): view('changepass/inde...')
+#5 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Changepass->index()
+#6 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Changepass))
+#7 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2022-07-13 10:23:42 --> Undefined property: App\Controllers\Korps::$session
+#0 D:\wamp64\www\jurnalsimulator\app\Controllers\Korps.php(149): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', 'D:\\wamp64\\www\\j...', 149, Array)
+#1 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Korps->hapus('K00045')
+#2 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Korps))
+#3 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2022-07-13 10:24:47 --> Undefined property: App\Controllers\Korps::$session
+#0 D:\wamp64\www\jurnalsimulator\app\Controllers\Korps.php(149): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', 'D:\\wamp64\\www\\j...', 149, Array)
+#1 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Korps->hapus('K00045')
+#2 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Korps))
+#3 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2022-07-13 10:25:12 --> Undefined property: App\Controllers\Korps::$session
+#0 D:\wamp64\www\jurnalsimulator\app\Controllers\Korps.php(149): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', 'D:\\wamp64\\www\\j...', 149, Array)
+#1 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Korps->hapus('K00045')
+#2 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Korps))
+#3 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 {main}
