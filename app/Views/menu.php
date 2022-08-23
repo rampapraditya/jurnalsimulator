@@ -37,7 +37,7 @@
             </a>
             <div class="collapse" id="trans">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="<?php echo base_url(); ?>kondisi">Cek Kondisi KRI</a></li>
+                    <!-- <li class="nav-item"> <a class="nav-link" href="<?php echo base_url(); ?>kondisi">Cek Kondisi KRI</a></li> -->
                 </ul>
             </div>
         </li>
@@ -49,7 +49,7 @@
             </a>
             <div class="collapse" id="cetak">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"><a class="nav-link" href="<?php echo base_url(); ?>cetak">Kondisi KRI</a></li>
+                    <!-- <li class="nav-item"><a class="nav-link" href="<?php echo base_url(); ?>cetak">Kondisi KRI</a></li> -->
                 </ul>
             </div>
         </li>

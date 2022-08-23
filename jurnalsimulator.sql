@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jul 25, 2022 at 01:11 AM
--- Server version: 5.7.31
--- PHP Version: 7.4.9
+-- Waktu pembuatan: 23 Agu 2022 pada 12.27
+-- Versi server: 5.7.36
+-- Versi PHP: 7.4.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `identitas`
+-- Struktur dari tabel `identitas`
 --
 
 DROP TABLE IF EXISTS `identitas`;
@@ -47,16 +47,16 @@ CREATE TABLE IF NOT EXISTS `identitas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `identitas`
+-- Dumping data untuk tabel `identitas`
 --
 
 INSERT INTO `identitas` (`kode`, `instansi`, `slogan`, `tahun`, `pimpinan`, `alamat`, `kdpos`, `tlp`, `fax`, `website`, `email`, `logo`, `lat`, `lon`) VALUES
-('K00001', 'KOARMADA 2', 'Ghora Wira Madya Jala', 1985, 'Laksamana Muda TNI Iwan Isnurwanto, M.A.P., M.Tr.(Han).', 'Dermaga Ujung Surabaya, Jawa Timur', '60178', '08', '-', 'https://koarmada2.tnial.mil.id/', NULL, '1657722325_bfe19efcd78b64c54473.png', '-7.4063726', '112.5841074');
+('K00001', 'Puslatlekdalsen', 'Gladi Jalasena Yudha', 1984, 'Kolonel Laut (P) Irwan Sobirin', 'Morokrembangan, Kec. Krembangan, Kota SBY, Jawa Timur', '60178', '(031) 3284846', '-', 'https://kodiklatal.tnial.mil.id/', NULL, '1660734199_40e6d6597aaea0e13cdf.jpg', '-7.2238417', '112.7142937');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `korps`
+-- Struktur dari tabel `korps`
 --
 
 DROP TABLE IF EXISTS `korps`;
@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS `korps` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `korps`
+-- Dumping data untuk tabel `korps`
 --
 
 INSERT INTO `korps` (`idkorps`, `nama_korps`) VALUES
@@ -118,7 +118,7 @@ INSERT INTO `korps` (`idkorps`, `nama_korps`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pangkat`
+-- Struktur dari tabel `pangkat`
 --
 
 DROP TABLE IF EXISTS `pangkat`;
@@ -129,7 +129,7 @@ CREATE TABLE IF NOT EXISTS `pangkat` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `pangkat`
+-- Dumping data untuk tabel `pangkat`
 --
 
 INSERT INTO `pangkat` (`idpangkat`, `nama_pangkat`) VALUES
@@ -151,7 +151,7 @@ INSERT INTO `pangkat` (`idpangkat`, `nama_pangkat`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `role`
+-- Struktur dari tabel `role`
 --
 
 DROP TABLE IF EXISTS `role`;
@@ -162,7 +162,7 @@ CREATE TABLE IF NOT EXISTS `role` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `role`
+-- Dumping data untuk tabel `role`
 --
 
 INSERT INTO `role` (`idrole`, `nama_role`) VALUES
@@ -172,7 +172,7 @@ INSERT INTO `role` (`idrole`, `nama_role`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Struktur dari tabel `users`
 --
 
 DROP TABLE IF EXISTS `users`;
@@ -192,19 +192,19 @@ CREATE TABLE IF NOT EXISTS `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `users`
+-- Dumping data untuk tabel `users`
 --
 
 INSERT INTO `users` (`idusers`, `nrp`, `pass`, `nama`, `idrole`, `idkorps`, `idpangkat`, `foto`) VALUES
-('U00001', 'ADMIN', 'aGtq', 'ADMIN', 'R00001', 'K00000', 'P00001', '1657724409_ec25a5f14166f15f3f4d.jpg'),
+('U00001', 'ADMIN', 'aGtq', 'ADMIN', 'R00001', 'K00000', 'P00001', '1661131013_30bcbb4acbeb046fd4c1.png'),
 ('U00002', '111', 'aGtq', 'Rampa atika', 'R00002', 'K00001', 'P00013', 'U00002/1657446208_779fd4eb0b7fd3898840.png');
 
 --
--- Constraints for dumped tables
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
 
 --
--- Constraints for table `users`
+-- Ketidakleluasaan untuk tabel `users`
 --
 ALTER TABLE `users`
   ADD CONSTRAINT `FK_users_korps` FOREIGN KEY (`idkorps`) REFERENCES `korps` (`idkorps`) ON DELETE CASCADE ON UPDATE CASCADE,

@@ -71,7 +71,7 @@
                     <ul class="navbar-nav">
                         <li class="nav-item font-weight-semibold d-none d-lg-block ms-0">
                             <h1 class="welcome-text">Selamat Datang, <span class="text-black fw-bold"><?php echo $nama; ?></span></h1>
-                            <h3 class="welcome-sub-text">SISTEM INFORMASI ADMINISTRASI JURNAL OPERASI SIMULATOR PUSLATLEKDALSEN</h3>
+                            <h3 class="welcome-sub-text">SISTEM INFORMASI ADMINISTRASI JURNAL OPERASIONAL SIMULATOR PESAWAT PUSLATLEKDALSEN KODIKLATAL</h3>
                         </li>
                     </ul>
                     <ul class="navbar-nav ms-auto">

@@ -25,7 +25,7 @@
                                         <img src="<?php echo $logo; ?>" alt="logo">
                                     </center>
                                 </div>
-                                <h4 style="text-align: center;">SISTEM INFORMASI ADMINISTRASI<br>JURNAL OPERASIONAL OPERATOR<br>PUSLATLEKDALSEN</h4>
+                                <h4 style="text-align: center;">SISTEM INFORMASI ADMINISTRASI<br>JURNAL OPERASIONAL SIMULATOR<br>PUSLATLEKDALSEN KODIKLATAL</h4>
                                 
                                 <div class="pt-3">
                                     <form id="form">

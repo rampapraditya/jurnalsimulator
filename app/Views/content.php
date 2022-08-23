@@ -17,8 +17,8 @@
                                     <div class="col-12 col-lg-4 col-lg-12 grid-margin stretch-card">
                                         <div class="card card-rounded">
                                             <div class="card-body" style="text-align: center;">
-                                                <h3>SISTEM INFORMASI ADMINISTRASI<br>JURNAL OPERASI SIMULATOR PUSLATLEKDALSEN</h3>
-                                                <img src="<?php echo $logo; ?>" style="width: 150px; height: auto; margin-top: 20px;">
+                                                <h3>SISTEM INFORMASI ADMINISTRASI<br>JURNAL OPERASIONAL SIMULATOR PESAWAT<br>PUSLATLEKDALSEN KODIKLATAL</h3>
+                                                <img src="<?php echo $logo; ?>" style="width: 300px; height: auto; margin-top: 20px;">
                                                 <p style="margin-top: 50px;"><?php echo $alamat . ' - '; ?><a target="_blank" href="<?php echo $website; ?>"><?php echo $website; ?></a></p>
                                                 <p style="margin-top: 5px;"><?php echo "Telp : " . $tlp; if(strlen($fax) > 0){ echo ', Fax : ' . $fax; } ?></p>
                                             </div>
