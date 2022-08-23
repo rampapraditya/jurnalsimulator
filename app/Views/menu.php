@@ -25,7 +25,8 @@
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item"><a class="nav-link" href="<?php echo base_url(); ?>/korps">Korps</a></li>
                     <li class="nav-item"><a class="nav-link" href="<?php echo base_url(); ?>/pangkat">Pangkat</a></li>
-                    <li class="nav-item"><a class="nav-link" href="<?php echo base_url(); ?>/role">Role</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<?php echo base_url(); ?>/role">Departement</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<?php echo base_url(); ?>/divisi">Divisi</a></li>
                 </ul>
             </div>
         </li>
