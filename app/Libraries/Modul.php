@@ -420,7 +420,7 @@ class Modul {
         if($mode == "local"){
             $path = 'uploads/';
         }else if($mode == "online"){
-            $path = '../inventory.pramediaenginering.com/uploads/';
+            $path = '../jurnalsimulator.pramediaenginering.com/uploads/';
         }
         
         return $path;

@@ -23,10 +23,12 @@
             </a>
             <div class="collapse" id="master">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"><a class="nav-link" href="<?php echo base_url(); ?>/korps">Korps</a></li>
                     <li class="nav-item"><a class="nav-link" href="<?php echo base_url(); ?>/pangkat">Pangkat</a></li>
-                    <li class="nav-item"><a class="nav-link" href="<?php echo base_url(); ?>/role">Departement</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<?php echo base_url(); ?>/korps">Korps</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<?php echo base_url(); ?>/personil">Personil</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<?php echo base_url(); ?>/role">Departemen</a></li>
                     <li class="nav-item"><a class="nav-link" href="<?php echo base_url(); ?>/divisi">Divisi</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<?php echo base_url(); ?>/sim">Simulator</a></li>
                 </ul>
             </div>
         </li>
@@ -38,10 +40,14 @@
             </a>
             <div class="collapse" id="trans">
                 <ul class="nav flex-column sub-menu">
-                    <!-- <li class="nav-item"> <a class="nav-link" href="<?php echo base_url(); ?>kondisi">Cek Kondisi KRI</a></li> -->
+                    <!-- RENLAT --> 
+                    <li class="nav-item"> <a class="nav-link" href="<?php echo base_url(); ?>/suratmasuk">Surat Masuk</a></li> 
+                    <!-- OPSLAT -->
+                    <li class="nav-item"> <a class="nav-link" href="<?php echo base_url(); ?>/oprsim">Operasional Simulator</a></li> 
                 </ul>
             </div>
         </li>
+        <!--
         <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#cetak" aria-expanded="false" aria-controls="cetak">
                 <i class="mdi mdi-printer menu-icon"></i>
@@ -50,10 +56,11 @@
             </a>
             <div class="collapse" id="cetak">
                 <ul class="nav flex-column sub-menu">
-                    <!-- <li class="nav-item"><a class="nav-link" href="<?php echo base_url(); ?>cetak">Kondisi KRI</a></li> -->
+                     <li class="nav-item"><a class="nav-link" href="#">Kondisi KRI</a></li> 
                 </ul>
             </div>
         </li>
+        -->
     </ul>
 </nav>
 <div class="main-panel">

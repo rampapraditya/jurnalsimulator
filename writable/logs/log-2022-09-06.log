@@ -1,0 +1,160 @@
+CRITICAL - 2022-09-06 06:35:41 --> Object of class CodeIgniter\Database\MySQLi\Result could not be converted to string
+#0 D:\wamp64\www\jurnalsimulator\system\View\View.php(210): include()
+#1 D:\wamp64\www\jurnalsimulator\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#2 D:\wamp64\www\jurnalsimulator\system\Common.php(1089): CodeIgniter\View\View->render('head', Array, true)
+#3 D:\wamp64\www\jurnalsimulator\app\Controllers\Personil.php(78): view('head', Array)
+#4 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Personil->index()
+#5 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Personil))
+#6 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#8 {main}
+ERROR - 2022-09-06 06:36:55 --> Unknown column 'idusers' in 'field list'
+CRITICAL - 2022-09-06 06:36:55 --> Unknown column 'idusers' in 'field list'
+#0 D:\wamp64\www\jurnalsimulator\system\Database\MySQLi\Connection.php(292): mysqli->query('INSERT INTO `di...', 0)
+#1 D:\wamp64\www\jurnalsimulator\system\Database\BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `di...')
+#2 D:\wamp64\www\jurnalsimulator\system\Database\BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `di...')
+#3 D:\wamp64\www\jurnalsimulator\system\Database\BaseBuilder.php(1771): CodeIgniter\Database\BaseConnection->query('INSERT INTO `di...', Array, false)
+#4 D:\wamp64\www\jurnalsimulator\app\Models\Mcustom.php(45): CodeIgniter\Database\BaseBuilder->insert(Array)
+#5 D:\wamp64\www\jurnalsimulator\app\Controllers\Personil.php(125): App\Models\Mcustom->add('divisi', Array)
+#6 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Personil->ajax_add()
+#7 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Personil))
+#8 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#10 {main}
+ERROR - 2022-09-06 06:38:08 --> Unknown column 'idusers' in 'field list'
+CRITICAL - 2022-09-06 06:38:08 --> Unknown column 'idusers' in 'field list'
+#0 D:\wamp64\www\jurnalsimulator\system\Database\MySQLi\Connection.php(292): mysqli->query('INSERT INTO `di...', 0)
+#1 D:\wamp64\www\jurnalsimulator\system\Database\BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `di...')
+#2 D:\wamp64\www\jurnalsimulator\system\Database\BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `di...')
+#3 D:\wamp64\www\jurnalsimulator\system\Database\BaseBuilder.php(1771): CodeIgniter\Database\BaseConnection->query('INSERT INTO `di...', Array, false)
+#4 D:\wamp64\www\jurnalsimulator\app\Models\Mcustom.php(45): CodeIgniter\Database\BaseBuilder->insert(Array)
+#5 D:\wamp64\www\jurnalsimulator\app\Controllers\Personil.php(127): App\Models\Mcustom->add('divisi', Array)
+#6 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Personil->ajax_add()
+#7 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Personil))
+#8 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#10 {main}
+CRITICAL - 2022-09-06 06:42:14 --> Undefined variable: logo
+#0 D:\wamp64\www\jurnalsimulator\app\Controllers\Personil.php(177): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'D:\\wamp64\\www\\j...', 177, Array)
+#1 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Personil->hapus('U00003')
+#2 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Personil))
+#3 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 {main}
+ERROR - 2022-09-06 07:15:31 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.*, `b`.`nrp`, `b`.`nama`, `c`.`nama_simulator FROM suratmasuk` `a`, `users` `b`' at line 2
+CRITICAL - 2022-09-06 07:15:31 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.*, `b`.`nrp`, `b`.`nama`, `c`.`nama_simulator FROM suratmasuk` `a`, `users` `b`' at line 2
+#0 D:\wamp64\www\jurnalsimulator\system\Database\MySQLi\Connection.php(292): mysqli->query('SELECT *\nFROM `...', 0)
+#1 D:\wamp64\www\jurnalsimulator\system\Database\BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 D:\wamp64\www\jurnalsimulator\system\Database\BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 D:\wamp64\www\jurnalsimulator\system\Database\BaseBuilder.php(1455): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 D:\wamp64\www\jurnalsimulator\app\Models\Mcustom.php(32): CodeIgniter\Database\BaseBuilder->get()
+#5 D:\wamp64\www\jurnalsimulator\app\Controllers\Suratmasuk.php(86): App\Models\Mcustom->getAll('SELECT a.*, b.n...')
+#6 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Suratmasuk->ajaxlist()
+#7 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Suratmasuk))
+#8 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#10 {main}
+ERROR - 2022-09-06 07:16:19 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.*, `b`.`nrp`, `b`.`nama`, `c`.`nama_simulator FROM suratmasuk` `a`, `users` `b`' at line 2
+CRITICAL - 2022-09-06 07:16:19 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.*, `b`.`nrp`, `b`.`nama`, `c`.`nama_simulator FROM suratmasuk` `a`, `users` `b`' at line 2
+#0 D:\wamp64\www\jurnalsimulator\system\Database\MySQLi\Connection.php(292): mysqli->query('SELECT *\nFROM `...', 0)
+#1 D:\wamp64\www\jurnalsimulator\system\Database\BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 D:\wamp64\www\jurnalsimulator\system\Database\BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 D:\wamp64\www\jurnalsimulator\system\Database\BaseBuilder.php(1455): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 D:\wamp64\www\jurnalsimulator\app\Models\Mcustom.php(32): CodeIgniter\Database\BaseBuilder->get()
+#5 D:\wamp64\www\jurnalsimulator\app\Controllers\Suratmasuk.php(86): App\Models\Mcustom->getAll('SELECT a.*, b.n...')
+#6 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Suratmasuk->ajaxlist()
+#7 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Suratmasuk))
+#8 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#10 {main}
+ERROR - 2022-09-06 07:16:24 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.*, `b`.`nrp`, `b`.`nama`, `c`.`nama_simulator FROM suratmasuk` `a`, `users` `b`' at line 2
+CRITICAL - 2022-09-06 07:16:24 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.*, `b`.`nrp`, `b`.`nama`, `c`.`nama_simulator FROM suratmasuk` `a`, `users` `b`' at line 2
+#0 D:\wamp64\www\jurnalsimulator\system\Database\MySQLi\Connection.php(292): mysqli->query('SELECT *\nFROM `...', 0)
+#1 D:\wamp64\www\jurnalsimulator\system\Database\BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 D:\wamp64\www\jurnalsimulator\system\Database\BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 D:\wamp64\www\jurnalsimulator\system\Database\BaseBuilder.php(1455): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 D:\wamp64\www\jurnalsimulator\app\Models\Mcustom.php(32): CodeIgniter\Database\BaseBuilder->get()
+#5 D:\wamp64\www\jurnalsimulator\app\Controllers\Suratmasuk.php(86): App\Models\Mcustom->getAll('SELECT a.*, b.n...')
+#6 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Suratmasuk->ajaxlist()
+#7 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Suratmasuk))
+#8 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#10 {main}
+CRITICAL - 2022-09-06 10:05:31 --> Undefined variable: curdate
+#0 D:\wamp64\www\jurnalsimulator\app\Views\operasi\index.php(288): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'D:\\wamp64\\www\\j...', 288, Array)
+#1 D:\wamp64\www\jurnalsimulator\system\View\View.php(210): include('D:\\wamp64\\www\\j...')
+#2 D:\wamp64\www\jurnalsimulator\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 D:\wamp64\www\jurnalsimulator\system\Common.php(1089): CodeIgniter\View\View->render('operasi/index', Array, true)
+#4 D:\wamp64\www\jurnalsimulator\app\Controllers\Oprsim.php(74): view('operasi/index')
+#5 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Oprsim->index()
+#6 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Oprsim))
+#7 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2022-09-06 20:06:39 --> Undefined variable: tersimpan
+#0 D:\wamp64\www\jurnalsimulator\app\Controllers\Oprsim.php(95): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'D:\\wamp64\\www\\j...', 95, Array)
+#1 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Oprsim->ajaxlist()
+#2 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Oprsim))
+#3 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2022-09-06 20:23:27 --> Undefined property: stdClass::$idsuratmasuk
+#0 D:\wamp64\www\jurnalsimulator\app\Controllers\Oprsim.php(224): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', 'D:\\wamp64\\www\\j...', 224, Array)
+#1 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Oprsim->ganti('L00001')
+#2 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Oprsim))
+#3 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2022-09-06 20:23:30 --> Undefined property: stdClass::$idsuratmasuk
+#0 D:\wamp64\www\jurnalsimulator\app\Controllers\Oprsim.php(224): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', 'D:\\wamp64\\www\\j...', 224, Array)
+#1 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Oprsim->ganti('L00001')
+#2 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Oprsim))
+#3 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2022-09-06 20:24:07 --> Undefined property: stdClass::$idsuratmasuk
+#0 D:\wamp64\www\jurnalsimulator\app\Controllers\Oprsim.php(224): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', 'D:\\wamp64\\www\\j...', 224, Array)
+#1 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Oprsim->ganti('L00001')
+#2 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Oprsim))
+#3 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2022-09-06 20:24:08 --> Undefined property: stdClass::$idsuratmasuk
+#0 D:\wamp64\www\jurnalsimulator\app\Controllers\Oprsim.php(224): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', 'D:\\wamp64\\www\\j...', 224, Array)
+#1 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Oprsim->ganti('L00001')
+#2 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Oprsim))
+#3 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2022-09-06 20:42:42 --> Undefined variable: 1662514962_1a4737a92a6fb1d9e7d6.jpg
+#0 D:\wamp64\www\jurnalsimulator\app\Controllers\Oprsim.php(208): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'D:\\wamp64\\www\\j...', 208, Array)
+#1 D:\wamp64\www\jurnalsimulator\app\Controllers\Oprsim.php(158): App\Controllers\Oprsim->simpan_dengan()
+#2 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Oprsim->ajax_add()
+#3 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Oprsim))
+#4 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#6 {main}
+CRITICAL - 2022-09-06 20:44:41 --> Undefined variable: 1662515081_b19ba5b2abeed9f34979.jpg
+#0 D:\wamp64\www\jurnalsimulator\app\Controllers\Oprsim.php(208): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'D:\\wamp64\\www\\j...', 208, Array)
+#1 D:\wamp64\www\jurnalsimulator\app\Controllers\Oprsim.php(158): App\Controllers\Oprsim->simpan_dengan()
+#2 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Oprsim->ajax_add()
+#3 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Oprsim))
+#4 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#6 {main}
+CRITICAL - 2022-09-06 20:49:28 --> Undefined variable: 1662515368_7d9478765c6766e36592.jpg
+#0 D:\wamp64\www\jurnalsimulator\app\Controllers\Oprsim.php(209): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'D:\\wamp64\\www\\j...', 209, Array)
+#1 D:\wamp64\www\jurnalsimulator\app\Controllers\Oprsim.php(159): App\Controllers\Oprsim->simpan_dengan()
+#2 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Oprsim->ajax_add()
+#3 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Oprsim))
+#4 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#6 {main}
+CRITICAL - 2022-09-06 20:49:42 --> Undefined variable: 1662515382_9f173c0be4a2c1ca0f0f.jpg
+#0 D:\wamp64\www\jurnalsimulator\app\Controllers\Oprsim.php(209): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'D:\\wamp64\\www\\j...', 209, Array)
+#1 D:\wamp64\www\jurnalsimulator\app\Controllers\Oprsim.php(159): App\Controllers\Oprsim->simpan_dengan()
+#2 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Oprsim->ajax_add()
+#3 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Oprsim))
+#4 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#6 {main}

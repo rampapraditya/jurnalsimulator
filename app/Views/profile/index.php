@@ -59,7 +59,7 @@
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">PROFILE PERSONIL</h4>
+                    <h4 class="card-title">PROFIL PERSONIL</h4>
                     <div class="forms-sample">
                         <div class="form-group">
                             <label>NRP</label>

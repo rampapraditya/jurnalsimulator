@@ -86,6 +86,7 @@
             success: function (data) {
                 $('[name="kode"]').val(data.idpangkat);
                 $('[name="nama"]').val(data.nama_pangkat);
+                $('[name="milasn"]').val(data.mode);
             }, error: function (jqXHR, textStatus, errorThrown) {
                 alert('Error get data');
             }
@@ -115,6 +116,7 @@
                             <thead>
                                 <tr>
                                     <th>NAMA PANGKAT</th>
+                                    <th>MILITER / ASN</th>
                                     <th style="text-align: center;">AKSI</th>
                                 </tr>
                             </thead>
@@ -141,8 +143,16 @@
                 <form id="form" class="form-horizontal">
                     <input type="hidden" name="kode" id="kode">
                     <div class="form-group">
-                        <label>Nama Pangkat</label>
+                        <label>NAMA PANGKAT</label>
                         <input id="nama" name="nama" class="form-control" type="text" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label>MILITER / ASN</label>
+                        <select class="form-control" id="milasn" name="milasn">
+                            <option value="-">- PILIH -</option>
+                            <option value="MILITER">MILITER</option>
+                            <option value="ASN">ASN</option>
+                        </select>
                     </div>
                 </form>
             </div>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Aug 23, 2022 at 01:41 PM
+-- Generation Time: Sep 07, 2022 at 02:05 AM
 -- Server version: 5.7.31
 -- PHP Version: 7.4.9
 
@@ -44,7 +44,15 @@ INSERT INTO `divisi` (`iddivisi`, `nama_divisi`, `idrole`) VALUES
 ('D00001', 'RENOPSLAT', 'R00002'),
 ('D00002', 'EVALAT', 'R00002'),
 ('D00003', 'SKENLAT', 'R00002'),
-('D00004', 'PIT', 'R00003');
+('D00005', 'ASTT', 'R00003'),
+('D00006', 'CTT', 'R00003'),
+('D00007', 'TFG', 'R00003'),
+('D00008', 'SCC', 'R00003'),
+('D00009', 'PAU', 'R00006'),
+('D00010', 'PAK / PERNIKA', 'R00006'),
+('D00011', 'PSKT', 'R00004'),
+('D00012', 'HARSIS', 'R00004'),
+('D00013', 'HARFASBAN', 'R00004');
 
 -- --------------------------------------------------------
 
@@ -143,6 +151,50 @@ INSERT INTO `korps` (`idkorps`, `nama_korps`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `osl`
+--
+
+DROP TABLE IF EXISTS `osl`;
+CREATE TABLE IF NOT EXISTS `osl` (
+  `idop_simulator` varchar(6) NOT NULL,
+  `tanggal` date NOT NULL,
+  `kegiatan` varchar(65) NOT NULL,
+  `waktu_on` varchar(10) NOT NULL,
+  `waktu_off` varchar(10) NOT NULL,
+  `kondisi` varchar(45) NOT NULL COMMENT 'normal, sakit',
+  `keterangan` text NOT NULL,
+  `foto` varchar(150) NOT NULL,
+  `idusers` varchar(20) CHARACTER SET utf8mb4 NOT NULL,
+  `idsuratmasuk` varchar(6) NOT NULL,
+  PRIMARY KEY (`idop_simulator`),
+  KEY `FK_osl_users` (`idusers`),
+  KEY `FK_osl_suratmasuk` (`idsuratmasuk`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='latihan';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `osp`
+--
+
+DROP TABLE IF EXISTS `osp`;
+CREATE TABLE IF NOT EXISTS `osp` (
+  `idop_simulator` varchar(6) NOT NULL,
+  `tanggal` date NOT NULL,
+  `kegiatan` varchar(65) NOT NULL,
+  `waktu_on` varchar(10) NOT NULL,
+  `waktu_off` varchar(10) NOT NULL,
+  `kondisi` varchar(45) NOT NULL COMMENT 'normal, sakit',
+  `keterangan` text NOT NULL,
+  `foto` varchar(150) NOT NULL,
+  `idusers` varchar(20) CHARACTER SET utf8mb4 NOT NULL,
+  PRIMARY KEY (`idop_simulator`),
+  KEY `FK_operasional_simulator_pemanasan_users` (`idusers`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='pemanasan';
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `pangkat`
 --
 
@@ -150,6 +202,7 @@ DROP TABLE IF EXISTS `pangkat`;
 CREATE TABLE IF NOT EXISTS `pangkat` (
   `idpangkat` varchar(6) NOT NULL,
   `nama_pangkat` varchar(45) NOT NULL,
+  `mode` varchar(45) NOT NULL,
   PRIMARY KEY (`idpangkat`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -157,21 +210,20 @@ CREATE TABLE IF NOT EXISTS `pangkat` (
 -- Dumping data for table `pangkat`
 --
 
-INSERT INTO `pangkat` (`idpangkat`, `nama_pangkat`) VALUES
-('P00001', 'ADMINISTRATOR'),
-('P00005', 'Laksma TNI'),
-('P00010', 'Kolonel'),
-('P00011', 'Letkol'),
-('P00012', 'Mayor'),
-('P00013', 'Kapten'),
-('P00014', 'Lettu'),
-('P00016', 'Peltu'),
-('P00017', 'Pelda'),
-('P00018', 'Serma'),
-('P00019', 'Serka'),
-('P00020', 'Sertu'),
-('P00031', 'Penata Tk I III/d'),
-('P00033', 'Penata III/C');
+INSERT INTO `pangkat` (`idpangkat`, `nama_pangkat`, `mode`) VALUES
+('P00001', 'ADMINISTRATOR', 'MILITER'),
+('P00005', 'Laksma TNI', 'MILITER'),
+('P00010', 'Kolonel', 'MILITER'),
+('P00011', 'Letkol', 'MILITER'),
+('P00012', 'Mayor', 'MILITER'),
+('P00013', 'Kapten', 'MILITER'),
+('P00014', 'Lettu', 'MILITER'),
+('P00016', 'Peltu', 'MILITER'),
+('P00017', 'Pelda', 'MILITER'),
+('P00018', 'Serma', 'MILITER'),
+('P00019', 'Serka', 'MILITER'),
+('P00020', 'Sertu', 'MILITER'),
+('P00034', 'Serda', 'MILITER');
 
 -- --------------------------------------------------------
 
@@ -194,7 +246,10 @@ INSERT INTO `role` (`idrole`, `nama_role`) VALUES
 ('R00001', 'ADMINISTRATOR'),
 ('R00002', 'RENLAT'),
 ('R00003', 'OPSLAT'),
-('R00004', 'DUKOPSLAT');
+('R00004', 'DUKOPSLAT'),
+('R00005', 'MINLOG'),
+('R00006', 'UJI PUANPUR'),
+('R00007', 'SET');
 
 -- --------------------------------------------------------
 
@@ -210,6 +265,57 @@ CREATE TABLE IF NOT EXISTS `simulator` (
   `tahun` varchar(4) NOT NULL,
   PRIMARY KEY (`idsimulator`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `simulator`
+--
+
+INSERT INTO `simulator` (`idsimulator`, `nama_simulator`, `letak`, `tahun`) VALUES
+('S00001', 'ASTT', 'PULAU SUMATRA', '1998'),
+('S00002', 'TTT', 'PULAU KALIMANTAN', '1987'),
+('S00003', 'ANTP', 'PULAU JAWA', '1986'),
+('S00004', 'VCT', 'PULAU SUMATRA', '1988'),
+('S00005', 'IPMS', 'PULAU JAWA', '1999'),
+('S00006', 'IPRCS', 'PULAU DANA', '1986'),
+('S00007', 'NOPR', 'PULAU MIANGAS', '1988'),
+('S00008', 'PIT', 'PULAU SUMATRA', '1978'),
+('S00009', 'DPMS', 'PULAU JAWA', '1988'),
+('S00010', 'TCMS', 'PULAU KALIMANTAN', '1998'),
+('S00011', 'NFS', 'PULAU SUMATRA', '1999'),
+('S00012', 'BRIDGE SIMULATOR', 'PULAU KALIMANTAN', '1998'),
+('S00013', 'EPPKM', 'PULAU SUMATRA', '1998'),
+('S00014', 'SEMENTARA', '-', '2022');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `suratmasuk`
+--
+
+DROP TABLE IF EXISTS `suratmasuk`;
+CREATE TABLE IF NOT EXISTS `suratmasuk` (
+  `idsuratmasuk` varchar(6) NOT NULL,
+  `idusers` varchar(20) CHARACTER SET utf8mb4 NOT NULL,
+  `idsimulator` varchar(6) NOT NULL,
+  `tanggal` date NOT NULL,
+  `nosurat` varchar(45) NOT NULL,
+  `dari` varchar(65) NOT NULL,
+  `perihal` varchar(65) NOT NULL,
+  `keterangan` text,
+  `mode` varchar(45) NOT NULL,
+  PRIMARY KEY (`idsuratmasuk`),
+  KEY `FK_suratmasuk_users` (`idusers`),
+  KEY `FK_suratmasuk_simulator` (`idsimulator`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `suratmasuk`
+--
+
+INSERT INTO `suratmasuk` (`idsuratmasuk`, `idusers`, `idsimulator`, `tanggal`, `nosurat`, `dari`, `perihal`, `keterangan`, `mode`) VALUES
+('S00001', 'U00001', 'S00011', '2022-09-06', 'se/43/2022', 'Danpuslatdiksarmil', 'LDD NFS 2022', '', 'Alat'),
+('S00002', 'U00001', 'S00014', '2022-09-06', 'SE/345/2022', 'Danpusdiklek ', 'Latihan dikmaba angkatan 36', '-', 'Alat'),
+('S00004', 'U00001', '', '2022-09-06', 'SE/1265/2022', 'Danpuslatdiksarmil', 'Dukungan instruktur ', '', 'Non Alat');
 
 -- --------------------------------------------------------
 
@@ -239,7 +345,19 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`idusers`, `nrp`, `pass`, `nama`, `idrole`, `idkorps`, `idpangkat`, `foto`) VALUES
 ('U00001', 'ADMIN', 'aGtq', 'ADMIN', 'R00001', 'K00000', 'P00001', '1661131013_30bcbb4acbeb046fd4c1.png'),
-('U00002', '111', 'aGtq', 'Rampa atika', 'R00002', 'K00001', 'P00013', 'U00002/1657446208_779fd4eb0b7fd3898840.png');
+('U00002', '96786', 'aGtq', 'Denis', 'R00007', 'K00018', 'P00016', ''),
+('U00003', '98465', 'aGtq', 'Tukis Hariyanto', 'R00003', 'K00018', 'P00018', ''),
+('U00004', '118386', 'aGtq', 'Gun Navyadi', 'R00002', 'K00021', 'P00020', ''),
+('U00005', '119191', 'aGtq', 'Eric Juanto Rupang', 'R00006', 'K00009', 'P00020', ''),
+('U00006', ' 119213', 'aGtq', 'Saeful Akbar', 'R00005', 'K00018', 'P00020', ''),
+('U00007', '117543', 'aGtq', 'Mohammad Rizki', 'R00004', 'K00015', 'P00019', ''),
+('U00008', '113234', 'aGtq', 'Dwi Sutarko', 'R00002', 'K00016', 'P00019', ''),
+('U00009', '17276/P', 'aGtq', 'Rinto', 'R00002', 'K00002', 'P00013', ''),
+('U00010', '16725/P', 'aGtq', 'DIKA', 'R00003', 'K00001', 'P00014', ''),
+('U00011', '16098/P', 'aGtq', 'VALLY', 'R00004', 'K00002', 'P00013', ''),
+('U00012', '18609/P', 'aGtq', 'KUKUH', 'R00005', 'K00004', 'P00014', ''),
+('U00013', '16528/P', 'aGtq', 'GIRDA', 'R00006', 'K00007', 'P00014', ''),
+('U00014', '14309/P', 'aGtq', 'NURDIYANTO', 'R00007', 'K00001', 'P00013', '');
 
 --
 -- Constraints for dumped tables
@@ -250,6 +368,25 @@ INSERT INTO `users` (`idusers`, `nrp`, `pass`, `nama`, `idrole`, `idkorps`, `idp
 --
 ALTER TABLE `divisi`
   ADD CONSTRAINT `FK_divisi_department` FOREIGN KEY (`idrole`) REFERENCES `role` (`idrole`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `osl`
+--
+ALTER TABLE `osl`
+  ADD CONSTRAINT `FK_osl_suratmasuk` FOREIGN KEY (`idsuratmasuk`) REFERENCES `suratmasuk` (`idsuratmasuk`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_osl_users` FOREIGN KEY (`idusers`) REFERENCES `users` (`idusers`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `osp`
+--
+ALTER TABLE `osp`
+  ADD CONSTRAINT `FK_operasional_simulator_pemanasan_users` FOREIGN KEY (`idusers`) REFERENCES `users` (`idusers`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `suratmasuk`
+--
+ALTER TABLE `suratmasuk`
+  ADD CONSTRAINT `FK_suratmasuk_users` FOREIGN KEY (`idusers`) REFERENCES `users` (`idusers`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `users`

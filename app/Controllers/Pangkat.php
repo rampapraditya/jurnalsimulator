@@ -86,6 +86,7 @@ class Pangkat extends BaseController {
             foreach ($list->getResult() as $row) {
                 $val = array();
                 $val[] = $row->nama_pangkat;
+                $val[] = $row->mode;
                 $val[] = '<div style="text-align: center;">'
                         . '<button type="button" class="btn btn-outline-primary btn-fw" onclick="ganti('."'".$row->idpangkat."'".')">Ganti</button>&nbsp;'
                         . '<button type="button" class="btn btn-outline-danger btn-fw" onclick="hapus('."'".$row->idpangkat."'".','."'".$row->nama_pangkat."'".')">Hapus</button>'
@@ -103,7 +104,8 @@ class Pangkat extends BaseController {
         if(session()->get("logged_in")){
             $data = array(
                 'idpangkat' => $this->model->autokode("P","idpangkat","pangkat", 2, 7),
-                'nama_pangkat' => $this->request->getPost('nama')
+                'nama_pangkat' => $this->request->getPost('nama'),
+                'mode' => $this->request->getPost('milasn')
             );
             $simpan = $this->model->add("pangkat",$data);
             if($simpan == 1){
@@ -130,7 +132,8 @@ class Pangkat extends BaseController {
     public function ajax_edit() {
         if(session()->get("logged_in")){
             $data = array(
-                'nama_pangkat' => $this->request->getPost('nama')
+                'nama_pangkat' => $this->request->getPost('nama'),
+                'mode' => $this->request->getPost('milasn')
             );
             $kond['idpangkat'] = $this->request->getPost('kode');
             $update = $this->model->update("pangkat",$data, $kond);
