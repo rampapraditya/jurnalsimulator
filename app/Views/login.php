@@ -11,33 +11,42 @@
         <link rel="stylesheet" href="<?php echo base_url(); ?>/vendors/simple-line-icons/css/simple-line-icons.css">
         <link rel="stylesheet" href="<?php echo base_url(); ?>/vendors/css/vendor.bundle.base.css">
         <link rel="stylesheet" href="<?php echo base_url(); ?>/css/vertical-layout-light/style.css">
+        
+        <style>
+            .backcontent{
+                background-image: url('<?php echo base_url(); ?>/images/loginback.png');
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-position: center;
+            }
+            
+        </style>
     </head>
 
     <body>
         <div class="container-scroller">
             <div class="container-fluid page-body-wrapper full-page-wrapper">
-                <div class="content-wrapper d-flex align-items-center auth px-0" style="background-image: url('<?php echo base_url(); ?>/images/loginback.jpg'); background-repeat: no-repeat; background-size: 100% 100%;">
+                <div class="content-wrapper d-flex align-items-center auth px-0 backcontent">
                     <div class="row w-100 mx-0">
                         <div class="col-lg-4 mx-auto">
-                            <div class="auth-form-light text-left py-5 px-4 px-sm-5" style="border-style: solid; border-color: #E8E7ED;">
+                            <div class="auth-form-light text-left py-5 px-4 px-sm-5" style="background-color: rgba(255, 255, 255, 0.9); border-radius: 15px; box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;">
                                 <div class="brand-logo">
                                     <center>
-                                        <img src="<?php echo $logo; ?>" alt="logo">
+                                        <img src="<?php echo $logo; ?>" alt="logo" style="width: 170px;">
                                     </center>
                                 </div>
-                                <h4 style="text-align: center;">SISTEM INFORMASI ADMINISTRASI<br>JURNAL OPERASIONAL SIMULATOR<br>PUSLATLEKDALSEN KODIKLATAL</h4>
-                                
+                                <h4 style="text-align: center;">JURNAL OPERASIONAL SIMULATOR<br>PUSLATLEKDALSEN KODIKLATAL</h4>
                                 <div class="pt-3">
                                     <form id="form">
                                         <div class="form-group">
-                                            <input type="text" class="form-control form-control-lg" name="nrp" id="nrp" placeholder="NRP" autofocus autocomplete="off">
+                                            <input type="text" class="form-control" name="nrp" id="nrp" placeholder="NRP" autofocus autocomplete="off" style="background-color: whitesmoke;">
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control form-control-lg" name="pass" id="pass" placeholder="Password" autocomplete="off">
+                                            <input type="password" class="form-control" name="pass" id="pass" placeholder="Password" autocomplete="off" style="background-color: whitesmoke;">
                                         </div>
                                     </form>
                                     <div class="mt-3">
-                                        <button class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" onclick="login();">SIGN IN</button>
+                                        <button class="btn btn-block btn-primary font-weight-medium auth-form-btn" onclick="login();">SIGN IN</button>
                                     </div>
                                 </div>
                             </div>
