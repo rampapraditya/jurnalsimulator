@@ -1,0 +1,272 @@
+ERROR - 2022-09-13 07:04:44 --> The used SELECT statements have a different number of columns
+CRITICAL - 2022-09-13 07:04:44 --> Call to a member function getResult() on bool
+#0 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Oprsim->ajaxlist()
+#1 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Oprsim))
+#2 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 {main}
+ERROR - 2022-09-13 07:05:47 --> The used SELECT statements have a different number of columns
+CRITICAL - 2022-09-13 07:05:47 --> Call to a member function getResult() on bool
+#0 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Oprsim->ajaxlist()
+#1 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Oprsim))
+#2 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 {main}
+ERROR - 2022-09-13 07:05:50 --> The used SELECT statements have a different number of columns
+CRITICAL - 2022-09-13 07:05:50 --> Call to a member function getResult() on bool
+#0 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Oprsim->ajaxlist()
+#1 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Oprsim))
+#2 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 {main}
+ERROR - 2022-09-13 07:05:51 --> The used SELECT statements have a different number of columns
+CRITICAL - 2022-09-13 07:05:51 --> Call to a member function getResult() on bool
+#0 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Oprsim->ajaxlist()
+#1 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Oprsim))
+#2 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 {main}
+ERROR - 2022-09-13 07:06:16 --> The used SELECT statements have a different number of columns
+CRITICAL - 2022-09-13 07:06:16 --> Call to a member function getResult() on bool
+#0 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Oprsim->ajaxlist()
+#1 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Oprsim))
+#2 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 {main}
+ERROR - 2022-09-13 07:06:24 --> The used SELECT statements have a different number of columns
+CRITICAL - 2022-09-13 07:06:24 --> Call to a member function getResult() on bool
+#0 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Oprsim->ajaxlist()
+#1 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Oprsim))
+#2 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 {main}
+ERROR - 2022-09-13 07:06:35 --> The used SELECT statements have a different number of columns
+CRITICAL - 2022-09-13 07:06:35 --> The used SELECT statements have a different number of columns
+#0 D:\wamp64\www\jurnalsimulator\system\Database\MySQLi\Connection.php(292): mysqli->query('SELECT *, '' as...', 0)
+#1 D:\wamp64\www\jurnalsimulator\system\Database\BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *, '' as...')
+#2 D:\wamp64\www\jurnalsimulator\system\Database\BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *, '' as...')
+#3 D:\wamp64\www\jurnalsimulator\app\Models\Mcustom.php(21): CodeIgniter\Database\BaseConnection->query('SELECT *, '' as...')
+#4 D:\wamp64\www\jurnalsimulator\app\Controllers\Oprsim.php(90): App\Models\Mcustom->getAllQ('SELECT *, '' as...')
+#5 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Oprsim->ajaxlist()
+#6 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Oprsim))
+#7 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2022-09-13 07:09:50 --> Undefined property: stdClass::$mode
+#0 D:\wamp64\www\jurnalsimulator\app\Controllers\Oprsim.php(105): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', 'D:\\wamp64\\www\\j...', 105, Array)
+#1 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Oprsim->ajaxlist()
+#2 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Oprsim))
+#3 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2022-09-13 07:10:11 --> Undefined property: stdClass::$mode
+#0 D:\wamp64\www\jurnalsimulator\app\Controllers\Oprsim.php(119): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', 'D:\\wamp64\\www\\j...', 119, Array)
+#1 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Oprsim->ajaxlist()
+#2 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Oprsim))
+#3 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 {main}
+ERROR - 2022-09-13 07:12:56 --> The used SELECT statements have a different number of columns
+CRITICAL - 2022-09-13 07:12:56 --> The used SELECT statements have a different number of columns
+#0 D:\wamp64\www\jurnalsimulator\system\Database\MySQLi\Connection.php(292): mysqli->query('SELECT *, '' as...', 0)
+#1 D:\wamp64\www\jurnalsimulator\system\Database\BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *, '' as...')
+#2 D:\wamp64\www\jurnalsimulator\system\Database\BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *, '' as...')
+#3 D:\wamp64\www\jurnalsimulator\app\Models\Mcustom.php(26): CodeIgniter\Database\BaseConnection->query('SELECT *, '' as...')
+#4 D:\wamp64\www\jurnalsimulator\app\Controllers\Oprsim.php(300): App\Models\Mcustom->getAllQR('SELECT *, '' as...')
+#5 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Oprsim->ganti('L00001')
+#6 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Oprsim))
+#7 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2022-09-13 07:15:12 --> Undefined property: stdClass::$mode
+#0 D:\wamp64\www\jurnalsimulator\app\Controllers\Oprsim.php(303): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', 'D:\\wamp64\\www\\j...', 303, Array)
+#1 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Oprsim->ganti('P00001')
+#2 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Oprsim))
+#3 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2022-09-13 07:15:16 --> Undefined property: stdClass::$mode
+#0 D:\wamp64\www\jurnalsimulator\app\Controllers\Oprsim.php(303): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', 'D:\\wamp64\\www\\j...', 303, Array)
+#1 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Oprsim->ganti('L00001')
+#2 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Oprsim))
+#3 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2022-09-13 07:15:40 --> Undefined property: stdClass::$mode
+#0 D:\wamp64\www\jurnalsimulator\app\Controllers\Oprsim.php(303): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', 'D:\\wamp64\\www\\j...', 303, Array)
+#1 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Oprsim->ganti('P00001')
+#2 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Oprsim))
+#3 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2022-09-13 07:15:41 --> Undefined property: stdClass::$mode
+#0 D:\wamp64\www\jurnalsimulator\app\Controllers\Oprsim.php(303): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', 'D:\\wamp64\\www\\j...', 303, Array)
+#1 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Oprsim->ganti('P00001')
+#2 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Oprsim))
+#3 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2022-09-13 07:24:20 --> Undefined property: stdClass::$nama_simulator
+#0 D:\wamp64\www\jurnalsimulator\app\Controllers\Oprsim.php(308): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', 'D:\\wamp64\\www\\j...', 308, Array)
+#1 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Oprsim->ganti('L00001')
+#2 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Oprsim))
+#3 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2022-09-13 07:56:38 --> Class 'App\Controllers\Mcustom' not found
+#0 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(809): App\Controllers\Sakitsim->__construct()
+#1 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->createController()
+#2 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 {main}
+ERROR - 2022-09-13 07:56:54 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'sakit' at line 1
+CRITICAL - 2022-09-13 07:56:54 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'sakit' at line 1
+#0 D:\wamp64\www\jurnalsimulator\system\Database\MySQLi\Connection.php(292): mysqli->query('sakit', 0)
+#1 D:\wamp64\www\jurnalsimulator\system\Database\BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('sakit')
+#2 D:\wamp64\www\jurnalsimulator\system\Database\BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('sakit')
+#3 D:\wamp64\www\jurnalsimulator\app\Models\Mcustom.php(21): CodeIgniter\Database\BaseConnection->query('sakit')
+#4 D:\wamp64\www\jurnalsimulator\app\Controllers\Sakitsim.php(63): App\Models\Mcustom->getAllQ('sakit')
+#5 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Sakitsim->ajaxlist()
+#6 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Sakitsim))
+#7 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
+ERROR - 2022-09-13 07:57:29 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'sakit' at line 1
+CRITICAL - 2022-09-13 07:57:29 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'sakit' at line 1
+#0 D:\wamp64\www\jurnalsimulator\system\Database\MySQLi\Connection.php(292): mysqli->query('sakit', 0)
+#1 D:\wamp64\www\jurnalsimulator\system\Database\BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('sakit')
+#2 D:\wamp64\www\jurnalsimulator\system\Database\BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('sakit')
+#3 D:\wamp64\www\jurnalsimulator\app\Models\Mcustom.php(21): CodeIgniter\Database\BaseConnection->query('sakit')
+#4 D:\wamp64\www\jurnalsimulator\app\Controllers\Sakitsim.php(63): App\Models\Mcustom->getAllQ('sakit')
+#5 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Sakitsim->ajaxlist()
+#6 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Sakitsim))
+#7 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
+ERROR - 2022-09-13 07:57:36 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'sakit' at line 1
+CRITICAL - 2022-09-13 07:57:36 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'sakit' at line 1
+#0 D:\wamp64\www\jurnalsimulator\system\Database\MySQLi\Connection.php(292): mysqli->query('sakit', 0)
+#1 D:\wamp64\www\jurnalsimulator\system\Database\BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('sakit')
+#2 D:\wamp64\www\jurnalsimulator\system\Database\BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('sakit')
+#3 D:\wamp64\www\jurnalsimulator\app\Models\Mcustom.php(21): CodeIgniter\Database\BaseConnection->query('sakit')
+#4 D:\wamp64\www\jurnalsimulator\app\Controllers\Sakitsim.php(63): App\Models\Mcustom->getAllQ('sakit')
+#5 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Sakitsim->ajaxlist()
+#6 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Sakitsim))
+#7 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2022-09-13 08:50:21 --> Undefined variable: 1663077021_b1df4bd63d2b008534ac.png
+#0 D:\wamp64\www\jurnalsimulator\app\Controllers\Sakitsim.php(152): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'D:\\wamp64\\www\\j...', 152, Array)
+#1 D:\wamp64\www\jurnalsimulator\app\Controllers\Sakitsim.php(134): App\Controllers\Sakitsim->simpan_dengan()
+#2 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Sakitsim->ajax_add()
+#3 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Sakitsim))
+#4 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#6 {main}
+CRITICAL - 2022-09-13 08:54:26 --> Undefined variable: 1663077266_88ec4d983eda6ddcf8da.png
+#0 D:\wamp64\www\jurnalsimulator\app\Controllers\Sakitsim.php(152): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'D:\\wamp64\\www\\j...', 152, Array)
+#1 D:\wamp64\www\jurnalsimulator\app\Controllers\Sakitsim.php(134): App\Controllers\Sakitsim->simpan_dengan()
+#2 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Sakitsim->ajax_add()
+#3 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Sakitsim))
+#4 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#6 {main}
+CRITICAL - 2022-09-13 08:55:28 --> Undefined variable: 1663077328_926d60c4697cdbc8b8d3.png
+#0 D:\wamp64\www\jurnalsimulator\app\Controllers\Sakitsim.php(152): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'D:\\wamp64\\www\\j...', 152, Array)
+#1 D:\wamp64\www\jurnalsimulator\app\Controllers\Sakitsim.php(134): App\Controllers\Sakitsim->simpan_dengan()
+#2 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Sakitsim->ajax_add()
+#3 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Sakitsim))
+#4 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#6 {main}
+CRITICAL - 2022-09-13 08:56:51 --> Undefined variable: 1663077411_1d24ce9eb156713b8ea7.png
+#0 D:\wamp64\www\jurnalsimulator\app\Controllers\Sakitsim.php(152): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'D:\\wamp64\\www\\j...', 152, Array)
+#1 D:\wamp64\www\jurnalsimulator\app\Controllers\Sakitsim.php(134): App\Controllers\Sakitsim->simpan_dengan()
+#2 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Sakitsim->ajax_add()
+#3 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Sakitsim))
+#4 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#6 {main}
+CRITICAL - 2022-09-13 08:57:06 --> Undefined property: App\Controllers\Sakitsim::$input
+#0 D:\wamp64\www\jurnalsimulator\app\Controllers\Sakitsim.php(189): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', 'D:\\wamp64\\www\\j...', 189, Array)
+#1 D:\wamp64\www\jurnalsimulator\app\Controllers\Sakitsim.php(137): App\Controllers\Sakitsim->simpan_tanpa()
+#2 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Sakitsim->ajax_add()
+#3 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Sakitsim))
+#4 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#6 {main}
+CRITICAL - 2022-09-13 09:03:33 --> Undefined variable: 1663077813_bc8553bb121c9eacea0d.png
+#0 D:\wamp64\www\jurnalsimulator\app\Controllers\Sakitsim.php(152): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'D:\\wamp64\\www\\j...', 152, Array)
+#1 D:\wamp64\www\jurnalsimulator\app\Controllers\Sakitsim.php(134): App\Controllers\Sakitsim->simpan_dengan()
+#2 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Sakitsim->ajax_add()
+#3 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Sakitsim))
+#4 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#6 {main}
+CRITICAL - 2022-09-13 09:14:46 --> Undefined variable: 1663078486_5f1e80d30f3c389d3f20.png
+#0 D:\wamp64\www\jurnalsimulator\app\Controllers\Sakitsim.php(152): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'D:\\wamp64\\www\\j...', 152, Array)
+#1 D:\wamp64\www\jurnalsimulator\app\Controllers\Sakitsim.php(134): App\Controllers\Sakitsim->simpan_dengan()
+#2 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Sakitsim->ajax_add()
+#3 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Sakitsim))
+#4 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#6 {main}
+CRITICAL - 2022-09-13 09:15:19 --> Undefined variable: 1663078519_2fbbd94846f145f8b4fc.png
+#0 D:\wamp64\www\jurnalsimulator\app\Controllers\Sakitsim.php(152): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'D:\\wamp64\\www\\j...', 152, Array)
+#1 D:\wamp64\www\jurnalsimulator\app\Controllers\Sakitsim.php(134): App\Controllers\Sakitsim->simpan_dengan()
+#2 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Sakitsim->ajax_add()
+#3 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Sakitsim))
+#4 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#6 {main}
+CRITICAL - 2022-09-13 09:18:12 --> Undefined property: stdClass::$idsimulator
+#0 D:\wamp64\www\jurnalsimulator\app\Controllers\Sakitsim.php(75): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', 'D:\\wamp64\\www\\j...', 75, Array)
+#1 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Sakitsim->ajaxlist()
+#2 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Sakitsim))
+#3 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2022-09-13 09:49:18 --> Trying to get property 'foto' of non-object
+#0 D:\wamp64\www\jurnalsimulator\app\Controllers\Sakitsim.php(218): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Trying to get p...', 'D:\\wamp64\\www\\j...', 218, Array)
+#1 D:\wamp64\www\jurnalsimulator\app\Controllers\Sakitsim.php(205): App\Controllers\Sakitsim->update_dengan()
+#2 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Sakitsim->ajax_edit()
+#3 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Sakitsim))
+#4 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#6 {main}
+CRITICAL - 2022-09-13 09:49:33 --> Trying to get property 'foto' of non-object
+#0 D:\wamp64\www\jurnalsimulator\app\Controllers\Sakitsim.php(218): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Trying to get p...', 'D:\\wamp64\\www\\j...', 218, Array)
+#1 D:\wamp64\www\jurnalsimulator\app\Controllers\Sakitsim.php(205): App\Controllers\Sakitsim->update_dengan()
+#2 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Sakitsim->ajax_edit()
+#3 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Sakitsim))
+#4 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#6 {main}
+ERROR - 2022-09-13 10:16:53 --> Cannot add or update a child row: a foreign key constraint fails (`jurnalsimulator`.`sakit`, CONSTRAINT `FK_sakit_users` FOREIGN KEY (`idusers`) REFERENCES `users` (`idusers`) ON DELETE CASCADE ON UPDATE CASCADE)
+CRITICAL - 2022-09-13 10:16:53 --> Cannot add or update a child row: a foreign key constraint fails (`jurnalsimulator`.`sakit`, CONSTRAINT `FK_sakit_users` FOREIGN KEY (`idusers`) REFERENCES `users` (`idusers`) ON DELETE CASCADE ON UPDATE CASCADE)
+#0 D:\wamp64\www\jurnalsimulator\system\Database\MySQLi\Connection.php(292): mysqli->query('INSERT INTO `sa...', 0)
+#1 D:\wamp64\www\jurnalsimulator\system\Database\BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `sa...')
+#2 D:\wamp64\www\jurnalsimulator\system\Database\BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `sa...')
+#3 D:\wamp64\www\jurnalsimulator\system\Database\BaseBuilder.php(1771): CodeIgniter\Database\BaseConnection->query('INSERT INTO `sa...', Array, false)
+#4 D:\wamp64\www\jurnalsimulator\app\Models\Mcustom.php(45): CodeIgniter\Database\BaseBuilder->insert(Array)
+#5 D:\wamp64\www\jurnalsimulator\app\Controllers\Sakitsim.php(319): App\Models\Mcustom->add('sakit', Array, Array)
+#6 D:\wamp64\www\jurnalsimulator\app\Controllers\Sakitsim.php(258): App\Controllers\Sakitsim->update_tanpa()
+#7 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Sakitsim->ajax_edit()
+#8 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Sakitsim))
+#9 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#11 {main}
+CRITICAL - 2022-09-13 22:55:10 --> Trying to get property 'nama_simulator' of non-object
+#0 D:\wamp64\www\jurnalsimulator\app\Controllers\Sakitsim.php(75): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Trying to get p...', 'D:\\wamp64\\www\\j...', 75, Array)
+#1 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Sakitsim->ajaxlist()
+#2 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Sakitsim))
+#3 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2022-09-13 22:55:55 --> Trying to get property 'nama_simulator' of non-object
+#0 D:\wamp64\www\jurnalsimulator\app\Controllers\Sakitsim.php(75): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Trying to get p...', 'D:\\wamp64\\www\\j...', 75, Array)
+#1 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Sakitsim->ajaxlist()
+#2 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Sakitsim))
+#3 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 {main}

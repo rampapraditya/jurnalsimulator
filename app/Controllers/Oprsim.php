@@ -70,6 +70,8 @@ class Oprsim extends BaseController {
             }
             $data['curdate'] = $this->modul->TanggalSekarang();
             $data['curtime'] = $this->modul->WaktuSekarang2();
+            
+            $data['simulator'] = $this->model->getAll("simulator");
 
             echo view('head', $data);
             echo view('menu');
@@ -85,9 +87,9 @@ class Oprsim extends BaseController {
         if(session()->get("logged_in")){
             $no = 1;
             $data = array();
-            $list = $this->model->getAllQ("SELECT *, '' as renlat, 'Pemanasan' as mode FROM osp 
+            $list = $this->model->getAllQ("SELECT *, 'Pemanasan' as model, idsimulator as idsuratmasuk FROM osp 
                 union 
-                SELECT *, 'Latihan' as mode FROM osl order by tanggal;");
+                SELECT *, 'Latihan' as model, idsuratmasuk FROM osl order by tanggal;");
             foreach ($list->getResult() as $row) {
                 $val = array();
                 $val[] = $no;
@@ -99,15 +101,22 @@ class Oprsim extends BaseController {
                     }
                 }
                 $val[] = '<img src="'.$deflogo.'" class="img-thumbnail" style="width: 70px; height: auto;">';
+                
+                if($row->model == "Pemanasan"){
+                    $val[] = $this->model->getAllQR("SELECT nama_simulator FROM simulator where idsimulator = '".$row->idsuratmasuk."';")->nama_simulator;
+                }else if($row->model == "Latihan"){
+                    $val[] = $this->model->getAllQR("SELECT b.nama_simulator FROM suratmasuk a, simulator b where a.idsimulator = b.idsimulator and a.idsuratmasuk = '".$row->idsuratmasuk."';")->nama_simulator;
+                }
+                
                 $val[] = $row->kegiatan;
                 $val[] = $row->tanggal;
                 $val[] = $row->waktu_on;
                 $val[] = $row->waktu_off;
                 $val[] = $row->kondisi;
-                $val[] = $row->mode;
+                $val[] = $row->model;
                 $val[] = '<div style="text-align: center;">'
                         . '<button type="button" class="btn btn-outline-primary btn-fw" onclick="ganti('."'".$row->idop_simulator."'".')">Ganti</button>&nbsp;'
-                        . '<button type="button" class="btn btn-outline-danger btn-fw" onclick="hapus('."'".$row->idop_simulator."'".','."'".$no."'".','."'".$row->mode."'".')">Hapus</button>'
+                        . '<button type="button" class="btn btn-outline-danger btn-fw" onclick="hapus('."'".$row->idop_simulator."'".','."'".$no."'".','."'".$row->model."'".')">Hapus</button>'
                         . '</div>';
                 $data[] = $val;
                 
@@ -137,7 +146,7 @@ class Oprsim extends BaseController {
                 $val[] = $row->perihal;
                 $val[] = $row->keterangan;
                 $val[] = '<div style="text-align: center;">'
-                        . '<button type="button" class="btn btn-outline-primary btn-fw" onclick="pilih('."'".$row->idsuratmasuk."'".','."'".$row->nosurat."'".')">Pilih</button>'
+                        . '<button type="button" class="btn btn-outline-primary btn-fw" onclick="pilih('."'".$row->idsuratmasuk."'".','."'".$row->nama_simulator."'".')">Pilih</button>'
                         . '</div>';
                 $data[] = $val;
                 
@@ -190,6 +199,7 @@ class Oprsim extends BaseController {
                         'keterangan' => $this->request->getPost('keterangan'),
                         'foto' => $namaFile,
                         'idusers' => $idusers,
+                        'idsimulator' => $this->request->getPost('simulator')
                     );
                     $simpan = $this->model->add("osp",$data);
                     if($simpan == 1){
@@ -252,6 +262,7 @@ class Oprsim extends BaseController {
                 'keterangan' => $this->request->getPost('keterangan'),
                 'foto' => '',
                 'idusers' => $idusers,
+                'idsimulator' => $this->request->getPost('simulator')
             );
             $simpan = $this->model->add("osp",$data);
             if($simpan == 1){
@@ -285,13 +296,16 @@ class Oprsim extends BaseController {
     public function ganti(){
         if(session()->get("logged_in")){
             $kode = $this->request->uri->getSegment(3);
-            $data = $this->model->getAllQR("SELECT *, '' as kode_renlat, 'Pemanasan' as mode FROM osp where idop_simulator = '".$kode."' 
-                union SELECT *, 'Latihan' as mode FROM osl where idop_simulator = '".$kode."';");
+            $data = $this->model->getAllQR("SELECT *, 'Pemanasan' as model, idsimulator as sim FROM osp where idop_simulator = '".$kode."' 
+                union 
+                SELECT *, 'Latihan' as model, idsuratmasuk as sim FROM osl where idop_simulator = '".$kode."';");
             
-            if($data->mode == "Latihan"){
-                $suratmasuk = $this->model->getAllQR("SELECT idsuratmasuk, nosurat FROM suratmasuk where idsuratmasuk = '".$data->kode_renlat."';");
+            if($data->model == "Latihan"){
+                $suratmasuk = $this->model->getAllQR("SELECT idsuratmasuk, nosurat, idsimulator FROM suratmasuk where idsuratmasuk = '".$data->sim."';");
+                // mencari nama simulator
+                $simulator = $this->model->getAllQR("SELECT nama_simulator FROM simulator where idsimulator = '".$suratmasuk->idsimulator."';")->nama_simulator;
                 $kode_renlat = $suratmasuk->idsuratmasuk;
-                $nama_renlat = $suratmasuk->nosurat;
+                $nama_renlat = $simulator;
             }else{
                 $kode_renlat = "";
                 $nama_renlat = "";
@@ -307,7 +321,8 @@ class Oprsim extends BaseController {
                 "keterangan" => $data->keterangan,
                 "kode_renlat" => $kode_renlat,
                 "nama_renlat" => $nama_renlat,
-                "mode" => $data->mode,
+                "simulator" => $data->sim,
+                "mode" => $data->model,
             ));
         }else{
             $this->modul->halaman('login');
@@ -358,6 +373,7 @@ class Oprsim extends BaseController {
                         'waktu_off' => $this->request->getPost('waktuoff'),
                         'kondisi' => $this->request->getPost('kondisi'),
                         'keterangan' => $this->request->getPost('keterangan'),
+                        'idsimulator' => $this->request->getPost('simulator'),
                         'foto' => $namaFile
                     );
                     $kond['idop_simulator'] = $kode;
@@ -423,7 +439,8 @@ class Oprsim extends BaseController {
                 'waktu_on' => $this->request->getPost('waktuon'),
                 'waktu_off' => $this->request->getPost('waktuoff'),
                 'kondisi' => $this->request->getPost('kondisi'),
-                'keterangan' => $this->request->getPost('keterangan')
+                'keterangan' => $this->request->getPost('keterangan'),
+                'idsimulator' => $this->request->getPost('simulator'),
             );
             $kond['idop_simulator'] = $this->request->getPost('kode');
             $simpan = $this->model->update("osp",$data, $kond);

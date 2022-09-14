@@ -44,6 +44,8 @@
                     <li class="nav-item"> <a class="nav-link" href="<?php echo base_url(); ?>/suratmasuk">Surat Masuk</a></li> 
                     <!-- OPSLAT -->
                     <li class="nav-item"> <a class="nav-link" href="<?php echo base_url(); ?>/oprsim">Operasional Simulator</a></li> 
+                    <!-- SAKIT SIMULATOR -->
+                    <li class="nav-item"> <a class="nav-link" href="<?php echo base_url(); ?>/sakitsim">Sakit Simulator</a></li> 
                 </ul>
             </div>
         </li>

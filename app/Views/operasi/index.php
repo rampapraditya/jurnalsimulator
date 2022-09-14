@@ -32,6 +32,7 @@
         var kondisi = document.getElementById('kondisi').value;
         var keterangan = document.getElementById('keterangan').value;
         var mode = document.getElementById('mode').value;
+        var simulator = document.getElementById('simulator').value;
         
         var form_data = new FormData();
         form_data.append('kode', kode);
@@ -44,6 +45,7 @@
         form_data.append('keterangan', keterangan);
         form_data.append('file', foto);
         form_data.append('mode', mode);
+        form_data.append('simulator', simulator);
             
         if(document.getElementById('rbPemanasan').checked){
             $('#btnSave').text('Saving...'); //change button text
@@ -156,6 +158,7 @@
                 $('[name="kode_renlat"]').val(data.kode_renlat);
                 $('[name="nm_renlat"]').val(data.nama_renlat);
                 $('[name="mode"]').val(data.mode);
+                $('[name="simulator"]').val(data.simulator);
                 if(data.mode === "Pemanasan"){
                     document.getElementById('rbPemanasan').checked = true;
                 }else if(data.mode === "Latihan"){
@@ -207,14 +210,18 @@
             $('[name="nama_renlat"]').val("");
             $('[name="mode"]').val("Pemanasan");
             $('#lay_renlat').hide();
+            $('#lay_simulator').show();
+            
         }else if(mode === "Latihan"){
             $('[name="mode"]').val("Latihan");
             $('#lay_renlat').show();
+            $('#lay_simulator').hide();
         }else{
             $('[name="mode"]').val("Pemanasan");
             $('[name="kode_renlat"]').val("");
             $('[name="nama_renlat"]').val("");
             $('#lay_renlat').hide();
+            $('#lay_simulator').show();
         }
     }
     
@@ -224,14 +231,18 @@
             $('[name="nama_renlat"]').val("");
             $('[name="mode"]').val("Pemanasan");
             $('#lay_renlat').hide();
+            $('#lay_simulator').show();
+            
         }else if(document.getElementById('rbLatihan').checked){
             $('[name="mode"]').val("Latihan");
             $('#lay_renlat').show();
+            $('#lay_simulator').hide();
         }else{
             $('[name="mode"]').val("Pemanasan");
             $('[name="kode_renlat"]').val("");
             $('[name="nama_renlat"]').val("");
             $('#lay_renlat').hide();
+            $('#lay_simulator').show();
         }
     }
 
@@ -253,6 +264,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>FOTO</th>
+                                    <th>SIMULATOR</th>
                                     <th>KEGIATAN</th>
                                     <th>TANGGAL</th>
                                     <th>WAKTU ON</th>
@@ -299,8 +311,23 @@
                             </div>
                         </div>
                     </div>
+                    <div class="form-group" id="lay_simulator" style="display: none;">
+                        <label>SIMULATOR</label>
+                        <div class="input-group mb-3">
+                            <select id="simulator" name="simulator" class="form-control">
+                                <option value="-">- PILIH SIMULATOR -</option>
+                                <?php
+                                foreach ($simulator->getResult() as $row) {
+                                    ?>
+                                <option value="<?php echo $row->idsimulator; ?>"><?php echo $row->nama_simulator; ?></option>
+                                    <?php
+                                }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
                     <div class="form-group" id="lay_renlat">
-                        <label>RENLAT</label>
+                        <label>SIMULATOR</label>
                         <div class="input-group mb-3">
                             <input type="hidden" name="kode_renlat" id="kode_renlat">
                             <input type="text" class="form-control" readonly id="nm_renlat" name="nm_renlat">
