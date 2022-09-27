@@ -1,0 +1,42 @@
+CRITICAL - 2022-09-26 19:50:15 --> Call to a member function getResult() on null
+#0 D:\wamp64\www\jurnalsimulator\system\View\View.php(210): include()
+#1 D:\wamp64\www\jurnalsimulator\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#2 D:\wamp64\www\jurnalsimulator\system\Common.php(1089): CodeIgniter\View\View->render('divisi/index', Array, true)
+#3 D:\wamp64\www\jurnalsimulator\app\Controllers\Simulator.php(50): view('divisi/index')
+#4 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Simulator->index()
+#5 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Simulator))
+#6 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#8 {main}
+CRITICAL - 2022-09-26 19:51:41 --> Call to a member function getResult() on null
+#0 D:\wamp64\www\jurnalsimulator\system\View\View.php(210): include()
+#1 D:\wamp64\www\jurnalsimulator\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#2 D:\wamp64\www\jurnalsimulator\system\Common.php(1089): CodeIgniter\View\View->render('divisi/index', Array, true)
+#3 D:\wamp64\www\jurnalsimulator\app\Controllers\Simulator.php(50): view('divisi/index')
+#4 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Simulator->index()
+#5 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Simulator))
+#6 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#8 {main}
+CRITICAL - 2022-09-26 19:52:01 --> Undefined variable: depar
+#0 D:\wamp64\www\jurnalsimulator\app\Views\divisi\index.php(152): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'D:\\wamp64\\www\\j...', 152, Array)
+#1 D:\wamp64\www\jurnalsimulator\system\View\View.php(210): include('D:\\wamp64\\www\\j...')
+#2 D:\wamp64\www\jurnalsimulator\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 D:\wamp64\www\jurnalsimulator\system\Common.php(1089): CodeIgniter\View\View->render('divisi/index', Array, true)
+#4 D:\wamp64\www\jurnalsimulator\app\Controllers\Simulator.php(50): view('divisi/index')
+#5 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Simulator->index()
+#6 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Simulator))
+#7 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2022-09-26 19:56:53 --> Undefined variable: depar
+#0 D:\wamp64\www\jurnalsimulator\app\Views\simulator\index.php(152): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'D:\\wamp64\\www\\j...', 152, Array)
+#1 D:\wamp64\www\jurnalsimulator\system\View\View.php(210): include('D:\\wamp64\\www\\j...')
+#2 D:\wamp64\www\jurnalsimulator\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 D:\wamp64\www\jurnalsimulator\system\Common.php(1089): CodeIgniter\View\View->render('simulator/index', Array, true)
+#4 D:\wamp64\www\jurnalsimulator\app\Controllers\Simulator.php(50): view('simulator/index')
+#5 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(832): App\Controllers\Simulator->index()
+#6 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Simulator))
+#7 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}

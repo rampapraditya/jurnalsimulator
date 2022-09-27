@@ -19,6 +19,7 @@ class Suratmasuk extends BaseController {
             $data['username'] = session()->get("username");
             $data['nama'] = session()->get("nama");
             $data['role'] = session()->get("role");
+            $data['nmrole'] = $this->model->getAllQR("SELECT nama_role FROM role where idrole = '".$data['role']."';")->nama_role;
             
             // membaca foto profile
             $def_foto = base_url().'/images/noimg.png';
@@ -34,18 +35,6 @@ class Suratmasuk extends BaseController {
             $jml_identitas = $this->model->getAllQR("SELECT count(*) as jml FROM identitas;")->jml;
             if($jml_identitas > 0){
                 $tersimpan = $this->model->getAllQR("SELECT * FROM identitas;");
-                $data['instansi'] = $tersimpan->instansi;
-                $data['slogan'] = $tersimpan->slogan;
-                $data['tahun'] = $tersimpan->tahun;
-                $data['pimpinan'] = $tersimpan->pimpinan;
-                $data['alamat'] = $tersimpan->alamat;
-                $data['kdpos'] = $tersimpan->kdpos;
-                $data['tlp'] = $tersimpan->tlp;
-                $data['fax'] = $tersimpan->fax;
-                $data['website'] = $tersimpan->website;
-                $data['lat'] = $tersimpan->lat;
-                $data['lon'] = $tersimpan->lon;
-                $data['email'] = $tersimpan->email;
                 $deflogo = base_url().'/images/noimg.png';
                 if(strlen($tersimpan->logo) > 0){
                     if(file_exists($this->modul->getPathApp().$tersimpan->logo)){
@@ -55,17 +44,6 @@ class Suratmasuk extends BaseController {
                 $data['logo'] = $deflogo;
                 
             }else{
-                $data['instansi'] = "";
-                $data['slogan'] = "";
-                $data['tahun'] = "";
-                $data['pimpinan'] = "";
-                $data['alamat'] = "";
-                $data['tlp'] = "";
-                $data['fax'] = "";
-                $data['website'] = "";
-                $data['lat'] = "";
-                $data['lon'] = "";
-                $data['email'] = "";
                 $data['logo'] = base_url().'/images/noimg.png';
             }
             

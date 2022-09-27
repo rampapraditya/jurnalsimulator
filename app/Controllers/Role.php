@@ -19,6 +19,7 @@ class Role extends BaseController {
             $data['username'] = session()->get("username");
             $data['nama'] = session()->get("nama");
             $data['role'] = session()->get("role");
+            $data['nmrole'] = $this->model->getAllQR("SELECT nama_role FROM role where idrole = '".$data['role']."';")->nama_role;
             
             // membaca foto profile
             $def_foto = base_url().'/images/noimg.png';

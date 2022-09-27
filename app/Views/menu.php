@@ -28,7 +28,7 @@
                     <li class="nav-item"><a class="nav-link" href="<?php echo base_url(); ?>/personil">Personil</a></li>
                     <li class="nav-item"><a class="nav-link" href="<?php echo base_url(); ?>/role">Departemen</a></li>
                     <li class="nav-item"><a class="nav-link" href="<?php echo base_url(); ?>/divisi">Divisi</a></li>
-                    <li class="nav-item"><a class="nav-link" href="<?php echo base_url(); ?>/sim">Simulator</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<?php echo base_url(); ?>/alat">Simulator</a></li>
                 </ul>
             </div>
         </li>

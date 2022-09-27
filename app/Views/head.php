@@ -82,7 +82,7 @@
                                 <div class="dropdown-header text-center">
                                     <img class="img-md rounded-circle" src="<?php echo $foto_profile; ?>" alt="Profile image" style="width: 50px; height: auto;">
                                     <p class="mb-1 mt-3 font-weight-semibold"><?php echo $nama; ?></p>
-                                    <p class="fw-light text-muted mb-0"><?php echo $role; ?></p>
+                                    <p class="fw-light text-muted mb-0"><?php echo $nmrole; ?></p>
                                 </div>
                                 <a href="<?php echo base_url(); ?>/profile" class="dropdown-item"><i class="dropdown-item-icon mdi mdi-account-outline text-primary me-2"></i>Profile</a>
                                 <a href="<?php echo base_url(); ?>/changepass" class="dropdown-item"><i class="dropdown-item-icon mdi mdi-security text-primary me-2"></i>Ganti Password</a>

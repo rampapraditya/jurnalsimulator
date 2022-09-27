@@ -5,7 +5,7 @@
 
     $(document).ready(function () {
         table = $('#tb').DataTable({
-            ajax: "<?php echo base_url(); ?>/sim/ajaxlist",
+            ajax: "<?php echo base_url(); ?>/alat/ajaxlist",
             ordering: false
         });
     });
@@ -38,9 +38,9 @@
 
             var url = "";
             if (save_method === 'add') {
-                url = "<?php echo base_url(); ?>/sim/ajax_add";
+                url = "<?php echo base_url(); ?>/alat/ajax_add";
             } else {
-                url = "<?php echo base_url(); ?>/sim/ajax_edit";
+                url = "<?php echo base_url(); ?>/alat/ajax_edit";
             }
             // ajax adding data to database
             $.ajax({
@@ -68,7 +68,7 @@
     function hapus(id, nama) {
         if (confirm("Apakah anda yakin menghapus simulator " + nama + " ?")) {
             $.ajax({
-                url: "<?php echo base_url(); ?>/sim/hapus/" + id,
+                url: "<?php echo base_url(); ?>/alat/hapus/" + id,
                 type: "POST",
                 dataType: "JSON",
                 success: function (data) {
@@ -87,7 +87,7 @@
         $('#modal_form').modal('show');
         $('.modal-title').text('Ganti simulator');
         $.ajax({
-            url: "<?php echo base_url(); ?>/sim/ganti/" + id,
+            url: "<?php echo base_url(); ?>/alat/ganti/" + id,
             type: "POST",
             dataType: "JSON",
             success: function (data) {
