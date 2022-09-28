@@ -52,6 +52,8 @@ class Personil extends BaseController {
             $data['korps'] = $this->model->getAll("korps");
             $data['pangkat'] = $this->model->getAll("pangkat");
             $data['hakakses'] = $this->model->getAll("role");
+            $data['divisi'] = $this->model->getAll("divisi");
+            $data['jabatan'] = $this->model->getAll("jabatan");
 
             echo view('head', $data);
             echo view('menu');
@@ -76,6 +78,16 @@ class Personil extends BaseController {
                 $val[] = $row->nama_korps;
                 $val[] = $row->nama_pangkat;
                 $val[] = $row->nama_role;
+                if(strlen($row->iddivisi) > 0){
+                    $val[] = $this->model->getAllQR("select nama_divisi from divisi where iddivisi = '".$row->iddivisi."';")->nama_divisi;
+                }else{
+                    $val[] = "";
+                }
+                if(strlen($row->idjabatan) > 0){
+                    $val[] = $this->model->getAllQR("select nama_jabatan from jabatan where idjabatan = '".$row->idjabatan."';")->nama_jabatan;
+                }else{
+                    $val[] = "";
+                }
                 $val[] = '<div style="text-align: center;">'
                         . '<button type="button" class="btn btn-outline-primary btn-fw" onclick="ganti('."'".$row->idusers."'".')">Ganti</button>&nbsp;'
                         . '<button type="button" class="btn btn-outline-danger btn-fw" onclick="hapus('."'".$row->idusers."'".','."'".$row->nrp."'".')">Hapus</button>'
@@ -101,7 +113,9 @@ class Personil extends BaseController {
                 'idrole' => $this->request->getPost('role'),
                 'idpangkat' => $this->request->getPost('pangkat'),
                 'idkorps' => $this->request->getPost('korps'),
-                'foto' => ''
+                'foto' => '',
+                'iddivisi' => $this->request->getPost('iddivisi'),
+                'idjabatan' => $this->request->getPost('idjabatan')
             );
             $simpan = $this->model->add("users",$data);
             if($simpan == 1){
@@ -134,6 +148,8 @@ class Personil extends BaseController {
                 'idrole' => $this->request->getPost('role'),
                 'idpangkat' => $this->request->getPost('pangkat'),
                 'idkorps' => $this->request->getPost('korps'),
+                'iddivisi' => $this->request->getPost('iddivisi'),
+                'idjabatan' => $this->request->getPost('idjabatan')
             );
             $kond['idusers'] = $this->request->getPost('kode');
             $update = $this->model->update("users",$data, $kond);

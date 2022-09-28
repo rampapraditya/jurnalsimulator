@@ -65,7 +65,6 @@
     function save() {
         var kode = document.getElementById('kode').value;
         var tanggal = document.getElementById('tanggal').value;
-        var nama = document.getElementById('nama').value;
         var mode = '';
         if(document.getElementById('rbPemanasan').checked){
             mode = document.getElementById('rbPemanasan').value;
@@ -75,10 +74,6 @@
             mode = document.getElementById('rbSakit').value;
         }
         var sim = document.getElementById('sim').value;
-        var gejala = document.getElementById('gejala').value;
-        var kegiatan = document.getElementById('kegiatan').value;
-        var keterangan = document.getElementById('keterangan').value;
-        var foto = $('#foto').prop('files')[0];
         
         if (sim === '-') {
             alert("Pilih simulator terlebih dahulu");
@@ -96,13 +91,8 @@
             var form_data = new FormData();
             form_data.append('kode', kode);
             form_data.append('tanggal', tanggal);
-            form_data.append('nama', nama);
             form_data.append('mode', mode);
             form_data.append('sim', sim);
-            form_data.append('gejala', gejala);
-            form_data.append('kegiatan', kegiatan);
-            form_data.append('keterangan', keterangan);
-            form_data.append('file', foto);
             
             // ajax adding data to database
             $.ajax({
@@ -158,7 +148,6 @@
             success: function (data) {
                 $('[name="kode"]').val(data.idsakit);
                 $('[name="tanggal"]').val(data.tanggal);
-                $('[name="nama"]').val(data.nama_barang);
                 if(data.model === "Pemanasan"){
                     document.getElementById('rbPemanasan').checked = true;
                 }else if(data.model === "Latihan"){
@@ -166,11 +155,6 @@
                 }else if(data.model === "Sakit"){
                     document.getElementById('rbSakit').checked = true;
                 }
-                
-                $('[name="gejala"]').val(data.gejala);
-                $('[name="kegiatan"]').val(data.kegiatan);
-                $('[name="keterangan"]').val(data.keterangan);
-                
                 load_sim_ulang1(data.kd_rujukan);
                 
             }, error: function (jqXHR, textStatus, errorThrown) {
@@ -203,6 +187,10 @@
     function closemodal(){
         $('#modal_form').modal('hide');
     }
+    
+    function detil(kode){
+        window.location.href = "<?php echo base_url(); ?>/sakitsim/detil/" + kode;
+    }
 
 </script>
 <div class="content-wrapper">
@@ -222,11 +210,8 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>FOTO</th>
                                     <th>SIMULATOR</th>
-                                    <th>BARANG</th>
-                                    <th>GEJALA</th>
-                                    <th>KEGIATAN</th>
+                                    <th style="text-align: center;">DETIL</th>
                                     <th style="text-align: center;">AKSI</th>
                                 </tr>
                             </thead>
@@ -287,26 +272,6 @@
                         <select id="sim" name="sim" class="form-control">
                             <option value="-">- PILIH SIMULATOR -</option>
                         </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Nama Barang</label>
-                        <input id="nama" name="nama" class="form-control" type="text" autocomplete="off">
-                    </div>
-                    <div class="form-group">
-                        <label>Gejala</label>
-                        <input id="gejala" name="gejala" class="form-control" type="text" autocomplete="off">
-                    </div>
-                    <div class="form-group">
-                        <label>Kegiatan</label>
-                        <input id="kegiatan" name="kegiatan" class="form-control" type="text" autocomplete="off">
-                    </div>
-                    <div class="form-group">
-                        <label>Keterangan</label>
-                        <input id="keterangan" name="keterangan" class="form-control" type="text" autocomplete="off">
-                    </div>
-                    <div class="form-group">
-                        <label>Foto</label>
-                        <input id="foto" name="foto" class="form-control" type="file" autocomplete="off">
                     </div>
                 </form>
             </div>

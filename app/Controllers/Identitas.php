@@ -117,7 +117,7 @@ class Identitas extends BaseController {
         $namaFile = $file->getRandomName();
         $info_file = $this->modul->info_file($file);
         
-        if(file_exists($this->modul->getPathApp().$$namaFile)){
+        if(file_exists($this->modul->getPathApp().$namaFile)){
             $status = "Gunakan nama file lain";
         }else{
             $status_upload = $file->move($this->modul->getPathApp(), $namaFile);

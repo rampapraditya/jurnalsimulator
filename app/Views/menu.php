@@ -25,9 +25,10 @@
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item"><a class="nav-link" href="<?php echo base_url(); ?>/pangkat">Pangkat</a></li>
                     <li class="nav-item"><a class="nav-link" href="<?php echo base_url(); ?>/korps">Korps</a></li>
-                    <li class="nav-item"><a class="nav-link" href="<?php echo base_url(); ?>/personil">Personil</a></li>
                     <li class="nav-item"><a class="nav-link" href="<?php echo base_url(); ?>/role">Departemen</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<?php echo base_url(); ?>/jabatan">Jabatan</a></li>
                     <li class="nav-item"><a class="nav-link" href="<?php echo base_url(); ?>/divisi">Divisi</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<?php echo base_url(); ?>/personil">Personil</a></li>
                     <li class="nav-item"><a class="nav-link" href="<?php echo base_url(); ?>/alat">Simulator</a></li>
                 </ul>
             </div>
@@ -41,11 +42,13 @@
             <div class="collapse" id="trans">
                 <ul class="nav flex-column sub-menu">
                     <!-- RENLAT --> 
-                    <li class="nav-item"> <a class="nav-link" href="<?php echo base_url(); ?>/suratmasuk">Surat Masuk</a></li> 
+                    <li class="nav-item"> <a class="nav-link" href="<?php echo base_url(); ?>/suratmasuk">Jurnal Surat Masuk</a></li> 
                     <!-- OPSLAT -->
-                    <li class="nav-item"> <a class="nav-link" href="<?php echo base_url(); ?>/oprsim">Operasional Simulator</a></li> 
+                    <li class="nav-item"> <a class="nav-link" href="<?php echo base_url(); ?>/oprsim">Jurnal Ops Simulator</a></li> 
                     <!-- SAKIT SIMULATOR -->
-                    <li class="nav-item"> <a class="nav-link" href="<?php echo base_url(); ?>/sakitsim">Sakit Simulator</a></li> 
+                    <li class="nav-item"> <a class="nav-link" href="<?php echo base_url(); ?>/sakitsim">Jurnal Sakit Simulator</a></li> 
+                    <!-- JURNAL SAKIT DIVISI HARSIS -->
+                    <li class="nav-item"> <a class="nav-link" href="<?php echo base_url(); ?>/ssh">Jurnal Sakit Harsis</a></li> 
                 </ul>
             </div>
         </li>

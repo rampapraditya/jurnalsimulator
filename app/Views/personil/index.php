@@ -18,7 +18,7 @@
         save_method = 'add';
         $('#form')[0].reset();
         $('#modal_form').modal('show');
-        $('.modal-title').text('Tambah korps');
+        $('.modal-title').text('Tambah personil');
     }
 
     function save() {
@@ -100,6 +100,8 @@
                 $('[name="korps"]').val(data.idkorps);
                 $('[name="pangkat"]').val(data.idpangkat);
                 $('[name="role"]').val(data.idrole);
+                $('[name="iddivisi"]').val(data.iddivisi);
+                $('[name="idjabatan"]').val(data.idjabatan);
             }, error: function (jqXHR, textStatus, errorThrown) {
                 alert('Error get data');
             }
@@ -132,6 +134,8 @@
                                     <th>KORPS</th>
                                     <th>PANGKAT</th>
                                     <th>AKSES</th>
+                                    <th>DIVISI</th>
+                                    <th>JABATAN</th>
                                     <th style="text-align: center;">AKSI</th>
                                 </tr>
                             </thead>
@@ -199,6 +203,32 @@
                             foreach ($hakakses->getResult() as $row) {
                                 ?>
                             <option value="<?php echo $row->idrole; ?>"><?php echo $row->nama_role; ?></option>
+                                <?php
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>DIVISI</label>
+                        <select id="iddivisi" name="iddivisi" class="form-control">
+                            <option value="-">- PILIH DIVISI -</option>
+                            <?php
+                            foreach ($divisi->getResult() as $row) {
+                                ?>
+                            <option value="<?php echo $row->iddivisi; ?>"><?php echo $row->nama_divisi; ?></option>
+                                <?php
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>JABATAN</label>
+                        <select id="idjabatan" name="idjabatan" class="form-control">
+                            <option value="-">- PILIH JABATAN -</option>
+                            <?php
+                            foreach ($jabatan->getResult() as $row) {
+                                ?>
+                            <option value="<?php echo $row->idjabatan; ?>"><?php echo $row->nama_jabatan; ?></option>
                                 <?php
                             }
                             ?>

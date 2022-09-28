@@ -4,14 +4,14 @@ namespace App\Controllers;
 use App\Models\Mcustom;
 use App\Libraries\Modul;
 
-class Korps extends BaseController {
+class Jabatan extends BaseController {
     
     private $model;
     private $modul;
     
     public function __construct() {
         $this->model = new Mcustom();
-        $this->modul = new Modul();
+        $this->modul= new Modul();
     }
     
     public function index(){
@@ -49,9 +49,8 @@ class Korps extends BaseController {
 
             echo view('head', $data);
             echo view('menu');
-            echo view('korps/index');
+            echo view('jabatan/index');
             echo view('foot');
-            
         }else{
             $this->modul->halaman('login');
         }
@@ -60,13 +59,13 @@ class Korps extends BaseController {
     public function ajaxlist() {
         if(session()->get("logged_in")){
             $data = array();
-            $list = $this->model->getAll("korps");
+            $list = $this->model->getAll("jabatan");
             foreach ($list->getResult() as $row) {
                 $val = array();
-                $val[] = $row->nama_korps;
+                $val[] = $row->nama_jabatan;
                 $val[] = '<div style="text-align: center;">'
-                        . '<button type="button" class="btn btn-outline-primary btn-fw" onclick="ganti('."'".$row->idkorps."'".')">Ganti</button>&nbsp;'
-                        . '<button type="button" class="btn btn-outline-danger btn-fw" onclick="hapus('."'".$row->idkorps."'".','."'".$row->nama_korps."'".')">Hapus</button>'
+                        . '<button type="button" class="btn btn-outline-primary btn-fw" onclick="ganti('."'".$row->idjabatan."'".')">Ganti</button>&nbsp;'
+                        . '<button type="button" class="btn btn-outline-danger btn-fw" onclick="hapus('."'".$row->idjabatan."'".','."'".$row->nama_jabatan."'".')">Hapus</button>'
                         . '</div>';
                 $data[] = $val;
             }
@@ -80,10 +79,10 @@ class Korps extends BaseController {
     public function ajax_add() {
         if(session()->get("logged_in")){
             $data = array(
-                'idkorps' => $this->model->autokode("K","idkorps","korps", 2, 7),
-                'nama_korps' => $this->request->getPost('nama')
+                'idjabatan' => $this->model->autokode("J","idjabatan","jabatan", 2, 7),
+                'nama_jabatan' => $this->request->getPost('nama')
             );
-            $simpan = $this->model->add("sakit_detil",$data);
+            $simpan = $this->model->add("jabatan",$data);
             if($simpan == 1){
                 $status = "Data tersimpan";
             }else{
@@ -97,8 +96,8 @@ class Korps extends BaseController {
     
     public function ganti(){
         if(session()->get("logged_in")){
-            $kond['idkorps'] = $this->request->uri->getSegment(3);
-            $data = $this->model->get_by_id("korps", $kond);
+            $kond['idjabatan'] = $this->request->uri->getSegment(3);
+            $data = $this->model->get_by_id("jabatan", $kond);
             echo json_encode($data);
         }else{
             $this->modul->halaman('login');
@@ -108,10 +107,10 @@ class Korps extends BaseController {
     public function ajax_edit() {
         if(session()->get("logged_in")){
             $data = array(
-                'nama_korps' => $this->request->getPost('nama')
+                'nama_jabatan' => $this->request->getPost('nama')
             );
-            $kond['idkorps'] = $this->request->getPost('kode');
-            $update = $this->model->update("korps",$data, $kond);
+            $kond['idjabatan'] = $this->request->getPost('kode');
+            $update = $this->model->update("jabatan",$data, $kond);
             if($update == 1){
                 $status = "Data terupdate";
             }else{
@@ -125,8 +124,8 @@ class Korps extends BaseController {
     
     public function hapus() {
         if(session()->get("logged_in")){
-            $kond['idkorps'] = $this->request->uri->getSegment(3);
-            $hapus = $this->model->delete("korps",$kond);
+            $kond['idjabatan'] = $this->request->uri->getSegment(3);
+            $hapus = $this->model->delete("jabatan",$kond);
             if($hapus == 1){
                 $status = "Data terhapus";
             }else{
