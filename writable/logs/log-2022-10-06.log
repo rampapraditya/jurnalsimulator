@@ -1,0 +1,24 @@
+CRITICAL - 2022-10-06 02:12:55 --> Class 'App\Controllers\Mcustom' not found
+#0 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(809): App\Controllers\Ws->__construct()
+#1 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->createController()
+#2 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 {main}
+CRITICAL - 2022-10-06 02:12:58 --> Class 'App\Controllers\Mcustom' not found
+#0 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(809): App\Controllers\Ws->__construct()
+#1 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->createController()
+#2 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 {main}
+CRITICAL - 2022-10-06 02:13:05 --> Class 'App\Controllers\Mcustom' not found
+#0 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(809): App\Controllers\Ws->__construct()
+#1 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->createController()
+#2 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 {main}
+CRITICAL - 2022-10-06 02:18:01 --> Class 'App\Controllers\Mcustom' not found
+#0 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(809): App\Controllers\Ws->__construct()
+#1 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->createController()
+#2 D:\wamp64\www\jurnalsimulator\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 D:\wamp64\www\jurnalsimulator\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 {main}

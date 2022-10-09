@@ -78,12 +78,12 @@ class Personil extends BaseController {
                 $val[] = $row->nama_korps;
                 $val[] = $row->nama_pangkat;
                 $val[] = $row->nama_role;
-                if(strlen($row->iddivisi) > 0){
+                if(strlen($row->iddivisi) > 0 && $row->iddivisi <> "-"){
                     $val[] = $this->model->getAllQR("select nama_divisi from divisi where iddivisi = '".$row->iddivisi."';")->nama_divisi;
                 }else{
                     $val[] = "";
                 }
-                if(strlen($row->idjabatan) > 0){
+                if(strlen($row->idjabatan) > 0 && $row->idjabatan <> "-"){
                     $val[] = $this->model->getAllQR("select nama_jabatan from jabatan where idjabatan = '".$row->idjabatan."';")->nama_jabatan;
                 }else{
                     $val[] = "";
