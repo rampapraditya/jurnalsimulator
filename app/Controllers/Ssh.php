@@ -170,8 +170,8 @@ class Ssh extends BaseController {
     
     public function ganti(){
         if(session()->get("logged_in")){
-            $kond['idkorps'] = $this->request->uri->getSegment(3);
-            $data = $this->model->get_by_id("korps", $kond);
+            $kond['idsakit_harsis'] = $this->request->uri->getSegment(3);
+            $data = $this->model->get_by_id("sakit_harsis", $kond);
             echo json_encode($data);
         }else{
             $this->modul->halaman('login');
@@ -180,15 +180,14 @@ class Ssh extends BaseController {
     
     public function ajax_edit() {
         if(session()->get("logged_in")){
-            $data = array(
-                'nama_korps' => $this->request->getPost('nama')
-            );
-            $kond['idkorps'] = $this->request->getPost('kode');
-            $update = $this->model->update("korps",$data, $kond);
-            if($update == 1){
-                $status = "Data terupdate";
+            if (isset($_FILES['file']['name'])) {
+                if(0 < $_FILES['file']['error']) {
+                    $status = "Error during file upload ".$_FILES['file']['error'];
+                }else{
+                    $status = $this->update_dengan();
+                }
             }else{
-                $status = "Data gagal terupdate";
+                $status = $this->update_tanpa();
             }
             echo json_encode(array("status" => $status));
         }else{
@@ -196,10 +195,79 @@ class Ssh extends BaseController {
         }
     }
     
+    private function update_dengan() {
+        $idusers = session()->get("username");
+        $file = $this->request->getFile('file');
+        $namaFile = $file->getRandomName();
+        $info_file = $this->modul->info_file($file);
+        
+        if(file_exists($this->modul->getPathApp().$namaFile)){
+            $status = "Gunakan nama file lain";
+        }else{
+            
+            $logo = $this->model->getAllQR("SELECT foto FROM sakit_harsis where idsakit_harsis = '".$this->request->getPost('kode')."';")->foto;
+            if(strlen($logo) > 0){
+                if(file_exists($this->modul->getPathApp().$logo)){
+                    unlink($this->modul->getPathApp().$logo); 
+                }
+            }
+        
+            $status_upload = $file->move($this->modul->getPathApp(), $namaFile);
+            if($status_upload){
+                $data = array(
+                    'tanggal' => $this->request->getPost('tgl'),
+                    'idsakit' => $this->request->getPost('idsakit'),
+                    'kerusakan' => $this->request->getPost('kerusakan'),
+                    'tindakan' => $this->request->getPost('tindakan'),
+                    'keterangan' => $this->request->getPost('keterangan'),
+                    'foto' => $namaFile,
+                    'idusers' => $idusers
+                );
+                $kond['idsakit_harsis'] = $this->request->getPost('kode');
+                $simpan = $this->model->update("sakit_harsis",$data, $kond);
+                if($simpan == 1){
+                    $status = "Data terupdate";
+                }else{
+                    $status = "Data gagal terupdate";
+                }
+            }else{
+                $status = "File gagal terupload";
+            }
+        }
+        return $status;
+    }
+    
+    private function update_tanpa() {
+        $idusers = session()->get("username");
+        $data = array(
+            'tanggal' => $this->request->getPost('tgl'),
+            'idsakit' => $this->request->getPost('idsakit'),
+            'kerusakan' => $this->request->getPost('kerusakan'),
+            'tindakan' => $this->request->getPost('tindakan'),
+            'keterangan' => $this->request->getPost('keterangan'),
+            'idusers' => $idusers
+        );
+        $kond['idsakit_harsis'] = $this->request->getPost('kode');
+        $simpan = $this->model->update("sakit_harsis",$data, $kond);
+        if($simpan == 1){
+            $status = "Data terupdate";
+        }else{
+            $status = "Data gagal terupdate";
+        }
+        return $status;
+    }
+
     public function hapus() {
         if(session()->get("logged_in")){
-            $kond['idkorps'] = $this->request->uri->getSegment(3);
-            $hapus = $this->model->delete("korps",$kond);
+            $kode = $this->request->uri->getSegment(3);
+            $logo = $this->model->getAllQR("SELECT foto FROM sakit_harsis where idsakit_harsis = '".$kode."';")->foto;
+            if(strlen($logo) > 0){
+                if(file_exists($this->modul->getPathApp().$logo)){
+                    unlink($this->modul->getPathApp().$logo); 
+                }
+            }
+            $kond['idsakit_harsis'] = $kode;
+            $hapus = $this->model->delete("sakit_harsis",$kond);
             if($hapus == 1){
                 $status = "Data terhapus";
             }else{

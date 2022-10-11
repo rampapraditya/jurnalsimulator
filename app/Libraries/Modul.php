@@ -425,4 +425,15 @@ class Modul {
         
         return $path;
     }
+	
+	public function setPathApp() {
+        $mode = "local";
+        if($mode == "local"){
+            $path = './uploads/';
+        }else if($mode == "online"){
+            $path = '../jurnalsimulator.pramediaenginering.com/uploads/';
+        }
+        
+        return $path;
+    }
 }

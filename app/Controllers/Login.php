@@ -21,9 +21,9 @@ class Login extends BaseController {
         }else if(session()->get("logged_no_admin")){
             $this->modul->halaman('homenoadmin');
         }else{
-            $deflogo = base_url().'/images/noimg.png';
             $jml = $this->model->getAllQR("SELECT count(*) as jml FROM identitas;")->jml;
             if($jml > 0){
+                $deflogo = base_url().'/images/noimg.png';
                 $tersimpan = $this->model->getAllQR("SELECT * FROM identitas;");
                 if(strlen($tersimpan->logo) > 0){
                     if(file_exists($this->modul->getPathApp().$tersimpan->logo)){

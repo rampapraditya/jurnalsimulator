@@ -30,8 +30,7 @@ class Divisi extends BaseController {
                 }
             }
             $data['foto_profile'] = $def_foto;;
-            
-            $data['depar'] = $this->model->getAllQ("select * from role where idrole <> 'R00001';");
+            $data['depar'] = $this->model->getAll("role");
             
             // membaca identitas
             $jml_identitas = $this->model->getAllQR("SELECT count(*) as jml FROM identitas;")->jml;

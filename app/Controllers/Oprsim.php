@@ -83,7 +83,13 @@ class Oprsim extends BaseController {
                 if($row->model == "Pemanasan"){
                     $val[] = $this->model->getAllQR("SELECT nama_simulator FROM simulator where idsimulator = '".$row->idsuratmasuk."';")->nama_simulator;
                 }else if($row->model == "Latihan"){
-                    $val[] = $this->model->getAllQR("SELECT b.nama_simulator FROM suratmasuk a, simulator b where a.idsimulator = b.idsimulator and a.idsuratmasuk = '".$row->idsuratmasuk."';")->nama_simulator;
+                    $cek = $this->model->getAllQR("SELECT count(b.nama_simulator) as jml FROM suratmasuk a, simulator b where a.idsimulator = b.idsimulator and a.idsuratmasuk = '".$row->idsuratmasuk."';")->jml;
+					if($cek > 0){
+						$val[] = $this->model->getAllQR("SELECT b.nama_simulator FROM suratmasuk a, simulator b where a.idsimulator = b.idsimulator and a.idsuratmasuk = '".$row->idsuratmasuk."';")->nama_simulator;
+					}else{
+						$val[] = "";
+					}
+					
                 }
                 
                 $val[] = $row->kegiatan;

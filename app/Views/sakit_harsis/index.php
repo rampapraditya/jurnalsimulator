@@ -106,12 +106,16 @@
         $('#modal_form').modal('show');
         $('.modal-title').text('Ganti sakit simulator harsis');
         $.ajax({
-            url: "<?php echo base_url(); ?>/sakitsimharsis/ganti/" + id,
+            url: "<?php echo base_url(); ?>/ssh/ganti/" + id,
             type: "POST",
             dataType: "JSON",
             success: function (data) {
-                $('[name="kode"]').val(data.idkorps);
-                $('[name="nama"]').val(data.nama_korps);
+                $('[name="kode"]').val(data.idsakit_harsis);
+                $('[name="idsakit"]').val(data.idsakit);
+                $('[name="tgl"]').val(data.tanggal);
+                $('[name="kerusakan"]').val(data.kerusakan);
+                $('[name="tindakan"]').val(data.tindakan);
+                $('[name="keterangan"]').val(data.keterangan);
             }, error: function (jqXHR, textStatus, errorThrown) {
                 alert('Error get data');
             }
