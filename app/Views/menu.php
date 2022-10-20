@@ -49,6 +49,8 @@
                     <li class="nav-item"> <a class="nav-link" href="<?php echo base_url(); ?>/sakitsim">Jurnal Sakit Simulator</a></li> 
                     <!-- JURNAL SAKIT DIVISI HARSIS -->
                     <li class="nav-item"> <a class="nav-link" href="<?php echo base_url(); ?>/ssh">Jurnal Sakit Harsis</a></li> 
+                    <!-- JURNAL PERAWATAN SIMULATOR SAKIT -->
+                    <li class="nav-item"> <a class="nav-link" href="<?php echo base_url(); ?>/jhh">Jurnal Harwat Harsis</a></li> 
                 </ul>
             </div>
         </li>

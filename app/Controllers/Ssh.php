@@ -48,8 +48,7 @@ class Ssh extends BaseController {
             }
             
             $data['curdate'] = $this->modul->TanggalSekarang();
-            $data['sakit'] = $this->model->getAllQ("select b.idsakit, a.nama_simulator from simulator a, sakit b where a.idsimulator = b.simulator;");
-
+            
             echo view('head', $data);
             echo view('menu');
             echo view('sakit_harsis/index');
@@ -92,6 +91,56 @@ class Ssh extends BaseController {
             $output = array("data" => $data);
             echo json_encode($output);
         }else{
+            $this->modul->halaman('login');
+        }
+    }
+    
+    public function ajaxshowsakit() {
+        if (session()->get("logged_in")) {
+            $no = 1;
+            $data = array();
+            $list = $this->model->getAllQ("select b.idsakit, b.simulator, a.nama_simulator from simulator a, sakit b where a.idsimulator = b.simulator and b.idsakit not in(select idsakit from sakit_harsis);");
+            foreach ($list->getResult() as $row) {
+                $val = array();
+                $val[] = $no;
+                $val[] = $row->nama_simulator;
+                $str = '<table class="table table-hover" style="width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th>FOTO</th>
+                                    <th>BARANG</th>
+                                    <th>GEJAJA</th>
+                                    <th>KEGIATAN</th>
+                                </tr>
+                            </thead>
+                            <tbody>';
+                $list1 = $this->model->getAllQ("SELECT * FROM sakit_detil where idsakit = '".$row->idsakit."';");
+                foreach ($list1->getResult() as $row1) {
+                    $str .= '<tr>';
+                    $defimg = base_url() . '/images/noimg.png';
+                    if (strlen($row1->foto) > 0) {
+                        if (file_exists($this->modul->getPathApp().$row1->foto)) {
+                            $defimg = base_url().'/uploads/'.$row1->foto;
+                        }
+                    }
+                    $str .= '<td><img src="'.$defimg.'" class="img-thumbnail" style="width: 50px; height: auto;"></td>';
+                    $str .= '<td>'.$row1->nama_barang.'</td>';
+                    $str .= '<td>'.$row1->gejala.'</td>';
+                    $str .= '<td>'.$row1->kegiatan.'</td>';
+                    $str .= '</tr>';
+                }
+                $str .= '</tbody></table>';
+                $val[] = $str;
+                $val[] = '<div style="text-align: center;">'
+                        . '<button type="button" class="btn btn-outline-info btn-fw" onclick="pilih('."'".$row->idsakit."'".','."'".$row->nama_simulator."'".')">Pilih</button>'
+                        . '</div>';
+                $data[] = $val;
+
+                $no++;
+            }
+            $output = array("data" => $data);
+            echo json_encode($output);
+        } else {
             $this->modul->halaman('login');
         }
     }
@@ -170,8 +219,8 @@ class Ssh extends BaseController {
     
     public function ganti(){
         if(session()->get("logged_in")){
-            $kond['idsakit_harsis'] = $this->request->uri->getSegment(3);
-            $data = $this->model->get_by_id("sakit_harsis", $kond);
+            $idsakit_harsis = $this->request->uri->getSegment(3);
+            $data = $this->model->getAllQR("select c.*, b.idsakit, b.simulator, a.nama_simulator from simulator a, sakit b, sakit_harsis c where a.idsimulator = b.simulator and b.idsakit = c.idsakit and c.idsakit_harsis = '".$idsakit_harsis."';");
             echo json_encode($data);
         }else{
             $this->modul->halaman('login');

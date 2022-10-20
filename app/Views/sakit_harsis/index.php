@@ -1,7 +1,7 @@
 <script type="text/javascript">
 
     var save_method; //for save method string
-    var table;
+    var table, tb_sakit;
 
     $(document).ready(function () {
         table = $('#tb').DataTable({
@@ -30,7 +30,7 @@
         var tindakan = document.getElementById('tindakan').value;
         var keterangan = document.getElementById('keterangan').value;
         
-        if (idsakit === '-') {
+        if (idsakit === '') {
             alert("Pilih simulator tidak boleh kosong");
         }else if(tgl === ""){
             alert("Tanggal tidak boleh kosong");
@@ -112,6 +112,7 @@
             success: function (data) {
                 $('[name="kode"]').val(data.idsakit_harsis);
                 $('[name="idsakit"]').val(data.idsakit);
+                $('[name="nm_simulator"]').val(data.nama_simulator);
                 $('[name="tgl"]').val(data.tanggal);
                 $('[name="kerusakan"]').val(data.kerusakan);
                 $('[name="tindakan"]').val(data.tindakan);
@@ -124,6 +125,31 @@
     
     function closemodal(){
         $('#modal_form').modal('hide');
+    }
+    
+    function showsimulator(){
+        $('#modal_sakit').modal('show');
+        tb_sakit = $('#tb_sakit').DataTable({
+            ajax: "<?php echo base_url(); ?>/ssh/ajaxshowsakit",
+            ordering: false,
+            retrieve:true
+        });
+        tb_sakit.destroy();
+        tb_sakit = $('#tb_sakit').DataTable({
+            ajax: "<?php echo base_url(); ?>/ssh/ajaxshowsakit",
+            ordering: false,
+            retrieve:true
+        });
+    }
+    
+    function pilih(idsakit, namasimulator){
+        $('[name="idsakit"]').val(idsakit);
+        $('[name="nm_simulator"]').val(namasimulator);
+        $('#modal_sakit').modal('hide');
+    }
+    
+    function cm_sakit(){
+        $('#modal_sakit').modal('hide');
     }
 
 </script>
@@ -182,16 +208,11 @@
                     </div>
                     <div class="form-group">
                         <label>SIMULATOR</label>
-                        <select id="idsakit" name="idsakit" class="form-control">
-                            <option value="-">- PILIH SIMULATOR -</option>
-                            <?php
-                            foreach ($sakit->getResult() as $row) {
-                                ?>
-                            <option value="<?php echo $row->idsakit; ?>"><?php echo $row->nama_simulator; ?></option>
-                                <?php
-                            }
-                            ?>
-                        </select>
+                        <div class="input-group mb-3">
+                            <input type="hidden" name="idsakit" id="idsakit">
+                            <input type="text" class="form-control" readonly id="nm_simulator" name="nm_simulator">
+                            <button class="btn btn-sm btn-outline-secondary" type="button" onclick="showsimulator()">...</button>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label>TANGGAL</label>
@@ -214,6 +235,35 @@
             <div class="modal-footer">
                 <button id="btnSave" type="button" class="btn btn-primary" onclick="save();">Save</button>
                 <button type="button" class="btn btn-secondary" onclick="closemodal();">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal_sakit" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Data Sakit Simulator</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="cm_sakit();">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table id="tb_sakit" class="table table-hover" style="width: 100%;">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>SIMULATOR</th>
+                                <th style="text-align: center;">DETIL</th>
+                                <th style="text-align: center;">AKSI</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
