@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Oct 06, 2022 at 05:38 AM
+-- Generation Time: Oct 21, 2022 at 01:29 AM
 -- Server version: 5.7.31
 -- PHP Version: 7.4.9
 
@@ -53,6 +53,26 @@ INSERT INTO `divisi` (`iddivisi`, `nama_divisi`, `idrole`) VALUES
 ('D00011', 'PSKT', 'R00004'),
 ('D00012', 'HARSIS', 'R00004'),
 ('D00013', 'HARFASBAN', 'R00004');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `harwat_harsis`
+--
+
+DROP TABLE IF EXISTS `harwat_harsis`;
+CREATE TABLE IF NOT EXISTS `harwat_harsis` (
+  `idharwat_harsis` varchar(6) NOT NULL,
+  `idsakit_harsis` varchar(6) NOT NULL,
+  `tanggal` date NOT NULL,
+  `kegiatan` varchar(150) DEFAULT NULL,
+  `pelaksanaan` varchar(150) DEFAULT NULL,
+  `keterangan` varchar(150) DEFAULT NULL,
+  `idusers` varchar(20) CHARACTER SET utf8mb4 NOT NULL,
+  PRIMARY KEY (`idharwat_harsis`),
+  KEY `FK_harwat_harsis_users` (`idusers`),
+  KEY `FK_harwat_harsis_sakit` (`idsakit_harsis`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -361,7 +381,8 @@ CREATE TABLE IF NOT EXISTS `osl` (
 --
 
 INSERT INTO `osl` (`idop_simulator`, `tanggal`, `kegiatan`, `waktu_on`, `waktu_off`, `kondisi`, `keterangan`, `foto`, `idusers`, `idsuratmasuk`) VALUES
-('L00001', '2022-09-13', 'Pembelajaran siswa diktukpa elektronika', '18:51', '18:51', 'SAKIT', 'baik', '', 'U00001', 'S00001');
+('L00001', '2022-09-13', 'Pembelajaran siswa diktukpa elektronika', '18:51', '18:51', 'SAKIT', 'baik', '', 'U00001', 'S00001'),
+('L00002', '2022-10-10', 'Perobaan', '20:00', '20:00', 'NORMAL', '', '', 'U00001', 'S00004');
 
 -- --------------------------------------------------------
 
@@ -533,7 +554,10 @@ CREATE TABLE IF NOT EXISTS `sakit_detil` (
 --
 
 INSERT INTO `sakit_detil` (`idsakit_detil`, `idsakit`, `nama_barang`, `gejala`, `kegiatan`, `keterangan`, `foto`) VALUES
-('D00001', 'S00001', 'Radio Komunikasi', 'Blue Screen', '-', 'ini keterangan', '1664289640_c6ca95f67bcf64e10041.png');
+('D00001', 'S00001', 'Radio Komunikasi', 'Blue Screen', '-', 'ini keterangan', '1664289640_c6ca95f67bcf64e10041.png'),
+('D00002', 'S00002', 'TV', 'Blank', '-', '-', '1666272730_8165a98f89340318764a.jpg'),
+('D00003', 'S00002', 'Radio', 'Terbakar', '-', '-', '1666272747_ead7b13cb68bb04bf366.jpg'),
+('D00004', 'S00003', 'Kursi', 'Kaki patah', 'Pada saat di dudukin kaki patah', '-', '1666272791_9299478120d61ad8ca8d.jpg');
 
 -- --------------------------------------------------------
 
@@ -561,8 +585,8 @@ CREATE TABLE IF NOT EXISTS `sakit_harsis` (
 --
 
 INSERT INTO `sakit_harsis` (`idsakit_harsis`, `tanggal`, `idsakit`, `kerusakan`, `tindakan`, `keterangan`, `foto`, `idusers`) VALUES
-('H00001', '2022-09-27', 'S00001', 'asd', 'asd', 'asd', '', 'U00001'),
-('H00002', '2022-09-27', 'S00001', 'dfg', 'dfg', 'dfg', '1664282733_352b907d844338bba266.png', 'U00001');
+('H00001', '2022-10-21', 'S00001', 'Model rusak A', 'Tindakan rusak A', 'Keterangan rusak A', '1666315450_292b088e98414664250d.jpg', 'U00001'),
+('H00002', '2022-10-21', 'S00002', 'Kerusakan rusak B', 'Tindakan rusak B', 'Keterangan rusak B', '1666315476_eceff464e5694778a8bb.jpg', 'U00001');
 
 -- --------------------------------------------------------
 
@@ -627,8 +651,8 @@ CREATE TABLE IF NOT EXISTS `suratmasuk` (
 
 INSERT INTO `suratmasuk` (`idsuratmasuk`, `idusers`, `idsimulator`, `tanggal`, `nosurat`, `dari`, `perihal`, `keterangan`, `mode`) VALUES
 ('S00001', 'U00001', 'S00011', '2022-09-06', 'se/43/2022', 'Danpuslatdiksarmil', 'LDD NFS 2022', '', 'Alat'),
-('S00002', 'U00001', 'S00014', '2022-09-06', 'SE/345/2022', 'Danpusdiklek ', 'Latihan dikmaba angkatan 36', '-', 'Alat'),
-('S00004', 'U00001', '', '2022-09-06', 'SE/1265/2022', 'Danpuslatdiksarmil', 'Dukungan instruktur ', '', 'Non Alat');
+('S00002', 'U00001', 'S00006', '2022-09-06', 'SE/345/2022', 'Danpusdiklek', 'Latihan dikmaba angkatan 36', '-', 'Alat'),
+('S00004', 'U00001', '', '2022-09-06', 'SE/1265/2022', 'Danpuslatdiksarmil', 'Dukungan instruktur', '-', 'Non Alat');
 
 -- --------------------------------------------------------
 
@@ -659,7 +683,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`idusers`, `nrp`, `pass`, `nama`, `idrole`, `idkorps`, `idpangkat`, `foto`, `iddivisi`, `idjabatan`) VALUES
-('U00001', 'ADMIN', 'aGtq', 'ADMIN', 'R00001', 'K00000', 'P00001', '1661131013_30bcbb4acbeb046fd4c1.png', 'D00001', 'J00006'),
+('U00001', 'ADMIN', 'aGtq', 'ADMIN', 'R00001', 'K00000', 'P00001', '1661131013_30bcbb4acbeb046fd4c1.png', '-', '-'),
 ('U00003', '13826/P', 'aGtq', 'Irwan Shobirin', 'R00008', 'K00001', 'P00006', '', NULL, NULL),
 ('U00004', '13813/P', 'aGtq', 'Nurrozi, S.Kel', 'R00009', 'K00001', 'P00007', '', NULL, NULL),
 ('U00005', '196612242001122', 'aGtq', 'Sundari', 'R00007', 'K00040', 'P00030', '', NULL, NULL),
@@ -667,7 +691,7 @@ INSERT INTO `users` (`idusers`, `nrp`, `pass`, `nama`, `idrole`, `idkorps`, `idp
 ('U00007', '20666/P', 'aGtq', 'Triana Indah Wati', 'R00010', 'K00007', 'P00009', '', NULL, NULL),
 ('U00008', '104971', 'aGtq', 'Adhi Gatti Libeli', 'R00010', 'K00028', 'P00015', '', NULL, NULL),
 ('U00009', '94900', 'aGtq', 'Moch. Arifin', 'R00010', 'K00028', 'P00016', '', NULL, NULL),
-('U00010', '16571/P', 'aGtq', 'Frejohn Da Costa', 'R00002', 'K00001', 'P00008', '', NULL, NULL),
+('U00010', '16571/P', 'aGtq', 'Frejohn Da Costa', 'R00002', 'K00001', 'P00008', 'U000101665303183220.png', NULL, NULL),
 ('U00011', '17134/P', 'aGtq', 'Provid Ariantoko, M.Tr.Opsla', 'R00002', 'K00001', 'P00008', '', NULL, NULL),
 ('U00012', '71716', 'aGtq', 'Henny Rohmawati', 'R00002', 'K00023', 'P00012', '', NULL, NULL),
 ('U00013', '112983', 'aGtq', 'Hendra Fujianto', 'R00002', 'K00011', 'P00017', '', NULL, NULL),
@@ -756,6 +780,13 @@ INSERT INTO `users` (`idusers`, `nrp`, `pass`, `nama`, `idrole`, `idkorps`, `idp
 --
 ALTER TABLE `divisi`
   ADD CONSTRAINT `FK_divisi_department` FOREIGN KEY (`idrole`) REFERENCES `role` (`idrole`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `harwat_harsis`
+--
+ALTER TABLE `harwat_harsis`
+  ADD CONSTRAINT `FK_harwat_harsis_sakit` FOREIGN KEY (`idsakit_harsis`) REFERENCES `sakit_harsis` (`idsakit_harsis`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_harwat_harsis_users` FOREIGN KEY (`idusers`) REFERENCES `users` (`idusers`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `osl`
