@@ -3,6 +3,7 @@ namespace App\Controllers;
 
 use App\Models\Mcustom;
 use App\Libraries\Modul;
+use Dompdf\Dompdf;
 
 class Suratmasuk extends BaseController {
     
@@ -63,15 +64,15 @@ class Suratmasuk extends BaseController {
         if(session()->get("logged_in")){
             $no = 1;
             $data = array();
-            $list = $this->model->getAllQ("SELECT suratmasuk.*, users.nrp, users.nama, simulator.nama_simulator FROM suratmasuk 
-                LEFT JOIN users ON suratmasuk.idusers = users.idusers 
+            $list = $this->model->getAllQ("SELECT suratmasuk.*, users.nrp, users.nama, simulator.nama_simulator, date_format(tanggal, '%d %M %Y') as tgl FROM suratmasuk
+                LEFT JOIN users ON suratmasuk.idusers = users.idusers
                 LEFT JOIN simulator ON suratmasuk.idsimulator = simulator.idsimulator");
             foreach ($list->getResult() as $row) {
                 $val = array();
                 if($row->nama_simulator == "SEMENTARA"){
                     $val[] = $no;
                     $val[] = '<label style="color:red;">'.$row->nama_simulator.'</label>';
-                    $val[] = '<label style="color:red;">'.$row->tanggal.'</label>';
+                    $val[] = '<label style="color:red;">'.$row->tgl.'</label>';
                     $val[] = '<label style="color:red;">'.$row->nosurat.'</label>';
                     $val[] = '<label style="color:red;">'.$row->dari.'</label>';
                     $val[] = '<label style="color:red;">'.$row->perihal.'</label>';
@@ -79,7 +80,7 @@ class Suratmasuk extends BaseController {
                 }else{
                     $val[] = $no;
                     $val[] = $row->nama_simulator;
-                    $val[] = $row->tanggal;
+                    $val[] = $row->tgl;
                     $val[] = $row->nosurat;
                     $val[] = $row->dari;
                     $val[] = $row->perihal;
@@ -211,6 +212,23 @@ class Suratmasuk extends BaseController {
             }
             $output = array("data" => $data);
             echo json_encode($output);
+        }else{
+            $this->modul->halaman('login');
+        }
+    }
+    
+    public function cetak(){
+        if(session()->get("logged_in")){
+            $data['list'] = $this->model->getAllQ("SELECT suratmasuk.*, users.nrp, users.nama, simulator.nama_simulator, date_format(tanggal, '%d %M %Y') as tgl FROM suratmasuk
+                LEFT JOIN users ON suratmasuk.idusers = users.idusers
+                LEFT JOIN simulator ON suratmasuk.idsimulator = simulator.idsimulator");
+            
+            $dompdf = new Dompdf();
+            $dompdf->loadHtml(view('suratmasuk/pdf', $data));
+            $dompdf->setPaper('A4', 'landscape');
+            $dompdf->render();
+            $filename = 'SuratMasuk';
+            $dompdf->stream($filename); 
         }else{
             $this->modul->halaman('login');
         }

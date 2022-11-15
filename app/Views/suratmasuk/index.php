@@ -210,6 +210,10 @@
             $('[name="mode"]').val("Alat");
         }
     }
+    
+    function cetak(){
+        window.open("<?php echo base_url(); ?>/suratmasuk/cetak", "_blank");
+    }
 
 </script>
 <div class="content-wrapper">
@@ -222,6 +226,7 @@
 
                     <button type="button" class="btn btn-primary" onclick="add();">Tambah</button>
                     <button type="button" class="btn btn-secondary" onclick="reload();">Reload</button>
+                    <button type="button" class="btn btn-secondary" onclick="cetak();">Cetak</button>
 
                 </div>
                 <div class="card-body">

@@ -109,6 +109,7 @@ class Personil extends BaseController {
                 'idusers' => $this->model->autokode("U","idusers","users", 2, 7),
                 'nrp' => $this->request->getPost('nrp'),
                 'nama' => $this->request->getPost('nama'),
+                'email' => $this->request->getPost('email'),
                 'pass' => $this->modul->enkrip_pass("123"),
                 'idrole' => $this->request->getPost('role'),
                 'idpangkat' => $this->request->getPost('pangkat'),
@@ -144,6 +145,7 @@ class Personil extends BaseController {
             $data = array(
                 'nrp' => $this->request->getPost('nrp'),
                 'nama' => $this->request->getPost('nama'),
+                'email' => $this->request->getPost('email'),
                 'pass' => $this->modul->enkrip_pass("123"),
                 'idrole' => $this->request->getPost('role'),
                 'idpangkat' => $this->request->getPost('pangkat'),

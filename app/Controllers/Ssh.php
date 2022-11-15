@@ -3,6 +3,8 @@ namespace App\Controllers;
 
 use App\Models\Mcustom;
 use App\Libraries\Modul;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 class Ssh extends BaseController {
     
@@ -323,6 +325,26 @@ class Ssh extends BaseController {
                 $status = "Data gagal terhapus";
             }
             echo json_encode(array("status" => $status));
+        }else{
+            $this->modul->halaman('login');
+        }
+    }
+    
+    public function cetak(){
+        if(session()->get("logged_in")){
+            $data['list'] = $this->model->getAllQ("SELECT a.*, b.simulator, date_format(a.tanggal, '%d %M %Y') as tgl FROM sakit_harsis a, sakit b where a.idsakit = b.idsakit order by a.tanggal;");
+            $data['modul'] = $this->modul;
+            $data['model'] = $this->model;
+            
+            $options = new Options();
+            $options->setChroot(FCPATH);
+            $dompdf = new Dompdf();
+            $dompdf->setOptions($options);
+            $dompdf->loadHtml(view('sakit_harsis/pdf', $data));
+            $dompdf->setPaper('A4', 'landscape');
+            $dompdf->render();
+            $filename = 'JURNAL_SAKIT_HARSIS';
+            $dompdf->stream($filename); 
         }else{
             $this->modul->halaman('login');
         }

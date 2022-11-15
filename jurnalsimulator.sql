@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Oct 21, 2022 at 02:22 AM
+-- Generation Time: Nov 15, 2022 at 04:36 AM
 -- Server version: 5.7.31
 -- PHP Version: 7.4.9
 
@@ -73,6 +73,13 @@ CREATE TABLE IF NOT EXISTS `harwat_harsis` (
   KEY `FK_harwat_harsis_users` (`idusers`),
   KEY `FK_harwat_harsis_sakit` (`idsakit_harsis`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `harwat_harsis`
+--
+
+INSERT INTO `harwat_harsis` (`idharwat_harsis`, `idsakit_harsis`, `tanggal`, `kegiatan`, `pelaksanaan`, `keterangan`, `idusers`) VALUES
+('H00001', 'H00001', '2022-11-15', 'Kegiatan perawatan', 'Rampa', 'aman jaya', 'U00001');
 
 -- --------------------------------------------------------
 
@@ -381,8 +388,7 @@ CREATE TABLE IF NOT EXISTS `osl` (
 --
 
 INSERT INTO `osl` (`idop_simulator`, `tanggal`, `kegiatan`, `waktu_on`, `waktu_off`, `kondisi`, `keterangan`, `foto`, `idusers`, `idsuratmasuk`) VALUES
-('L00001', '2022-09-13', 'Pembelajaran siswa diktukpa elektronika', '18:51', '18:51', 'SAKIT', 'baik', '', 'U00001', 'S00001'),
-('L00002', '2022-10-10', 'Perobaan', '20:00', '20:00', 'NORMAL', '', '', 'U00001', 'S00004');
+('L00001', '2022-09-13', 'Pembelajaran siswa diktukpa elektronika', '18:51', '18:51', 'SAKIT', 'baik', '', 'U00001', 'S00001');
 
 -- --------------------------------------------------------
 
@@ -412,8 +418,7 @@ CREATE TABLE IF NOT EXISTS `osp` (
 --
 
 INSERT INTO `osp` (`idop_simulator`, `tanggal`, `kegiatan`, `waktu_on`, `waktu_off`, `kondisi`, `keterangan`, `foto`, `idusers`, `idsimulator`) VALUES
-('P00001', '2022-09-13', 'Pemanasan rutin hari senin', '08:00', '09:00', 'NORMAL', 'Simulator kondisi baik', '1663073807_5878aa1a7704cf27cf10.jpg', 'U00001', 'S00001'),
-('P00002', '2022-09-12', 'Pemanasan rutin hari kamis', '20:28', '20:28', 'SAKIT', '', '', 'U00001', 'S00001');
+('P00001', '2022-09-13', 'Pemanasan rutin hari senin', '08:00', '09:00', 'NORMAL', 'Simulator kondisi baik', '1663073807_5878aa1a7704cf27cf10.jpg', 'U00001', 'S00001');
 
 -- --------------------------------------------------------
 
@@ -528,7 +533,9 @@ CREATE TABLE IF NOT EXISTS `sakit` (
 INSERT INTO `sakit` (`idsakit`, `simulator`, `model`, `idusers`, `tanggal`, `kd_rujukan`) VALUES
 ('S00001', 'S00001', 'Pemanasan', 'U00001', '2022-09-14', 'P00002'),
 ('S00002', 'S00001', 'Pemanasan', 'U00001', '2022-09-27', 'P00001'),
-('S00003', 'S00001', 'Pemanasan', 'U00001', '2022-09-27', 'P00001');
+('S00003', 'S00001', 'Pemanasan', 'U00001', '2022-09-27', 'P00001'),
+('S00004', 'S00013', 'Sakit', 'U00001', '2022-11-14', ''),
+('S00005', 'S00011', 'Latihan', 'U00025', '2022-11-17', 'L00001');
 
 -- --------------------------------------------------------
 
@@ -652,7 +659,10 @@ CREATE TABLE IF NOT EXISTS `suratmasuk` (
 INSERT INTO `suratmasuk` (`idsuratmasuk`, `idusers`, `idsimulator`, `tanggal`, `nosurat`, `dari`, `perihal`, `keterangan`, `mode`) VALUES
 ('S00001', 'U00001', 'S00011', '2022-09-06', 'se/43/2022', 'Danpuslatdiksarmil', 'LDD NFS 2022', '', 'Alat'),
 ('S00002', 'U00001', 'S00006', '2022-09-06', 'SE/345/2022', 'Danpusdiklek', 'Latihan dikmaba angkatan 36', '-', 'Alat'),
-('S00004', 'U00001', '', '2022-09-06', 'SE/1265/2022', 'Danpuslatdiksarmil', 'Dukungan instruktur', '-', 'Non Alat');
+('S00004', 'U00001', '', '2022-09-06', 'SE/1265/2022', 'Danpuslatdiksarmil', 'Dukungan instruktur', '-', 'Non Alat'),
+('S00005', 'U00001', 'S00007', '2022-10-10', '78', '787', '78', '78', 'Alat'),
+('S00006', 'U00001', 'S00010', '2022-10-22', 'dfg', 'dfg', 'dfg', 'dfg', 'Alat'),
+('S00007', 'U00001', 'S00012', '2022-10-03', 'u', 'u', 'u', 'u', 'Alat');
 
 -- --------------------------------------------------------
 
@@ -672,6 +682,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `foto` varchar(150) DEFAULT NULL,
   `iddivisi` varchar(6) DEFAULT NULL,
   `idjabatan` varchar(6) DEFAULT NULL,
+  `email` varchar(45) NOT NULL,
   PRIMARY KEY (`idusers`),
   KEY `FK_users_role` (`idrole`),
   KEY `FK_users_korps` (`idkorps`),
@@ -682,94 +693,94 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`idusers`, `nrp`, `pass`, `nama`, `idrole`, `idkorps`, `idpangkat`, `foto`, `iddivisi`, `idjabatan`) VALUES
-('U00001', 'ADMIN', 'aGtq', 'ADMIN', 'R00001', 'K00000', 'P00001', '1661131013_30bcbb4acbeb046fd4c1.png', '-', '-'),
-('U00003', '13826/P', 'aGtq', 'Irwan Shobirin', 'R00008', 'K00001', 'P00006', '', NULL, NULL),
-('U00004', '13813/P', 'aGtq', 'Nurrozi, S.Kel', 'R00009', 'K00001', 'P00007', '', NULL, NULL),
-('U00005', '196612242001122', 'aGtq', 'Sundari', 'R00007', 'K00040', 'P00030', '', NULL, NULL),
-('U00006', '85631', 'aGtq', 'Mujito', 'R00007', 'K00027', 'P00015', '', NULL, NULL),
-('U00007', '20666/P', 'aGtq', 'Triana Indah Wati', 'R00010', 'K00007', 'P00009', '', NULL, NULL),
-('U00008', '104971', 'aGtq', 'Adhi Gatti Libeli', 'R00010', 'K00028', 'P00015', '', NULL, NULL),
-('U00009', '94900', 'aGtq', 'Moch. Arifin', 'R00010', 'K00028', 'P00016', '', NULL, NULL),
-('U00010', '16571/P', 'aGtq', 'Frejohn Da Costa', 'R00002', 'K00001', 'P00008', 'U000101665303183220.png', NULL, NULL),
-('U00011', '17134/P', 'aGtq', 'Provid Ariantoko, M.Tr.Opsla', 'R00002', 'K00001', 'P00008', '', NULL, NULL),
-('U00012', '71716', 'aGtq', 'Henny Rohmawati', 'R00002', 'K00023', 'P00012', '', NULL, NULL),
-('U00013', '112983', 'aGtq', 'Hendra Fujianto', 'R00002', 'K00011', 'P00017', '', NULL, NULL),
-('U00014', '83743', 'aGtq', 'Muliyadi', 'R00002', 'K00011', 'P00012', '', NULL, NULL),
-('U00015', '16039/P', 'aGtq', 'Putut Dwi Susanto', 'R00002', 'K00001', 'P00009', '', NULL, NULL),
-('U00016', '70505', 'aGtq', 'Saring', 'R00002', 'K00018', 'P00013', '', NULL, NULL),
-('U00017', '196802231992021', 'aGtq', 'Warseno', 'R00002', 'K00040', 'P00032', '', NULL, NULL),
-('U00018', '19150/P', 'aGtq', 'Steven Reginald L', 'R00002', 'K00001', 'P00008', '', NULL, NULL),
-('U00019', '85230', 'aGtq', 'Kaspuri', 'R00002', 'K00019', 'P00015', '', NULL, NULL),
-('U00020', '85227', 'aGtq', 'Triswanto', 'R00002', 'K00018', 'P00015', '', NULL, NULL),
-('U00021', '14361/P', 'aGtq', 'Sunu Turwasana', 'R00003', 'K00001', 'P00007', '', NULL, NULL),
-('U00022', '18661/P', 'aGtq', 'Salus Yustian Harin Prawidana', 'R00003', 'K00001', 'P00008', '', NULL, NULL),
-('U00023', '16805/P', 'aGtq', 'Urbani', 'R00003', 'K00001', 'P00008', '', NULL, NULL),
-('U00024', '19941/P', 'aGtq', 'Haruman Ari Alfaizal, S.,ST.,Han', 'R00003', 'K00001', 'P00009', '', NULL, NULL),
-('U00025', '73042', 'aGtq', 'Tukis Huriyanto', 'R00003', 'K00010', 'P00014', '', NULL, NULL),
-('U00026', '108118', 'aGtq', 'Arif Wahyudianto', 'R00003', 'K00013', 'P00014', '', NULL, NULL),
-('U00027', '67390', 'aGtq', 'Luky S Mulyono', 'R00003', 'K00010', 'P00013', '', NULL, NULL),
-('U00028', '83669', 'aGtq', 'Dennis Setiawan', 'R00003', 'K00009', 'P00012', '', NULL, NULL),
-('U00029', '89030', 'aGtq', 'Roni Setiyono', 'R00003', 'K00019', 'P00012', '', NULL, NULL),
-('U00030', '21288/P', 'aGtq', 'Roni Iskandar', 'R00003', 'K00001', 'P00010', '', NULL, NULL),
-('U00031', '86655', 'aGtq', 'Heri Santoso', 'R00003', 'K00037', 'P00012', '', NULL, NULL),
-('U00032', '115031', 'aGtq', '\'Yuli Asmoro Setiyawan', 'R00003', 'K00037', 'P00015', '', NULL, NULL),
-('U00033', '84392', 'aGtq', 'Albert Wilem Wanma', 'R00003', 'K00010', 'P00016', '', NULL, NULL),
-('U00034', '19978/P', 'aGtq', 'Dimas Wahyu Bramasta S, S.T.Han', 'R00003', 'K00001', 'P00009', '', NULL, NULL),
-('U00035', '80854', 'aGtq', 'Tri Sumardiyono', 'R00003', 'K00037', 'P00016', '', NULL, NULL),
-('U00036', '107531', 'aGtq', 'Ahmad Rifa\'i', 'R00003', 'K00043', 'P00019', '', NULL, NULL),
-('U00037', '79476', 'aGtq', 'Mansyur', 'R00003', 'K00018', 'P00012', '', NULL, NULL),
-('U00038', '21187', 'aGtq', 'Achmad Shokeh', 'R00003', 'K00001', 'P00010', '', NULL, NULL),
-('U00039', '70528', 'aGtq', 'M.  Makudi', 'R00003', 'K00019', 'P00013', '', NULL, NULL),
-('U00040', '75171', 'aGtq', 'Harsito', 'R00003', 'K00010', 'P00014', '', NULL, NULL),
-('U00041', '83758', 'aGtq', 'Veri Hari Nartaya', 'R00003', 'K00011', 'P00012', '', NULL, NULL),
-('U00042', '77444', 'aGtq', 'Malikin', 'R00003', 'K00010', 'P00014', '', NULL, NULL),
-('U00043', '84403', 'aGtq', 'Ahmad Sujito', 'R00003', 'K00010', 'P00018', '', NULL, NULL),
-('U00044', '88234', 'aGtq', 'Totok Sugiarto', 'R00003', 'K00037', 'P00018', '', NULL, NULL),
-('U00045', '84439', 'aGtq', 'Sri Budiono', 'R00003', 'K00018', 'P00016', '', NULL, NULL),
-('U00046', '85215', 'aGtq', 'Supriaji', 'R00003', 'K00018', 'P00015', '', NULL, NULL),
-('U00047', '76837', 'aGtq', 'Agus Sutono', 'R00003', 'K00019', 'P00014', '', NULL, NULL),
-('U00048', '17915/P', 'aGtq', 'Bambang Setiawan', 'R00003', 'K00002', 'P00008', '', NULL, NULL),
-('U00049', '82151', 'aGtq', 'Achmat Fauzi', 'R00003', 'K00029', 'P00012', '', NULL, NULL),
-('U00050', '80759', 'aGtq', 'Hadi Suwito', 'R00003', 'K00030', 'P00015', '', NULL, NULL),
-('U00051', '14900/P', 'aGtq', 'Mulyono, S.E.', 'R00006', 'K00001', 'P00007', '', NULL, NULL),
-('U00052', '17444/P', 'aGtq', 'Muan Sumantoyo', 'R00004', 'K00003', 'P00008', '', NULL, NULL),
-('U00053', '20561/P', 'aGtq', 'Nurdin. S.Psi', 'R00004', 'K00003', 'P00010', '', NULL, NULL),
-('U00054', '85470', 'aGtq', 'Mukhamad Furkon', 'R00004', 'K00029', 'P00015', '', NULL, NULL),
-('U00055', '96733', 'aGtq', 'Deni Dispitasasi', 'R00004', 'K00027', 'P00013', '', NULL, NULL),
-('U00056', '77503', 'aGtq', 'Hariyono', 'R00004', 'K00010', 'P00015', '', NULL, NULL),
-('U00057', '82266', 'aGtq', 'Warsono', 'R00004', 'K00037', 'P00012', '', NULL, NULL),
-('U00058', '80853', 'aGtq', 'Suharinta', 'R00004', 'K00013', 'P00015', '', NULL, NULL),
-('U00059', '115014', 'aGtq', 'Mohammad Zaenal Arifin', 'R00004', 'K00013', 'P00015', '', NULL, NULL),
-('U00060', '80832', 'aGtq', 'Gatot', 'R00004', 'K00013', 'P00015', '', NULL, NULL),
-('U00061', '196508221992021', 'aGtq', 'Muh. Yunus', 'R00004', 'K00040', 'P00030', '', NULL, NULL),
-('U00062', '197209241992011', 'aGtq', 'Soenoe Hudarianto,ST', 'R00004', 'K00040', 'P00028', '', NULL, NULL),
-('U00063', '72195', 'aGtq', 'Yusmanto', 'R00004', 'K00029', 'P00015', '', NULL, NULL),
-('U00064', '196911011998031', 'aGtq', 'Misdi', 'R00004', 'K00040', 'P00032', '', NULL, NULL),
-('U00065', '196709201989031', 'aGtq', 'Pardi', 'R00004', 'K00040', 'P00033', '', NULL, NULL),
-('U00066', '75261', 'aGtq', 'Kuntoro', 'R00004', 'K00018', 'P00014', '', NULL, NULL),
-('U00067', '85161', 'aGtq', 'Nur Astiyan', 'R00004', 'K00009', 'P00016', '', NULL, NULL),
-('U00068', '89635', 'aGtq', 'Arif Sukariyanto', 'R00004', 'K00009', 'P00016', '', NULL, NULL),
-('U00069', '81671', 'aGtq', 'Yans Satya Jaya', 'R00004', 'K00022', 'P00015', '', NULL, NULL),
-('U00070', '15268/P', 'aGtq', 'Sarismanto, S. Pd', 'R00004', 'K00003', 'P00008', '', NULL, NULL),
-('U00071', '196601121992011', 'aGtq', 'Aminin', 'R00004', 'K00040', 'P00032', '', NULL, NULL),
-('U00072', '21632/P', 'aGtq', 'Murjoko', 'R00004', 'K00002', 'P00010', '', NULL, NULL),
-('U00073', '77662', 'aGtq', 'Agung Buntarso', 'R00004', 'K00029', 'P00016', '', NULL, NULL),
-('U00074', '85548', 'aGtq', 'Edy Purwanto', 'R00004', 'K00030', 'P00018', '', NULL, NULL),
-('U00075', '78921', 'aGtq', 'Toto  Suseno', 'R00004', 'K00029', 'P00015', '', NULL, NULL),
-('U00076', '196810031993031', 'aGtq', 'Sugiyatno', 'R00004', 'K00040', 'P00033', '', NULL, NULL),
-('U00077', '81618', 'aGtq', 'Sutrisno', 'R00004', 'K00030', 'P00015', '', NULL, NULL),
-('U00078', '89169', 'aGtq', 'Wahyudi', 'R00004', 'K00029', 'P00012', '', NULL, NULL),
-('U00079', '104971', 'aGtq', 'Pujiyana', 'R00004', 'K00043', 'P00014', '', NULL, NULL),
-('U00080', '15856/P', 'aGtq', 'Akhmad Nur, S.E.', 'R00005', 'K00003', 'P00008', '', NULL, NULL),
-('U00081', '80453', 'aGtq', 'Winarto', 'R00005', 'K00011', 'P00015', '', NULL, NULL),
-('U00082', '17929/P', 'aGtq', 'Puji Wahono', 'R00005', 'K00002', 'P00008', '', NULL, NULL),
-('U00083', '196910161992021', 'aGtq', 'Siswadi', 'R00005', 'K00040', 'P00030', '', NULL, NULL),
-('U00084', '98563', 'aGtq', 'Agung Kurniawan,Amd', 'R00005', 'K00037', 'P00013', '', NULL, NULL),
-('U00085', '66785', 'aGtq', 'Ibrahim', 'R00005', 'K00028', 'P00012', '', NULL, NULL),
-('U00086', '79949', 'aGtq', 'Khoirul Ibad', 'R00005', 'K00028', 'P00012', '', NULL, NULL),
-('U00087', '80746', 'aGtq', 'Yudi Ariyanto', 'R00005', 'K00029', 'P00015', '', NULL, NULL),
-('U00088', '81532', 'aGtq', 'Jaimun', 'R00002', 'K00011', 'P00017', '', NULL, NULL);
+INSERT INTO `users` (`idusers`, `nrp`, `pass`, `nama`, `idrole`, `idkorps`, `idpangkat`, `foto`, `iddivisi`, `idjabatan`, `email`) VALUES
+('U00001', 'ADMIN', 'aGtq', 'ADMIN', 'R00001', 'K00000', 'P00001', '1661131013_30bcbb4acbeb046fd4c1.png', '-', '-', 'rampapraditya@gmail.com'),
+('U00003', '13826/P', 'aGtq', 'Irwan Shobirin', 'R00008', 'K00001', 'P00006', '', NULL, NULL, ''),
+('U00004', '13813/P', 'aGtq', 'Nurrozi, S.Kel', 'R00009', 'K00001', 'P00007', '', NULL, NULL, ''),
+('U00005', '196612242001122', 'aGtq', 'Sundari', 'R00007', 'K00040', 'P00030', '', NULL, NULL, ''),
+('U00006', '85631', 'aGtq', 'Mujito', 'R00007', 'K00027', 'P00015', '', NULL, NULL, ''),
+('U00007', '20666/P', 'aGtq', 'Triana Indah Wati', 'R00010', 'K00007', 'P00009', '', NULL, NULL, ''),
+('U00008', '104971', 'aGtq', 'Adhi Gatti Libeli', 'R00010', 'K00028', 'P00015', '', NULL, NULL, ''),
+('U00009', '94900', 'aGtq', 'Moch. Arifin', 'R00010', 'K00028', 'P00016', '', NULL, NULL, ''),
+('U00010', '16571/P', 'aGtq', 'Frejohn Da Costa', 'R00002', 'K00001', 'P00008', 'U000101665303183220.png', NULL, NULL, ''),
+('U00011', '17134/P', 'aGtq', 'Provid Ariantoko, M.Tr.Opsla', 'R00002', 'K00001', 'P00008', '', NULL, NULL, ''),
+('U00012', '71716', 'aGtq', 'Henny Rohmawati', 'R00002', 'K00023', 'P00012', '', NULL, NULL, ''),
+('U00013', '112983', 'aGtq', 'Hendra Fujianto', 'R00002', 'K00011', 'P00017', '', NULL, NULL, ''),
+('U00014', '83743', 'aGtq', 'Muliyadi', 'R00002', 'K00011', 'P00012', '', NULL, NULL, ''),
+('U00015', '16039/P', 'aGtq', 'Putut Dwi Susanto', 'R00002', 'K00001', 'P00009', '', NULL, NULL, ''),
+('U00016', '70505', 'aGtq', 'Saring', 'R00002', 'K00018', 'P00013', '', NULL, NULL, ''),
+('U00017', '196802231992021', 'aGtq', 'Warseno', 'R00002', 'K00040', 'P00032', '', NULL, NULL, ''),
+('U00018', '19150/P', 'aGtq', 'Steven Reginald L', 'R00002', 'K00001', 'P00008', '', NULL, NULL, ''),
+('U00019', '85230', 'aGtq', 'Kaspuri', 'R00002', 'K00019', 'P00015', '', NULL, NULL, ''),
+('U00020', '85227', 'aGtq', 'Triswanto', 'R00002', 'K00018', 'P00015', '', NULL, NULL, ''),
+('U00021', '14361/P', 'aGtq', 'Sunu Turwasana', 'R00003', 'K00001', 'P00007', '', NULL, NULL, ''),
+('U00022', '18661/P', 'aGtq', 'Salus Yustian Harin Prawidana', 'R00003', 'K00001', 'P00008', '', NULL, NULL, ''),
+('U00023', '16805/P', 'aGtq', 'Urbani', 'R00003', 'K00001', 'P00008', '', NULL, NULL, ''),
+('U00024', '19941/P', 'aGtq', 'Haruman Ari Alfaizal, S.,ST.,Han', 'R00003', 'K00001', 'P00009', '', NULL, NULL, ''),
+('U00025', '73042', 'aGtq', 'Tukis Huriyanto', 'R00003', 'K00010', 'P00014', '', NULL, NULL, ''),
+('U00026', '108118', 'aGtq', 'Arif Wahyudianto', 'R00003', 'K00013', 'P00014', '', NULL, NULL, ''),
+('U00027', '67390', 'aGtq', 'Luky S Mulyono', 'R00003', 'K00010', 'P00013', '', NULL, NULL, ''),
+('U00028', '83669', 'aGtq', 'Dennis Setiawan', 'R00003', 'K00009', 'P00012', '', NULL, NULL, ''),
+('U00029', '89030', 'aGtq', 'Roni Setiyono', 'R00003', 'K00019', 'P00012', '', NULL, NULL, ''),
+('U00030', '21288/P', 'aGtq', 'Roni Iskandar', 'R00003', 'K00001', 'P00010', '', NULL, NULL, ''),
+('U00031', '86655', 'aGtq', 'Heri Santoso', 'R00003', 'K00037', 'P00012', '', NULL, NULL, ''),
+('U00032', '115031', 'aGtq', '\'Yuli Asmoro Setiyawan', 'R00003', 'K00037', 'P00015', '', NULL, NULL, ''),
+('U00033', '84392', 'aGtq', 'Albert Wilem Wanma', 'R00003', 'K00010', 'P00016', '', NULL, NULL, ''),
+('U00034', '19978/P', 'aGtq', 'Dimas Wahyu Bramasta S, S.T.Han', 'R00003', 'K00001', 'P00009', '', NULL, NULL, ''),
+('U00035', '80854', 'aGtq', 'Tri Sumardiyono', 'R00003', 'K00037', 'P00016', '', NULL, NULL, ''),
+('U00036', '107531', 'aGtq', 'Ahmad Rifa\'i', 'R00003', 'K00043', 'P00019', '', NULL, NULL, ''),
+('U00037', '79476', 'aGtq', 'Mansyur', 'R00003', 'K00018', 'P00012', '', NULL, NULL, ''),
+('U00038', '21187', 'aGtq', 'Achmad Shokeh', 'R00003', 'K00001', 'P00010', '', NULL, NULL, ''),
+('U00039', '70528', 'aGtq', 'M.  Makudi', 'R00003', 'K00019', 'P00013', '', NULL, NULL, ''),
+('U00040', '75171', 'aGtq', 'Harsito', 'R00003', 'K00010', 'P00014', '', NULL, NULL, ''),
+('U00041', '83758', 'aGtq', 'Veri Hari Nartaya', 'R00003', 'K00011', 'P00012', '', NULL, NULL, ''),
+('U00042', '77444', 'aGtq', 'Malikin', 'R00003', 'K00010', 'P00014', '', NULL, NULL, ''),
+('U00043', '84403', 'aGtq', 'Ahmad Sujito', 'R00003', 'K00010', 'P00018', '', NULL, NULL, ''),
+('U00044', '88234', 'aGtq', 'Totok Sugiarto', 'R00003', 'K00037', 'P00018', '', NULL, NULL, ''),
+('U00045', '84439', 'aGtq', 'Sri Budiono', 'R00003', 'K00018', 'P00016', '', NULL, NULL, ''),
+('U00046', '85215', 'aGtq', 'Supriaji', 'R00003', 'K00018', 'P00015', '', NULL, NULL, ''),
+('U00047', '76837', 'aGtq', 'Agus Sutono', 'R00003', 'K00019', 'P00014', '', NULL, NULL, ''),
+('U00048', '17915/P', 'aGtq', 'Bambang Setiawan', 'R00003', 'K00002', 'P00008', '', NULL, NULL, ''),
+('U00049', '82151', 'aGtq', 'Achmat Fauzi', 'R00003', 'K00029', 'P00012', '', NULL, NULL, ''),
+('U00050', '80759', 'aGtq', 'Hadi Suwito', 'R00003', 'K00030', 'P00015', '', NULL, NULL, ''),
+('U00051', '14900/P', 'aGtq', 'Mulyono, S.E.', 'R00006', 'K00001', 'P00007', '', NULL, NULL, ''),
+('U00052', '17444/P', 'aGtq', 'Muan Sumantoyo', 'R00004', 'K00003', 'P00008', '', NULL, NULL, ''),
+('U00053', '20561/P', 'aGtq', 'Nurdin. S.Psi', 'R00004', 'K00003', 'P00010', '', NULL, NULL, ''),
+('U00054', '85470', 'aGtq', 'Mukhamad Furkon', 'R00004', 'K00029', 'P00015', '', NULL, NULL, ''),
+('U00055', '96733', 'aGtq', 'Deni Dispitasasi', 'R00004', 'K00027', 'P00013', '', NULL, NULL, ''),
+('U00056', '77503', 'aGtq', 'Hariyono', 'R00004', 'K00010', 'P00015', '', NULL, NULL, ''),
+('U00057', '82266', 'aGtq', 'Warsono', 'R00004', 'K00037', 'P00012', '', NULL, NULL, ''),
+('U00058', '80853', 'aGtq', 'Suharinta', 'R00004', 'K00013', 'P00015', '', NULL, NULL, ''),
+('U00059', '115014', 'aGtq', 'Mohammad Zaenal Arifin', 'R00004', 'K00013', 'P00015', '', NULL, NULL, ''),
+('U00060', '80832', 'aGtq', 'Gatot', 'R00004', 'K00013', 'P00015', '', NULL, NULL, ''),
+('U00061', '196508221992021', 'aGtq', 'Muh. Yunus', 'R00004', 'K00040', 'P00030', '', NULL, NULL, ''),
+('U00062', '197209241992011', 'aGtq', 'Soenoe Hudarianto,ST', 'R00004', 'K00040', 'P00028', '', NULL, NULL, ''),
+('U00063', '72195', 'aGtq', 'Yusmanto', 'R00004', 'K00029', 'P00015', '', NULL, NULL, ''),
+('U00064', '196911011998031', 'aGtq', 'Misdi', 'R00004', 'K00040', 'P00032', '', NULL, NULL, ''),
+('U00065', '196709201989031', 'aGtq', 'Pardi', 'R00004', 'K00040', 'P00033', '', NULL, NULL, ''),
+('U00066', '75261', 'aGtq', 'Kuntoro', 'R00004', 'K00018', 'P00014', '', NULL, NULL, ''),
+('U00067', '85161', 'aGtq', 'Nur Astiyan', 'R00004', 'K00009', 'P00016', '', NULL, NULL, ''),
+('U00068', '89635', 'aGtq', 'Arif Sukariyanto', 'R00004', 'K00009', 'P00016', '', NULL, NULL, ''),
+('U00069', '81671', 'aGtq', 'Yans Satya Jaya', 'R00004', 'K00022', 'P00015', '', NULL, NULL, ''),
+('U00070', '15268/P', 'aGtq', 'Sarismanto, S. Pd', 'R00004', 'K00003', 'P00008', '', NULL, NULL, ''),
+('U00071', '196601121992011', 'aGtq', 'Aminin', 'R00004', 'K00040', 'P00032', '', NULL, NULL, ''),
+('U00072', '21632/P', 'aGtq', 'Murjoko', 'R00004', 'K00002', 'P00010', '', NULL, NULL, ''),
+('U00073', '77662', 'aGtq', 'Agung Buntarso', 'R00004', 'K00029', 'P00016', '', NULL, NULL, ''),
+('U00074', '85548', 'aGtq', 'Edy Purwanto', 'R00004', 'K00030', 'P00018', '', NULL, NULL, ''),
+('U00075', '78921', 'aGtq', 'Toto  Suseno', 'R00004', 'K00029', 'P00015', '', NULL, NULL, ''),
+('U00076', '196810031993031', 'aGtq', 'Sugiyatno', 'R00004', 'K00040', 'P00033', '', NULL, NULL, ''),
+('U00077', '81618', 'aGtq', 'Sutrisno', 'R00004', 'K00030', 'P00015', '', NULL, NULL, ''),
+('U00078', '89169', 'aGtq', 'Wahyudi', 'R00004', 'K00029', 'P00012', '', NULL, NULL, ''),
+('U00079', '104971', 'aGtq', 'Pujiyana', 'R00004', 'K00043', 'P00014', '', NULL, NULL, ''),
+('U00080', '15856/P', 'aGtq', 'Akhmad Nur, S.E.', 'R00005', 'K00003', 'P00008', '', NULL, NULL, ''),
+('U00081', '80453', 'aGtq', 'Winarto', 'R00005', 'K00011', 'P00015', '', NULL, NULL, ''),
+('U00082', '17929/P', 'aGtq', 'Puji Wahono', 'R00005', 'K00002', 'P00008', '', NULL, NULL, ''),
+('U00083', '196910161992021', 'aGtq', 'Siswadi', 'R00005', 'K00040', 'P00030', '', NULL, NULL, ''),
+('U00084', '98563', 'aGtq', 'Agung Kurniawan,Amd', 'R00005', 'K00037', 'P00013', '', NULL, NULL, ''),
+('U00085', '66785', 'aGtq', 'Ibrahim', 'R00005', 'K00028', 'P00012', '', NULL, NULL, ''),
+('U00086', '79949', 'aGtq', 'Khoirul Ibad', 'R00005', 'K00028', 'P00012', '', NULL, NULL, ''),
+('U00087', '80746', 'aGtq', 'Yudi Ariyanto', 'R00005', 'K00029', 'P00015', '', NULL, NULL, ''),
+('U00088', '81532', 'aGtq', 'Jaimun', 'R00002', 'K00011', 'P00017', '', NULL, NULL, '');
 
 --
 -- Constraints for dumped tables

@@ -151,6 +151,10 @@
     function cm_sakit(){
         $('#modal_sakit').modal('hide');
     }
+    
+    function cetak(){
+        window.location.href = "<?php echo base_url(); ?>/jhh/cetak";
+    }
 
 </script>
 <div class="content-wrapper">
@@ -163,6 +167,7 @@
 
                     <button type="button" class="btn btn-primary" onclick="add();">Tambah</button>
                     <button type="button" class="btn btn-secondary" onclick="reload();">Reload</button>
+                    <button type="button" class="btn btn-secondary" onclick="cetak();">Cetak</button>
 
                 </div>
                 <div class="card-body">
@@ -171,9 +176,10 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
+									<th>SIMULATOR</th>
                                     <th>TANGGAL</th>
                                     <th>KEGIATAN</th>
-                                    <th>PELAKSANAAN</th>
+                                    <th>PELAKSANA</th>
                                     <th>KETERANGAN</th>
                                     <th style="text-align: center;">AKSI</th>
                                 </tr>
@@ -221,7 +227,7 @@
                         <input id="kegiatan" name="kegiatan" class="form-control" type="text" autocomplete="off">
                     </div>
                     <div class="form-group">
-                        <label>PELAKSANAAN</label>
+                        <label>PELAKSANA</label>
                         <input id="pelaksanaan" name="pelaksanaan" class="form-control" type="text" autocomplete="off">
                     </div>
                     <div class="form-group">

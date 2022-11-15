@@ -1,9 +1,10 @@
 <?php
-
 namespace App\Controllers;
 
 use App\Models\Mcustom;
 use App\Libraries\Modul;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 class Oprsim extends BaseController {
 
@@ -65,9 +66,9 @@ class Oprsim extends BaseController {
         if (session()->get("logged_in")) {
             $no = 1;
             $data = array();
-            $list = $this->model->getAllQ("SELECT *, 'Pemanasan' as model, idsimulator as idsuratmasuk FROM osp 
-                union 
-                SELECT *, 'Latihan' as model, idsuratmasuk FROM osl order by tanggal;");
+            $list = $this->model->getAllQ("SELECT *, 'Pemanasan' as model, idsimulator as idsuratmasuk, date_format(tanggal, '%d %M %Y') as tgl FROM osp
+union
+SELECT *, 'Latihan' as model, idsuratmasuk, date_format(tanggal, '%d %M %Y') as tgl FROM osl order by tanggal desc;");
             foreach ($list->getResult() as $row) {
                 $val = array();
                 $val[] = $no;
@@ -92,7 +93,7 @@ class Oprsim extends BaseController {
                 }
 
                 $val[] = $row->kegiatan;
-                $val[] = $row->tanggal;
+                $val[] = $row->tgl;
                 $val[] = $row->waktu_on;
                 $val[] = $row->waktu_off;
                 $val[] = $row->kondisi;
@@ -495,4 +496,25 @@ class Oprsim extends BaseController {
         }
     }
 
+    public function cetak(){
+        if(session()->get("logged_in")){
+            $data['list'] = $this->model->getAllQ("SELECT *, 'Pemanasan' as model, idsimulator as idsuratmasuk, date_format(tanggal, '%d %M %Y') as tgl FROM osp 
+                union 
+                SELECT *, 'Latihan' as model, idsuratmasuk, date_format(tanggal, '%d %M %Y') as tgl FROM osl order by tanggal desc;");
+            $data['modul'] = $this->modul;
+            $data['model'] = $this->model;
+            
+            $options = new Options();
+            $options->setChroot(FCPATH);
+            $dompdf = new Dompdf();
+            $dompdf->setOptions($options);
+            $dompdf->loadHtml(view('operasi/pdf', $data));
+            $dompdf->setPaper('A4', 'landscape');
+            $dompdf->render();
+            $filename = 'OperasiLatihan';
+            $dompdf->stream($filename); 
+        }else{
+            $this->modul->halaman('login');
+        }
+    }
 }

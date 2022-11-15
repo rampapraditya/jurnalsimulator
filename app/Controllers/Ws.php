@@ -213,20 +213,53 @@ class Ws extends BaseController {
     public function data_renlat() {
         $result = array();
         $no = 1;
-        $list = $this->model->getAllQ("SELECT suratmasuk.*, users.nrp, users.nama, simulator.nama_simulator FROM suratmasuk 
-                LEFT JOIN users ON suratmasuk.idusers = users.idusers 
-                LEFT JOIN simulator ON suratmasuk.idsimulator = simulator.idsimulator");
+        $list = $this->model->getAllQ("SELECT suratmasuk.*, users.nrp, users.nama, simulator.nama_simulator, date_format(tanggal, '%d %M %Y') as tgl, 
+		year(tanggal) as thn, month(tanggal) as bln, day(tanggal) as hari FROM suratmasuk 
+		LEFT JOIN users ON suratmasuk.idusers = users.idusers 
+		LEFT JOIN simulator ON suratmasuk.idsimulator = simulator.idsimulator");
         foreach ($list->getResult() as $row) {
             array_push($result, array(
                 'no' => $no,
                 'idsuratmasuk' => $row->idsuratmasuk,
                 'nama_simulator' => $row->nama_simulator,
-                'tanggal' => $row->tanggal,
+                'tanggal' => $row->tgl,
                 'nosurat' => $row->nosurat,
                 'dari' => $row->dari,
                 'perihal' => $row->perihal,
                 'keterangan' => $row->keterangan,
-                'mode' => $row->mode
+                'mode' => $row->mode,
+                'tahun' => $row->thn,
+                'bulan' => $row->bln,
+                'hari' => $row->hari
+            ));
+            $no++;
+        }
+        echo json_encode(array("result" => $result));
+    }
+
+    public function data_renlat_by_date() {
+        $tgl = $this->request->getPost('tanggal');
+
+        $result = array();
+        $no = 1;
+        $list = $this->model->getAllQ("SELECT suratmasuk.*, users.nrp, users.nama, simulator.nama_simulator, date_format(tanggal, '%d %M %Y') as tgl,
+			year(tanggal) as thn, month(tanggal) as bln, day(tanggal) as hari FROM suratmasuk
+			LEFT JOIN users ON suratmasuk.idusers = users.idusers
+			LEFT JOIN simulator ON suratmasuk.idsimulator = simulator.idsimulator where tanggal = '" . $tgl . "';");
+        foreach ($list->getResult() as $row) {
+            array_push($result, array(
+                'no' => $no,
+                'idsuratmasuk' => $row->idsuratmasuk,
+                'nama_simulator' => $row->nama_simulator,
+                'tanggal' => $row->tgl,
+                'nosurat' => $row->nosurat,
+                'dari' => $row->dari,
+                'perihal' => $row->perihal,
+                'keterangan' => $row->keterangan,
+                'mode' => $row->mode,
+                'tahun' => $row->thn,
+                'bulan' => $row->bln,
+                'hari' => $row->hari
             ));
             $no++;
         }
@@ -311,7 +344,7 @@ class Ws extends BaseController {
         $no = 1;
         $list = $this->model->getAllQ("SELECT *, 'Pemanasan' as model, idsimulator as idsuratmasuk FROM osp 
                 union 
-                SELECT *, 'Latihan' as model, idsuratmasuk FROM osl order by tanggal;");
+                SELECT *, 'Latihan' as model, idsuratmasuk FROM osl order by tanggal desc;");
         foreach ($list->getResult() as $row) {
             $val[] = $no;
 
@@ -325,29 +358,341 @@ class Ws extends BaseController {
                 $nama_sim = $this->model->getAllQR("SELECT nama_simulator FROM simulator where idsimulator = '" . $row->idsuratmasuk . "';")->nama_simulator;
             } else if ($row->model == "Latihan") {
                 $cek1 = $this->model->getAllQR("SELECT count(b.nama_simulator) as jml FROM suratmasuk a, simulator b where a.idsimulator = b.idsimulator and a.idsuratmasuk = '" . $row->idsuratmasuk . "';")->jml;
-				if($cek1 > 0){
-					$nama_sim = $this->model->getAllQR("SELECT b.nama_simulator FROM suratmasuk a, simulator b where a.idsimulator = b.idsimulator and a.idsuratmasuk = '" . $row->idsuratmasuk . "';")->nama_simulator;
-				}else{
-					$nama_sim = "";
-				}
-				
+                if ($cek1 > 0) {
+                    $nama_sim = $this->model->getAllQR("SELECT b.nama_simulator FROM suratmasuk a, simulator b where a.idsimulator = b.idsimulator and a.idsuratmasuk = '" . $row->idsuratmasuk . "';")->nama_simulator;
+                } else {
+                    $nama_sim = "";
+                }
             }
 
             array_push($result, array(
                 'no' => $no,
                 'kode' => $row->idop_simulator,
+                'idsim' => $row->idsuratmasuk,
                 'namasim' => $nama_sim,
                 'gambar' => $deflogo,
                 'kegiatan' => $row->kegiatan,
                 'tanggal' => $row->tanggal,
                 'waktu_on' => $row->waktu_on,
                 'waktu_off' => $row->waktu_off,
-				'kondisi' => $row->kondisi,
-                'model' => $row->model
+                'kondisi' => $row->kondisi,
+                'model' => $row->model,
+                'keterangan' => $row->keterangan
             ));
             $no++;
         }
         echo json_encode(array("result" => $result));
     }
 
+    public function simpan_opslat_pemanasan() {
+        $data = array(
+            'idop_simulator' => $this->model->autokode("P", "idop_simulator", "osp", 2, 7),
+            'tanggal' => $this->request->getPost('tanggal'),
+            'kegiatan' => $this->request->getPost('kegiatan'),
+            'waktu_on' => $this->request->getPost('waktuon'),
+            'waktu_off' => $this->request->getPost('waktuoff'),
+            'kondisi' => $this->request->getPost('kondisi'),
+            'keterangan' => $this->request->getPost('keterangan'),
+            'foto' => '',
+            'idusers' => $this->request->getPost('idusers'),
+            'idsimulator' => $this->request->getPost('simulator')
+        );
+        $simpan = $this->model->add("osp", $data);
+        if ($simpan == 1) {
+            $status = "Data tersimpan";
+        } else {
+            $status = "Data gagal tersimpan";
+        }
+        $result = array();
+        array_push($result, array('status' => $status));
+        echo json_encode(array("result" => $result));
+    }
+    
+    public function simpan_opslat_latihan() {
+        $data = array(
+            'idop_simulator' => $this->model->autokode("L", "idop_simulator", "osl", 2, 7),
+            'tanggal' => $this->request->getPost('tanggal'),
+            'kegiatan' => $this->request->getPost('kegiatan'),
+            'waktu_on' => $this->request->getPost('waktuon'),
+            'waktu_off' => $this->request->getPost('waktuoff'),
+            'kondisi' => $this->request->getPost('kondisi'),
+            'keterangan' => $this->request->getPost('keterangan'),
+            'foto' => '',
+            'idusers' => $this->request->getPost('idusers'),
+            'idsuratmasuk' => $this->request->getPost('kode_renlat')
+        );
+        $simpan = $this->model->add("osl", $data);
+        if ($simpan == 1) {
+            $status = "Data tersimpan";
+        } else {
+            $status = "Data gagal tersimpan";
+        }
+        $result = array();
+        array_push($result, array('status' => $status));
+        echo json_encode(array("result" => $result));
+    }
+    
+    public function update_opslat_pemanasan() {
+        $data = array(
+            'tanggal' => $this->request->getPost('tanggal'),
+            'kegiatan' => $this->request->getPost('kegiatan'),
+            'waktu_on' => $this->request->getPost('waktuon'),
+            'waktu_off' => $this->request->getPost('waktuoff'),
+            'kondisi' => $this->request->getPost('kondisi'),
+            'keterangan' => $this->request->getPost('keterangan'),
+            'idsimulator' => $this->request->getPost('simulator'),
+        );
+        $kond['idop_simulator'] = $this->request->getPost('kode');
+        $simpan = $this->model->update("osp", $data, $kond);
+        if ($simpan == 1) {
+            $status = "Data tersimpan";
+        } else {
+            $status = "Data gagal tersimpan";
+        }
+        $result = array();
+        array_push($result, array('status' => $status));
+        echo json_encode(array("result" => $result));
+    }
+    
+    public function update_opslat_latihan() {
+        $data = array(
+            'tanggal' => $this->request->getPost('tanggal'),
+            'kegiatan' => $this->request->getPost('kegiatan'),
+            'waktu_on' => $this->request->getPost('waktuon'),
+            'waktu_off' => $this->request->getPost('waktuoff'),
+            'kondisi' => $this->request->getPost('kondisi'),
+            'keterangan' => $this->request->getPost('keterangan'),
+            'idsuratmasuk' => $this->request->getPost('kode_renlat')
+        );
+        $kond['idop_simulator'] = $this->request->getPost('kode');
+        $simpan = $this->model->update("osl", $data, $kond);
+        if ($simpan == 1) {
+            $status = "Data tersimpan";
+        } else {
+            $status = "Data gagal tersimpan";
+        }
+        $result = array();
+        array_push($result, array('status' => $status));
+        echo json_encode(array("result" => $result));
+    }
+    
+    public function hapus_opslat() {
+        $idop_simulator = $this->request->getPost('kode');
+        $mode = $this->request->getPost('mode');
+        if ($mode == "Pemanasan") {
+            $lawas = $this->model->getAllQR("SELECT foto FROM osp where idop_simulator = '$idop_simulator';")->foto;
+            if (strlen($lawas) > 0) {
+                if (file_exists($this->modul->getPathApp().$lawas)) {
+                    unlink($this->modul->getPathApp().$lawas);
+                }
+            }
+
+            $kond['idop_simulator'] = $idop_simulator;
+            $hapus = $this->model->delete("osp", $kond);
+            if ($hapus == 1) {
+                $status = "Data terhapus";
+            } else {
+                $status = "Data gagal terhapus";
+            }
+        } else if ($mode == "Latihan") {
+            $lawas = $this->model->getAllQR("SELECT foto FROM osl where idop_simulator = '$idop_simulator';")->foto;
+            if (strlen($lawas) > 0) {
+                if (file_exists($this->modul->getPathApp() . $lawas)) {
+                    unlink($this->modul->getPathApp() . $lawas);
+                }
+            }
+
+            $kond['idop_simulator'] = $idop_simulator;
+            $hapus = $this->model->delete("osl", $kond);
+            if ($hapus == 1) {
+                $status = "Data terhapus";
+            } else {
+                $status = "Data gagal terhapus";
+            }
+        }
+        $result = array();
+        array_push($result, array('status' => $status));
+        echo json_encode(array("result" => $result));
+    }
+    
+    public function simpan_opslat_file() {
+        $dir = $this->modul->setPathApp();
+        $idusers = $this->request->getPost('idusers');
+
+        if (isset($_FILES['image']['name'])) {
+            $file_name_temp = basename($_FILES['image']['name']);
+            $file_name = preg_replace("/[^a-zA-Z0-9.]/", "", $file_name_temp);
+            $extension = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
+            if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg') {
+                if ($_FILES["image"]["size"] < 4000001) {
+                    $file = $dir . $file_name;
+
+                    // hapus file jika ada yang lama
+                    $lawas = $this->model->getAllQR("SELECT foto FROM users where idusers = '" . $idusers . "';")->foto;
+                    if (strlen($lawas) > 0) {
+                        if (file_exists($this->modul->getPathApp() . $lawas)) {
+                            unlink($this->modul->getPathApp() . $lawas);
+                        }
+                    }
+
+                    if (move_uploaded_file($_FILES['image']['tmp_name'], $file)) {
+                        $data = array(
+                            'nrp' => $this->request->getPost('nrp'),
+                            'nama' => $this->request->getPost('nama'),
+                            'idkorps' => $this->request->getPost('korps'),
+                            'idpangkat' => $this->request->getPost('pangkat'),
+                            'foto' => $file_name
+                        );
+                        $kond['idusers'] = $this->request->getPost('idusers');
+                        $update = $this->model->update("users", $data, $kond);
+                        if ($update == 1) {
+                            $status = "Data tersimpan";
+                        } else {
+                            $status = "Data gagal tersimpan";
+                        }
+                    } else {
+                        $status = "Terjadi kesesalahan, silakan coba lagi";
+                    }
+                } else {
+                    $status = "Batas ukuran file 4 MB";
+                }
+            } else {
+                $status = "Hanya mendukung format gambar .png, .jpg and .jpeg";
+            }
+        } else {
+            $status = "Tanpa Foto";
+        }
+
+        $result = array();
+        array_push($result, array('status' => $status));
+        echo json_encode(array("result" => $result));
+    }
+    
+    public function getsakitsim() {
+        $result = array();
+        $no = 1;
+        $list = $this->model->getAllQ("select *, date_format(tanggal, '%d %M %Y') as tgl from sakit order by idsakit desc;");
+        foreach ($list->getResult() as $row) {
+            $nama_simulator = $this->model->getAllQR("SELECT nama_simulator FROM simulator where idsimulator = '" . $row->simulator . "';")->nama_simulator;
+            array_push($result, array(
+                'no' => $no,
+                'idsakit' => $row->idsakit,
+                'idsim' => $row->simulator,
+                'namasim' => $nama_simulator,
+                'tanggal' => $row->tanggal,
+                'tglf' => $row->tgl,
+            ));
+            $no++;
+        }
+        echo json_encode(array("result" => $result));
+    }
+    
+    public function getsakitsim_detil() {
+        $idsakit = $this->request->getPost('idsakit');
+        // load sakit
+        $result = array();
+        $list = $this->model->getAllQ("SELECT * FROM sakit_detil where idsakit = '" . $idsakit . "';");
+        foreach ($list->getResult() as $row) {
+            
+            $defimg = base_url() . '/images/noimg.png';
+            if (strlen($row1->foto) > 0) {
+                if (file_exists($this->modul->getPathApp().$row->foto)) {
+                    $defimg = base_url().'/uploads/'.$row->foto;
+                }
+            }
+            
+            array_push($result, array(
+                'gambar' => $defimg,
+                'namabarang' => $row->nama_barang,
+                'gejala' => $row->gejala,
+                'kegiatan' => $row->kegiatan
+            ));
+        }
+        echo json_encode(array("result" => $result));
+    }
+    
+    public function load_sakit_pemanasan() {
+        $result = array();
+        $list = $this->model->getAllQ("SELECT a.idsimulator, a.idop_simulator, b.nama_simulator, date_format(a.tanggal, '%d %M %Y') as tgl, a.kegiatan FROM osp a, simulator b where a.idsimulator = b.idsimulator;");
+        foreach ($list->getResult() as $row) {
+            array_push($result, array(
+                'idsimulator' => $row->idsimulator,
+                'idop_simulator' => $row->idop_simulator,
+                'keterangan' => $row->nama_simulator . ' ' . '( ' . $row->tgl . ' - ' . $row->kegiatan . ' )'
+            ));
+        }
+        echo json_encode(array("result" => $result));
+    }
+    
+    public function load_sakit_latihan() {
+        $result = array();
+        $list = $this->model->getAllQ("select c.idsimulator, a.idop_simulator, c.nama_simulator, date_format(a.tanggal, '%d %M %Y') as tgl, a.kegiatan from osl a, suratmasuk b, simulator c where a.idsuratmasuk = b.idsuratmasuk and b.idsimulator = c.idsimulator;");
+        foreach ($list->getResult() as $row) {
+            array_push($result, array(
+                'idsimulator' => $row->idsimulator,
+                'idop_simulator' => $row->idop_simulator,
+                'keterangan' => $row->nama_simulator . ' ' . '( ' . $row->tgl . ' - ' . $row->kegiatan . ' )'
+            ));
+        }
+        echo json_encode(array("result" => $result));
+    }
+    
+    public function load_sakit_simulator() {
+        $result = array();
+        $list = $this->model->getAll("simulator");
+        foreach ($list->getResult() as $row) {
+            array_push($result, array(
+                'idsimulator' => $row->idsimulator,
+                'keterangan' => $row->nama_simulator
+            ));
+        }
+        echo json_encode(array("result" => $result));
+    }
+    
+    public function simpan_sakit_simulator_head() {
+        $data = array(
+            'idsakit' => $this->model->autokode('S', 'idsakit', 'sakit', 2, 7),
+            'simulator' => $this->request->getPost('idsim'),
+            'model' => $this->request->getPost('model'),
+            'idusers' => $this->request->getPost('idusers'),
+            'tanggal' => $this->request->getPost('tanggal'),
+            'kd_rujukan' => $this->request->getPost('koderujukan')
+        );
+        $simpan = $this->model->add("sakit", $data);
+        if ($simpan == 1) {
+            $status = "Date tersimpan";
+        } else {
+            $status = "Date gagal tersimpan";
+        }
+        $result = array();
+        array_push($result, array('status' => $status));
+        echo json_encode(array("result" => $result));
+    }
+    
+    public function load_sakit_sim_detil() {
+        $idsakit = $this->request->getPost('idsakit');
+        
+        $result = array();
+        $no = 1;
+        $list = $this->model->getAllQ("SELECT * FROM sakit_detil where idsakit = '" . $idsakit . "';");
+        foreach ($list->getResult() as $row) {
+            $deflogo = base_url() . '/images/noimg.png';
+            if (strlen($row->foto) > 0) {
+                if (file_exists($this->modul->getPathApp() . $row->foto)) {
+                    $deflogo = base_url() . '/uploads/' . $row->foto;
+                }
+            }
+            array_push($result, array(
+                'idsakit_detil' => $row->idsakit_detil,
+                'no' => $no,
+                'gambar' => $deflogo,
+                'nama_barang' => $row->nama_barang,
+                'gejala' => $row->gejala,
+                'kegiatan' => $row->kegiatan,
+                'keterangan' => $row->keterangan
+            ));
+            $no++;
+        }
+        echo json_encode(array("result" => $result));
+    }
 }

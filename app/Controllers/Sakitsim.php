@@ -1,9 +1,10 @@
 <?php
-
 namespace App\Controllers;
 
 use App\Models\Mcustom;
 use App\Libraries\Modul;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 class Sakitsim extends BaseController {
 
@@ -31,7 +32,6 @@ class Sakitsim extends BaseController {
                 }
             }
             $data['foto_profile'] = $def_foto;
-            ;
 
             // membaca identitas
             $jml_identitas = $this->model->getAllQR("SELECT count(*) as jml FROM identitas;")->jml;
@@ -62,11 +62,13 @@ class Sakitsim extends BaseController {
         if (session()->get("logged_in")) {
             $no = 1;
             $data = array();
-            $list = $this->model->getAll("sakit");
+            $list = $this->model->getAllQ("select *, date_format(tanggal, '%d %M %Y') as tgl from sakit;");
             foreach ($list->getResult() as $row) {
                 $val = array();
                 $val[] = $no;
-                $val[] = $this->model->getAllQR("SELECT nama_simulator FROM simulator where idsimulator = '" . $row->simulator . "';")->nama_simulator;
+                $nama_simulator = $this->model->getAllQR("SELECT nama_simulator FROM simulator where idsimulator = '" . $row->simulator . "';")->nama_simulator;
+                $val[] = $nama_simulator;
+                $val[] = $row->tgl;
                 $str = '<table class="table table-hover" style="width: 100%;">
                             <thead>
                                 <tr>
@@ -77,19 +79,19 @@ class Sakitsim extends BaseController {
                                 </tr>
                             </thead>
                             <tbody>';
-                $list1 = $this->model->getAllQ("SELECT * FROM sakit_detil where idsakit = '".$row->idsakit."';");
+                $list1 = $this->model->getAllQ("SELECT * FROM sakit_detil where idsakit = '" . $row->idsakit . "';");
                 foreach ($list1->getResult() as $row1) {
                     $str .= '<tr>';
                     $defimg = base_url() . '/images/noimg.png';
                     if (strlen($row1->foto) > 0) {
-                        if (file_exists($this->modul->getPathApp().$row1->foto)) {
-                            $defimg = base_url().'/uploads/'.$row1->foto;
+                        if (file_exists($this->modul->getPathApp() . $row1->foto)) {
+                            $defimg = base_url() . '/uploads/' . $row1->foto;
                         }
                     }
-                    $str .= '<td><img src="'.$defimg.'" class="img-thumbnail" style="width: 50px; height: auto;"></td>';
-                    $str .= '<td>'.$row1->nama_barang.'</td>';
-                    $str .= '<td>'.$row1->gejala.'</td>';
-                    $str .= '<td>'.$row1->kegiatan.'</td>';
+                    $str .= '<td><img src="' . $defimg . '" class="img-thumbnail" style="width: 50px; height: auto;"></td>';
+                    $str .= '<td>' . $row1->nama_barang . '</td>';
+                    $str .= '<td>' . $row1->gejala . '</td>';
+                    $str .= '<td>' . $row1->kegiatan . '</td>';
                     $str .= '</tr>';
                 }
                 $str .= '</tbody></table>';
@@ -180,16 +182,15 @@ class Sakitsim extends BaseController {
 
     public function ajax_add() {
         if (session()->get("logged_in")) {
-//            if (isset($_FILES['file']['name'])) {
-//                if(0 < $_FILES['file']['error']) {
-//                    $status = "Error during file upload ".$_FILES['file']['error'];
-//                }else{
-//                    $status = $this->simpan_dengan();
-//                }
-//            }else{
-//                
-//            }
-            $status = $this->simpan_tanpa();
+            if (isset($_FILES['file']['name'])) {
+                if(0 < $_FILES['file']['error']) {
+                    $status = "Error during file upload ".$_FILES['file']['error'];
+                }else{
+                    $status = $this->simpan_dengan();
+                }
+            }else{
+                $status = $this->simpan_tanpa();
+            }
             echo json_encode(array("status" => $status));
         } else {
             $this->modul->halaman('login');
@@ -294,16 +295,15 @@ class Sakitsim extends BaseController {
 
     public function ajax_edit() {
         if (session()->get("logged_in")) {
-//            if (isset($_FILES['file']['name'])) {
-//                if(0 < $_FILES['file']['error']) {
-//                    $status = "Error during file upload ".$_FILES['file']['error'];
-//                }else{
-//                    $status = $this->update_dengan();
-//                }
-//            }else{
-//                
-//            }
-            $status = $this->update_tanpa();
+            if (isset($_FILES['file']['name'])) {
+                if(0 < $_FILES['file']['error']) {
+                    $status = "Error during file upload ".$_FILES['file']['error'];
+                }else{
+                    $status = $this->update_dengan();
+                }
+            }else{
+                $status = $this->update_tanpa();
+            }
             echo json_encode(array("status" => $status));
         } else {
             $this->modul->halaman('login');
@@ -501,12 +501,12 @@ class Sakitsim extends BaseController {
     public function ajax_add_detil() {
         if (session()->get("logged_in")) {
             if (isset($_FILES['file']['name'])) {
-                if(0 < $_FILES['file']['error']) {
-                    $status = "Error during file upload ".$_FILES['file']['error'];
-                }else{
+                if (0 < $_FILES['file']['error']) {
+                    $status = "Error during file upload " . $_FILES['file']['error'];
+                } else {
                     $status = $this->simpan_detil_dengan();
                 }
-            }else{
+            } else {
                 $status = $this->simpan_detil_tanpa();
             }
             echo json_encode(array("status" => $status));
@@ -519,12 +519,12 @@ class Sakitsim extends BaseController {
         $file = $this->request->getFile('file');
         $namaFile = $file->getRandomName();
         $info_file = $this->modul->info_file($file);
-        
-        if(file_exists($this->modul->getPathApp().$namaFile)){
+
+        if (file_exists($this->modul->getPathApp() . $namaFile)) {
             $status = "Gunakan nama file lain";
-        }else{
+        } else {
             $status_upload = $file->move($this->modul->getPathApp(), $namaFile);
-            if($status_upload){
+            if ($status_upload) {
                 $data = array(
                     'idsakit_detil' => $this->model->autokode("D", "idsakit_detil", "sakit_detil", 2, 7),
                     'idsakit' => $this->request->getPost('kode_detil'),
@@ -534,17 +534,17 @@ class Sakitsim extends BaseController {
                     'keterangan' => $this->request->getPost('keterangan'),
                     'foto' => $namaFile
                 );
-                $simpan = $this->model->add("sakit_detil",$data);
-                if($simpan == 1){
+                $simpan = $this->model->add("sakit_detil", $data);
+                if ($simpan == 1) {
                     $status = "Data tersimpan";
-                }else{
+                } else {
                     $status = "Data gagal tersimpan";
                 }
-            }else{
+            } else {
                 $status = "File gagal terupload";
             }
         }
-                
+
         return $status;
     }
 
@@ -566,14 +566,14 @@ class Sakitsim extends BaseController {
         }
         return $status;
     }
-    
+
     public function hapusdetil() {
         if (session()->get("logged_in")) {
             $kode = $this->request->uri->getSegment(3);
-            $logo = $this->model->getAllQR("SELECT foto FROM sakit_detil where idsakit_detil = '".$kode."';")->foto;
-            if(strlen($logo) > 0){
-                if(file_exists($this->modul->getPathApp().$logo)){
-                    unlink($this->modul->getPathApp().$logo); 
+            $logo = $this->model->getAllQR("SELECT foto FROM sakit_detil where idsakit_detil = '" . $kode . "';")->foto;
+            if (strlen($logo) > 0) {
+                if (file_exists($this->modul->getPathApp() . $logo)) {
+                    unlink($this->modul->getPathApp() . $logo);
                 }
             }
 
@@ -589,7 +589,7 @@ class Sakitsim extends BaseController {
             $this->modul->halaman('login');
         }
     }
-    
+
     public function gantidetil() {
         if (session()->get("logged_in")) {
             $kond['idsakit_detil'] = $this->request->uri->getSegment(3);
@@ -599,16 +599,16 @@ class Sakitsim extends BaseController {
             $this->modul->halaman('login');
         }
     }
-    
+
     public function ajax_edit_detil() {
         if (session()->get("logged_in")) {
             if (isset($_FILES['file']['name'])) {
-                if(0 < $_FILES['file']['error']) {
-                    $status = "Error during file upload ".$_FILES['file']['error'];
-                }else{
+                if (0 < $_FILES['file']['error']) {
+                    $status = "Error during file upload " . $_FILES['file']['error'];
+                } else {
                     $status = $this->update_detil_dengan();
                 }
-            }else{
+            } else {
                 $status = $this->update_detil_tanpa();
             }
             echo json_encode(array("status" => $status));
@@ -616,25 +616,25 @@ class Sakitsim extends BaseController {
             $this->modul->halaman('login');
         }
     }
-    
+
     private function update_detil_dengan() {
         $kode = $this->request->getPost('kode');
-        $logo = $this->model->getAllQR("SELECT foto FROM sakit_detil where idsakit_detil = '".$kode."';")->foto;
-        if(strlen($logo) > 0){
-            if(file_exists($this->modul->getPathApp().$logo)){
-                unlink($this->modul->getPathApp().$logo); 
+        $logo = $this->model->getAllQR("SELECT foto FROM sakit_detil where idsakit_detil = '" . $kode . "';")->foto;
+        if (strlen($logo) > 0) {
+            if (file_exists($this->modul->getPathApp() . $logo)) {
+                unlink($this->modul->getPathApp() . $logo);
             }
         }
-            
+
         $file = $this->request->getFile('file');
         $namaFile = $file->getRandomName();
         $info_file = $this->modul->info_file($file);
-        
-        if(file_exists($this->modul->getPathApp().$namaFile)){
+
+        if (file_exists($this->modul->getPathApp() . $namaFile)) {
             $status = "Gunakan nama file lain";
-        }else{
+        } else {
             $status_upload = $file->move($this->modul->getPathApp(), $namaFile);
-            if($status_upload){
+            if ($status_upload) {
                 $data = array(
                     'nama_barang' => $this->request->getPost('nama'),
                     'gejala' => $this->request->getPost('gejala'),
@@ -643,19 +643,19 @@ class Sakitsim extends BaseController {
                     'foto' => $namaFile
                 );
                 $kond['idsakit_detil'] = $this->request->getPost('kode');
-                $simpan = $this->model->update("sakit_detil",$data, $kond);
-                if($simpan == 1){
+                $simpan = $this->model->update("sakit_detil", $data, $kond);
+                if ($simpan == 1) {
                     $status = "Data terupdate";
-                }else{
+                } else {
                     $status = "Data gagal terupdate";
                 }
-            }else{
+            } else {
                 $status = "File gagal terupload";
             }
         }
         return $status;
     }
-    
+
     private function update_detil_tanpa() {
         $data = array(
             'nama_barang' => $this->request->getPost('nama'),
@@ -673,4 +673,24 @@ class Sakitsim extends BaseController {
         return $status;
     }
 
+    public function cetak(){
+        if(session()->get("logged_in")){
+            $data['list'] = $this->model->getAllQ("select *, date_format(tanggal, '%d %M %Y') as tgl from sakit;");
+            $data['modul'] = $this->modul;
+            $data['model'] = $this->model;
+            
+            $options = new Options();
+            $options->setChroot(FCPATH);
+            $dompdf = new Dompdf();
+            $dompdf->setOptions($options);
+            $dompdf->loadHtml(view('sakit/pdf', $data));
+            $dompdf->setPaper('A4', 'landscape');
+            $dompdf->render();
+            $filename = 'SakitSimulator';
+            $dompdf->stream($filename); 
+        }else{
+            $this->modul->halaman('login');
+        }
+    }
+    
 }

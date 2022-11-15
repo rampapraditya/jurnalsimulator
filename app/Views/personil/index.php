@@ -26,6 +26,7 @@
         var nama = document.getElementById('nama').value;
         var pangkat = document.getElementById('pangkat').value;
         var korps = document.getElementById('korps').value;
+        var email = document.getElementById('email').value;
         
         if (nrp === '') {
             alert("NRP tidak boleh kosong");
@@ -97,6 +98,7 @@
                 $('[name="kode"]').val(data.idusers);
                 $('[name="nrp"]').val(data.nrp);        
                 $('[name="nama"]').val(data.nama);
+                $('[name="email"]').val(data.email);
                 $('[name="korps"]').val(data.idkorps);
                 $('[name="pangkat"]').val(data.idpangkat);
                 $('[name="role"]').val(data.idrole);
@@ -168,6 +170,10 @@
                     <div class="form-group">
                         <label>NAMA</label>
                         <input id="nama" name="nama" class="form-control" type="text" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label>EMAIL</label>
+                        <input id="email" name="email" class="form-control" type="text" autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label>PANGKAT</label>

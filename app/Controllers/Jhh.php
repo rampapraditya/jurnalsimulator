@@ -3,6 +3,8 @@ namespace App\Controllers;
 
 use App\Models\Mcustom;
 use App\Libraries\Modul;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 class Jhh extends BaseController {
     
@@ -63,10 +65,14 @@ class Jhh extends BaseController {
         if(session()->get("logged_in")){
             $no = 1;
             $data = array();
-            $list = $this->model->getAllQ("SELECT a.*, date_format(a.tanggal, '%d %M %Y') as tgl FROM harwat_harsis a, sakit_harsis b where a.idsakit_harsis = b.idsakit_harsis;");
+            $list = $this->model->getAllQ("SELECT a.*, date_format(a.tanggal, '%d %M %Y') as tgl, b.idsakit FROM harwat_harsis a, sakit_harsis b where a.idsakit_harsis = b.idsakit_harsis;");
             foreach ($list->getResult() as $row) {
                 $val = array();
                 $val[] = $no;
+                // mencari nama simulator
+                $idsim = $this->model->getAllQR("select simulator from sakit where idsakit = '".$row->idsakit."';")->simulator;
+                $namasim = $this->model->getAllQR("select nama_simulator from simulator where idsimulator = '".$idsim."';")->nama_simulator;
+                $val[] = $namasim;
                 $val[] = $row->tgl;
                 $val[] = $row->kegiatan;
                 $val[] = $row->pelaksanaan;
@@ -190,6 +196,26 @@ class Jhh extends BaseController {
                 $status = "Data gagal terhapus";
             }
             echo json_encode(array("status" => $status));
+        }else{
+            $this->modul->halaman('login');
+        }
+    }
+    
+    public function cetak(){
+        if(session()->get("logged_in")){
+            $data['list'] = $this->model->getAllQ("SELECT a.*, date_format(a.tanggal, '%d %M %Y') as tgl, b.idsakit FROM harwat_harsis a, sakit_harsis b where a.idsakit_harsis = b.idsakit_harsis;");
+            $data['modul'] = $this->modul;
+            $data['model'] = $this->model;
+            
+            $options = new Options();
+            $options->setChroot(FCPATH);
+            $dompdf = new Dompdf();
+            $dompdf->setOptions($options);
+            $dompdf->loadHtml(view('harwat_harsis/pdf', $data));
+            $dompdf->setPaper('A4', 'landscape');
+            $dompdf->render();
+            $filename = 'JURNAL HARWAT HARSIS';
+            $dompdf->stream($filename); 
         }else{
             $this->modul->halaman('login');
         }

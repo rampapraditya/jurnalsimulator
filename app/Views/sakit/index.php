@@ -191,6 +191,10 @@
     function detil(kode){
         window.location.href = "<?php echo base_url(); ?>/sakitsim/detil/" + kode;
     }
+    
+    function cetak(){
+        window.location.href = "<?php echo base_url(); ?>/sakitsim/cetak";
+    }
 
 </script>
 <div class="content-wrapper">
@@ -202,7 +206,7 @@
                     <p class="card-description">Maintenance data sakit simulator</p>
                     <button type="button" class="btn btn-primary" onclick="add();">Tambah</button>
                     <button type="button" class="btn btn-secondary" onclick="reload();">Reload</button>
-
+                    <button type="button" class="btn btn-secondary" onclick="cetak();">Cetak</button>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -211,6 +215,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>SIMULATOR</th>
+									<th>TANGGAL</th>
                                     <th style="text-align: center;">DETIL</th>
                                     <th style="text-align: center;">AKSI</th>
                                 </tr>
