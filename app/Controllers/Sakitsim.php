@@ -677,10 +677,36 @@ class Sakitsim extends BaseController {
         }
         return $status;
     }
-
+    
+    public function load_smulator() {
+        if (session()->get("logged_in")) {
+            $status = '<option value="-">- SIMULATOR -</option>';
+            $list = $this->model->getAllQ("select distinct simulator from sakit;");
+            foreach ($list->getResult() as $row) {
+                $nama_sim = $this->model->getAllQR("select nama_simulator from simulator where idsimulator = '".$row->simulator."';")->nama_simulator;
+                $status .= '<option value="'.$row->simulator.'">'.$nama_sim.'</option>';
+            }
+            echo json_encode(array("status" => $status));
+        } else {
+            $this->modul->halaman('login');
+        }
+    }
+    
     public function cetak(){
         if(session()->get("logged_in")){
-            $data['list'] = $this->model->getAllQ("select *, date_format(tanggal, '%d %M %Y') as tgl from sakit;");
+            $tgl1 = $this->request->uri->getSegment(3);
+            $tgl2 = $this->request->uri->getSegment(4);
+            $idsimualtor = $this->request->uri->getSegment(5);
+            
+            $data['tgl1'] = $this->model->getAllQR("select date_format('".$tgl1."', '%d %M %Y') as tgl;")->tgl;
+            $data['tgl2'] = $this->model->getAllQR("select date_format('".$tgl2."', '%d %M %Y') as tgl;")->tgl;
+            
+            if($idsimualtor == "-"){
+                $data['list'] = $this->model->getAllQ("select *, date_format(tanggal, '%d %M %Y') as tgl from sakit where tanggal between '".$tgl1."' and '".$tgl2."';");
+            }else{
+                $data['list'] = $this->model->getAllQ("select *, date_format(tanggal, '%d %M %Y') as tgl from sakit where tanggal between '".$tgl1."' and '".$tgl2."' and simulator = '".$idsimualtor."';");
+            }
+            
             $data['modul'] = $this->modul;
             $data['model'] = $this->model;
             

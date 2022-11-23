@@ -337,7 +337,12 @@ class Ssh extends BaseController {
     
     public function cetak(){
         if(session()->get("logged_in")){
-            $data['list'] = $this->model->getAllQ("SELECT a.*, b.simulator, date_format(a.tanggal, '%d %M %Y') as tgl FROM sakit_harsis a, sakit b where a.idsakit = b.idsakit order by a.tanggal;");
+            $tgl1 = $this->request->uri->getSegment(3);
+            $tgl2 = $this->request->uri->getSegment(4);
+            
+            $data['tgl1'] = $this->model->getAllQR("select date_format('".$tgl1."', '%d %M %Y') as tgl;")->tgl;
+            $data['tgl2'] = $this->model->getAllQR("select date_format('".$tgl2."', '%d %M %Y') as tgl;")->tgl;
+            $data['list'] = $this->model->getAllQ("SELECT a.*, b.simulator, date_format(a.tanggal, '%d %M %Y') as tgl FROM sakit_harsis a, sakit b where a.idsakit = b.idsakit and a.tanggal between '".$tgl1."' and '".$tgl2."' order by a.tanggal;");
             $data['modul'] = $this->modul;
             $data['model'] = $this->model;
             

@@ -88,6 +88,13 @@
                 </tr>
             </table>
             <p style="text-align: center; font-size: 14px;">JURNAL SAKIT HARSIS</p>
+            <table style="margin-top: 20px;">
+                <tr>
+                    <td>RANGE TANGGAL</td>
+                    <td> : </td>
+                    <td><?php echo $tgl1.' sampai tanggal '.$tgl2; ?></td>
+                </tr>
+            </table>
             <table style="font-family: Arial; width: 100%; margin-top: 20px; border-collapse: collapse; border: 1px solid black;" border="1">
                 <tr>
                     <th style="text-align: center; padding: 5px;">NO</th>
