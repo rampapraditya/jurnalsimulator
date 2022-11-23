@@ -11,6 +11,7 @@
         <link rel="stylesheet" href="<?php echo base_url(); ?>/vendors/simple-line-icons/css/simple-line-icons.css">
         <link rel="stylesheet" href="<?php echo base_url(); ?>/vendors/css/vendor.bundle.base.css">
         <link rel="stylesheet" href="<?php echo base_url(); ?>/css/vertical-layout-light/style.css">
+        <link rel="shortcut icon" href="<?php echo base_url(); ?>/images/logodalsen.png" />
         
         <style>
             .backcontent{

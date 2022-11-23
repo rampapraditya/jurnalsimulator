@@ -81,13 +81,20 @@
         <main style="font-size: 12px;">
             <table border="0">
                 <tr>
-                    <td style="text-align: center;">MARKAS BESAR ANGKATAN LAUT</td>
+                    <td style="text-align: center;">KOMANDO PEMBINAAN DOKTRIN, PENDIDIKAN DAN LATIHAN TNI AL</td>
                 </tr>
                 <tr>
-                    <td style="text-align: center;">SEKOLAH TINGGI TEKNOLOGI<hr></td>
+                    <td style="text-align: center;">PUSAT LATIHAN ELEKTRONIKA DAN PENGENDALIAN SENJATA<hr></td>
                 </tr>
             </table>
-            <p style="text-align: center; font-size: 14px;">SURAT MASUK</p>
+            <p style="text-align: center; font-size: 14px;">JURNAL SURAT MASUK RENLAT</p>
+            <table style="margin-top: 20px;">
+                <tr>
+                    <td>RANGE TANGGAL</td>
+                    <td> : </td>
+                    <td><?php echo $tgl1.' sampai tanggal '.$tgl2; ?></td>
+                </tr>
+            </table>
             <table style="font-family: Arial; width: 100%; margin-top: 20px; border-collapse: collapse; border: 1px solid black;" border="1">
                 <tr>
                     <th style="text-align: center; padding: 5px;">NO</th>

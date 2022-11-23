@@ -181,6 +181,7 @@
                                     <th>KEGIATAN</th>
                                     <th>PELAKSANA</th>
                                     <th>KETERANGAN</th>
+                                    <th>STATUS</th>
                                     <th style="text-align: center;">AKSI</th>
                                 </tr>
                             </thead>

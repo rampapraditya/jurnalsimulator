@@ -247,7 +247,35 @@
     }
     
     function cetak(){
-        window.location.href = "<?php  echo base_url(); ?>/oprsim/cetak";
+        $('#form_cetak')[0].reset();
+        $('#modal_cetak').modal('show');
+        $.ajax({
+            url: "<?php echo base_url(); ?>/oprsim/load_smulator",
+            type: "POST",
+            dataType: "JSON",
+            success: function (data) {
+                $('#simulator_cetak').html(data.status);
+            }, error: function (jqXHR, textStatus, errorThrown) {
+                alert('Error load simulator');
+            }
+        });
+    }
+    
+    function printcetak(){
+        var simulator_cetak = document.getElementById('simulator_cetak').value;
+        var tgl1 = document.getElementById('tgl1').value;
+        var tgl2 = document.getElementById('tgl2').value;
+        if(tgl1 === ""){
+            alert("Tanggal awal tidak boleh kosong");
+        }else if(tgl2 === ""){
+            alert("Tanggal akhir tidak boleh kosong");
+        }else{
+            window.location.href = "<?php echo base_url(); ?>/oprsim/cetak/" + tgl1 + "/" + tgl2 + "/" + simulator_cetak;
+        }
+    }
+    
+    function closemodalcetak(){
+        $('#modal_cetak').modal('hide');
     }
 
 </script>
@@ -276,6 +304,7 @@
                                     <th>WAKTU OFF</th>
                                     <th>KONDISI</th>
                                     <th>MODE</th>
+                                    <th>STATUS</th>
                                     <th style="text-align: center;">AKSI</th>
                                 </tr>
                             </thead>
@@ -406,6 +435,41 @@
                     <tbody>
                     </tbody>
                 </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal_cetak" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Cetak Dokumen</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closemodalcetak();">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="form_cetak" class="form-horizontal">
+                    <div class="form-group">
+                        <label>Simulator</label>
+                        <select id="simulator_cetak" name="simulator_cetak" class="form-control">
+                            <option value="-">- SIMULATOR -</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Tanggal Awal</label>
+                        <input id="tgl1" name="tgl1" class="form-control" type="date" value="<?php echo $curdate; ?>" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label>Tanggal Akhir</label>
+                        <input id="tgl2" name="tgl2" class="form-control" type="date" value="<?php echo $curdate; ?>" autocomplete="off">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="printcetak();">Proses</button>
+                <button type="button" class="btn btn-secondary" onclick="closemodalcetak();">Close</button>
             </div>
         </div>
     </div>

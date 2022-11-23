@@ -216,6 +216,7 @@
                                     <th>#</th>
                                     <th>SIMULATOR</th>
 									<th>TANGGAL</th>
+                                    <th>STATUS</th>
                                     <th style="text-align: center;">DETIL</th>
                                     <th style="text-align: center;">AKSI</th>
                                 </tr>

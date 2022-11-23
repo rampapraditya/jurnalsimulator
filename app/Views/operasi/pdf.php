@@ -81,13 +81,20 @@
         <main style="font-size: 12px;">
             <table border="0">
                 <tr>
-                    <td style="text-align: center;">MARKAS BESAR ANGKATAN LAUT</td>
+                    <td style="text-align: center;">KOMANDO PEMBINAAN DOKTRIN, PENDIDIKAN DAN LATIHAN TNI AL</td>
                 </tr>
                 <tr>
-                    <td style="text-align: center;">SEKOLAH TINGGI TEKNOLOGI<hr></td>
+                    <td style="text-align: center;">PUSAT LATIHAN ELEKTRONIKA DAN PENGENDALIAN SENJATA<hr></td>
                 </tr>
             </table>
-            <p style="text-align: center; font-size: 14px;">OPERASI LATIHAN (OPSLAT)</p>
+            <p style="text-align: center; font-size: 14px;">JURNAL OPERASIONAL SIMULATOR</p>
+            <table style="margin-top: 20px;">
+                <tr>
+                    <td>RANGE TANGGAL</td>
+                    <td> : </td>
+                    <td><?php echo $tgl1.' sampai tanggal '.$tgl2; ?></td>
+                </tr>
+            </table>
             <table style="font-family: Arial; width: 100%; margin-top: 20px; border-collapse: collapse; border: 1px solid black;" border="1">
                 <tr>
                     <th style="text-align: center; padding: 5px;">NO</th>
@@ -117,20 +124,7 @@
                     <td style="padding: 5px;">
                         <img src="<?php echo $deflogo; ?>" class="img-thumbnail" style="width: 70px; height: auto;">
                     </td>
-                    <?php
-                    $nama_simulator = "";
-                    if ($row->model == "Pemanasan") {
-                        $nama_simulator = $model->getAllQR("SELECT nama_simulator FROM simulator where idsimulator = '" . $row->idsuratmasuk . "';")->nama_simulator;
-                    } else if ($row->model == "Latihan") {
-                        $cek = $model->getAllQR("SELECT count(b.nama_simulator) as jml FROM suratmasuk a, simulator b where a.idsimulator = b.idsimulator and a.idsuratmasuk = '" . $row->idsuratmasuk . "';")->jml;
-                        if ($cek > 0) {
-                            $nama_simulator = $model->getAllQR("SELECT b.nama_simulator FROM suratmasuk a, simulator b where a.idsimulator = b.idsimulator and a.idsuratmasuk = '" . $row->idsuratmasuk . "';")->nama_simulator;
-                        } else {
-                            $nama_simulator = "";
-                        }
-                    }
-                    ?>
-                    <td style="padding: 5px;"><?php echo $nama_simulator; ?></td>
+                    <td style="padding: 5px;"><?php echo $row->nama_simulator; ?></td>
                     <td style="padding: 5px;"><?php echo $row->kegiatan; ?></td>
                     <td style="padding: 5px;"><?php echo $row->tgl; ?></td>
                     <td style="padding: 5px;"><?php echo $row->waktu_on; ?></td>

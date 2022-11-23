@@ -69,6 +69,11 @@ class Sakitsim extends BaseController {
                 $nama_simulator = $this->model->getAllQR("SELECT nama_simulator FROM simulator where idsimulator = '" . $row->simulator . "';")->nama_simulator;
                 $val[] = $nama_simulator;
                 $val[] = $row->tgl;
+                if($row->ver == 1){
+                    $val[] = "Terverifikasi";
+                }else{
+                    $val[] = "Belum Terverifikasi";
+                }
                 $str = '<table class="table table-hover" style="width: 100%;">
                             <thead>
                                 <tr>

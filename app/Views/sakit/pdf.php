@@ -81,13 +81,13 @@
         <main style="font-size: 12px;">
             <table border="0">
                 <tr>
-                    <td style="text-align: center;">MARKAS BESAR ANGKATAN LAUT</td>
+                    <td style="text-align: center;">KOMANDO PEMBINAAN DOKTRIN, PENDIDIKAN DAN LATIHAN TNI AL</td>
                 </tr>
                 <tr>
-                    <td style="text-align: center;">SEKOLAH TINGGI TEKNOLOGI<hr></td>
+                    <td style="text-align: center;">PUSAT LATIHAN ELEKTRONIKA DAN PENGENDALIAN SENJATA<hr></td>
                 </tr>
             </table>
-            <p style="text-align: center; font-size: 14px;">SAKIT SIMULATOR</p>
+            <p style="text-align: center; font-size: 14px;">JURNAL SAKIT SIMULATOR</p>
             <table style="font-family: Arial; width: 100%; margin-top: 20px; border-collapse: collapse; border: 1px solid black;" border="1">
                 <tr>
                     <th style="text-align: center; padding: 5px;">NO</th>
@@ -104,14 +104,14 @@
                     <?php
                     $nama_simulator = $model->getAllQR("SELECT nama_simulator FROM simulator where idsimulator = '" . $row->simulator . "';")->nama_simulator;
                     ?>
-                    <td style="padding: 5px;"><?php echo $nama_simulator; ?></td>
+                    <td style="padding: 5px;  width : 50px;"><?php echo $nama_simulator; ?></td>
                     <td style="padding: 5px;"><?php echo $row->tgl; ?></td>
                     <td style="padding: 5px;">
                         <table style="font-family: Arial; width: 100%; margin-top: 20px; border-collapse: collapse; border: 1px solid darkgray;" border="1">
                             <tr>
-                                <th style="text-align: center; padding: 5px;">FOTO</th>
-                                <th style="text-align: center; padding: 5px;">BARANG</th>
-                                <th style="text-align: center; padding: 5px;">GEJALA</th>
+                                <th style="text-align: center; padding: 5px; width : 170px;">FOTO</th>
+                                <th style="text-align: center; padding: 5px; width : 120px;">BARANG</th>
+                                <th style="text-align: center; padding: 5px; width : 100px;">GEJALA</th>
                                 <th style="text-align: center; padding: 5px;">KEGIATAN</th>
                             </tr>
                             <?php

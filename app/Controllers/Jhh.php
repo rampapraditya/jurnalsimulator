@@ -77,6 +77,11 @@ class Jhh extends BaseController {
                 $val[] = $row->kegiatan;
                 $val[] = $row->pelaksanaan;
                 $val[] = $row->keterangan;
+                if($row->ver == 1){
+                    $val[] = "Terverifikasi";
+                }else{
+                    $val[] = "Belum Terverifikasi";
+                }
                 $val[] = '<div style="text-align: center;">'
                         . '<button type="button" class="btn btn-outline-primary btn-fw" onclick="ganti('."'".$row->idharwat_harsis."'".')">Ganti</button>&nbsp;'
                         . '<button type="button" class="btn btn-outline-danger btn-fw" onclick="hapus('."'".$row->idharwat_harsis."'".','."'".$no."'".')">Hapus</button>'

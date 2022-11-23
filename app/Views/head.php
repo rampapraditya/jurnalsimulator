@@ -12,6 +12,7 @@
         <link rel="stylesheet" href="<?php echo base_url(); ?>/vendors/css/vendor.bundle.base.css">
         <link rel="stylesheet" href="<?php echo base_url(); ?>/vendors/datatable/dataTables.bootstrap4.min.css">
         <link rel="stylesheet" href="<?php echo base_url(); ?>/js/select.dataTables.min.css">
+        <link rel="shortcut icon" href="<?php echo base_url(); ?>/images/logodalsen.png" />
         <link rel="stylesheet" href="<?php echo base_url(); ?>/css/vertical-layout-light/style.css">
         <script src="<?php echo base_url(); ?>/js/jquery-3.5.1.js"></script>
         
@@ -59,11 +60,11 @@
                         </button>
                     </div>
                     <div>
-                        <a class="navbar-brand brand-logo" href="<?php echo base_url(); ?>welcome">
+                        <a class="navbar-brand brand-logo" href="<?php echo base_url(); ?>/home">
                             <h2>JURNAL</h2>
                         </a>
-                        <a class="navbar-brand brand-logo-mini" href="<?php echo base_url(); ?>welcome">
-                            <h5>JURNAL SIMULATOR</h5>
+                        <a class="navbar-brand brand-logo-mini" href="<?php echo base_url(); ?>/home">
+                            <!-- <h5>JURNAL SIMULATOR</h5> -->
                         </a>
                     </div>
                 </div>

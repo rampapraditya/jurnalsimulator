@@ -66,7 +66,7 @@ class Suratmasuk extends BaseController {
             $data = array();
             $list = $this->model->getAllQ("SELECT suratmasuk.*, users.nrp, users.nama, simulator.nama_simulator, date_format(tanggal, '%d %M %Y') as tgl FROM suratmasuk
                 LEFT JOIN users ON suratmasuk.idusers = users.idusers
-                LEFT JOIN simulator ON suratmasuk.idsimulator = simulator.idsimulator");
+                LEFT JOIN simulator ON suratmasuk.idsimulator = simulator.idsimulator order by suratmasuk.tanggal desc");
             foreach ($list->getResult() as $row) {
                 $val = array();
                 if($row->nama_simulator == "SEMENTARA"){
@@ -77,6 +77,11 @@ class Suratmasuk extends BaseController {
                     $val[] = '<label style="color:red;">'.$row->dari.'</label>';
                     $val[] = '<label style="color:red;">'.$row->perihal.'</label>';
                     $val[] = '<label style="color:red;">'.$row->keterangan.'</label>';
+                    if($row->ver == 1){
+                        $val[] = "Terverifikasi";
+                    }else{
+                        $val[] = "Belum Terverifikasi";
+                    }
                 }else{
                     $val[] = $no;
                     $val[] = $row->nama_simulator;
@@ -85,6 +90,11 @@ class Suratmasuk extends BaseController {
                     $val[] = $row->dari;
                     $val[] = $row->perihal;
                     $val[] = $row->keterangan;
+                    if($row->ver == 1){
+                        $val[] = "Terverifikasi";
+                    }else{
+                        $val[] = "Belum Terverifikasi";
+                    }
                 }
                 
                 $val[] = '<div style="text-align: center;">'
@@ -219,9 +229,13 @@ class Suratmasuk extends BaseController {
     
     public function cetak(){
         if(session()->get("logged_in")){
+            $tgl1 = $this->request->uri->getSegment(3);
+            $tgl2 = $this->request->uri->getSegment(4);
+            $data['tgl1'] = $this->model->getAllQR("select date_format('".$tgl1."', '%d %M %Y') as tgl;")->tgl;
+            $data['tgl2'] = $this->model->getAllQR("select date_format('".$tgl2."', '%d %M %Y') as tgl;")->tgl;
             $data['list'] = $this->model->getAllQ("SELECT suratmasuk.*, users.nrp, users.nama, simulator.nama_simulator, date_format(tanggal, '%d %M %Y') as tgl FROM suratmasuk
                 LEFT JOIN users ON suratmasuk.idusers = users.idusers
-                LEFT JOIN simulator ON suratmasuk.idsimulator = simulator.idsimulator");
+                LEFT JOIN simulator ON suratmasuk.idsimulator = simulator.idsimulator where suratmasuk.tanggal between '".$tgl1."' and '".$tgl2."';");
             
             $dompdf = new Dompdf();
             $dompdf->loadHtml(view('suratmasuk/pdf', $data));

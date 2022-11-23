@@ -66,9 +66,12 @@ class Oprsim extends BaseController {
         if (session()->get("logged_in")) {
             $no = 1;
             $data = array();
-            $list = $this->model->getAllQ("SELECT *, 'Pemanasan' as model, idsimulator as idsuratmasuk, date_format(tanggal, '%d %M %Y') as tgl FROM osp
-union
-SELECT *, 'Latihan' as model, idsuratmasuk, date_format(tanggal, '%d %M %Y') as tgl FROM osl order by tanggal desc;");
+            $list = $this->model->getAllQ("SELECT idop_simulator as kode, tanggal, date_format(tanggal, '%d %M %Y') as tgl, kegiatan, waktu_on, waktu_off, keterangan, foto, a.idsimulator, d.nama_simulator, 'Pemanasan' as model, a.kondisi, a.ver 
+                    FROM osp a, simulator d where a.idsimulator = d.idsimulator 
+                    union all 
+                    SELECT idop_simulator as kode, a.tanggal, date_format(a.tanggal, '%d %M %Y') as tgl, a.kegiatan, waktu_on, waktu_off, a.keterangan, foto, b.idsimulator, c.nama_simulator, 'Latihan' as model, a.kondisi, a.ver 
+                    FROM osl a, suratmasuk b, simulator c where a.idsuratmasuk = b.idsuratmasuk and b.idsimulator = c.idsimulator 
+                    order by tanggal desc;");
             foreach ($list->getResult() as $row) {
                 $val = array();
                 $val[] = $no;
@@ -80,27 +83,21 @@ SELECT *, 'Latihan' as model, idsuratmasuk, date_format(tanggal, '%d %M %Y') as 
                     }
                 }
                 $val[] = '<img src="' . $deflogo . '" class="img-thumbnail" style="width: 70px; height: auto;">';
-
-                if ($row->model == "Pemanasan") {
-                    $val[] = $this->model->getAllQR("SELECT nama_simulator FROM simulator where idsimulator = '" . $row->idsuratmasuk . "';")->nama_simulator;
-                } else if ($row->model == "Latihan") {
-                    $cek = $this->model->getAllQR("SELECT count(b.nama_simulator) as jml FROM suratmasuk a, simulator b where a.idsimulator = b.idsimulator and a.idsuratmasuk = '" . $row->idsuratmasuk . "';")->jml;
-                    if ($cek > 0) {
-                        $val[] = $this->model->getAllQR("SELECT b.nama_simulator FROM suratmasuk a, simulator b where a.idsimulator = b.idsimulator and a.idsuratmasuk = '" . $row->idsuratmasuk . "';")->nama_simulator;
-                    } else {
-                        $val[] = "";
-                    }
-                }
-
+                $val[] = $row->nama_simulator;
                 $val[] = $row->kegiatan;
                 $val[] = $row->tgl;
                 $val[] = $row->waktu_on;
                 $val[] = $row->waktu_off;
                 $val[] = $row->kondisi;
                 $val[] = $row->model;
+                if($row->ver == 1){
+                    $val[] = '<p style="color:green;">Verifikasi</p>';
+                }else{
+                    $val[] = '<p style="color:red;">Belum Verifikasi</p>';
+                }
                 $val[] = '<div style="text-align: center;">'
-                        . '<button type="button" class="btn btn-outline-primary btn-fw" onclick="ganti(' . "'" . $row->idop_simulator . "'" . ')">Ganti</button>&nbsp;'
-                        . '<button type="button" class="btn btn-outline-danger btn-fw" onclick="hapus(' . "'" . $row->idop_simulator . "'" . ',' . "'" . $no . "'" . ',' . "'" . $row->model . "'" . ')">Hapus</button>'
+                        . '<button type="button" class="btn btn-outline-primary btn-fw" onclick="ganti(' . "'" . $row->kode . "'" . ')">Ganti</button>&nbsp;'
+                        . '<button type="button" class="btn btn-outline-danger btn-fw" onclick="hapus(' . "'" . $row->kode . "'" . ',' . "'" . $no . "'" . ',' . "'" . $row->model . "'" . ')">Hapus</button>'
                         . '</div>';
                 $data[] = $val;
 
@@ -495,12 +492,56 @@ SELECT *, 'Latihan' as model, idsuratmasuk, date_format(tanggal, '%d %M %Y') as 
             $this->modul->halaman('login');
         }
     }
-
-    public function cetak(){
-        if(session()->get("logged_in")){
-            $data['list'] = $this->model->getAllQ("SELECT *, 'Pemanasan' as model, idsimulator as idsuratmasuk, date_format(tanggal, '%d %M %Y') as tgl FROM osp 
+    
+    public function load_smulator() {
+        if (session()->get("logged_in")) {
+            $simulator = array();
+            $list = $this->model->getAllQ("SELECT *, 'Pemanasan' as model, idsimulator as idsuratmasuk, date_format(tanggal, '%d %M %Y') as tgl FROM osp 
                 union 
                 SELECT *, 'Latihan' as model, idsuratmasuk, date_format(tanggal, '%d %M %Y') as tgl FROM osl order by tanggal desc;");
+            foreach ($list->getResult() as $row) {
+                array_push($simulator, $row->idsimulator);
+            }
+            
+            $temp = array_unique($simulator);
+            $status = '<option value="-">- SIMULATOR -</option>';
+            for($i = 0; $i < count($temp); $i++)
+            {
+                // mencari 
+                $nama_sim = $this->model->getAllQR("select nama_simulator from simulator where idsimulator = '".$temp[$i]."';")->nama_simulator;
+                $status .= '<option value="'.$temp[$i].'">'.$nama_sim.'</option>';
+            }
+            echo json_encode(array("status" => $status));
+        } else {
+            $this->modul->halaman('login');
+        }
+    }
+    
+    public function cetak(){
+        if(session()->get("logged_in")){
+            $tgl1 = $this->request->uri->getSegment(3);
+            $tgl2 = $this->request->uri->getSegment(4);
+            $idsimualtor = $this->request->uri->getSegment(5);
+            
+            $data['tgl1'] = $this->model->getAllQR("select date_format('".$tgl1."', '%d %M %Y') as tgl;")->tgl;
+            $data['tgl2'] = $this->model->getAllQR("select date_format('".$tgl2."', '%d %M %Y') as tgl;")->tgl;
+            
+            if($idsimualtor == "-"){
+                $data['list'] = $this->model->getAllQ("SELECT idop_simulator as kode, tanggal, date_format(tanggal, '%d %M %Y') as tgl, kegiatan, waktu_on, waktu_off, keterangan, foto, a.idsimulator, d.nama_simulator, 'Pemanasan' as model, a.kondisi "
+                        . "FROM osp a, simulator d where a.idsimulator = d.idsimulator and a.tanggal between '".$tgl1."' and '".$tgl2."' 
+                            union all 
+                            SELECT idop_simulator as kode, a.tanggal, date_format(a.tanggal, '%d %M %Y') as tgl, a.kegiatan, waktu_on, waktu_off, a.keterangan, foto, b.idsimulator, c.nama_simulator, 'Latihan' as model, a.kondisi 
+                            FROM osl a, suratmasuk b, simulator c where a.idsuratmasuk = b.idsuratmasuk and b.idsimulator = c.idsimulator and a.tanggal between '".$tgl1."' and '".$tgl2."' "
+                        . "order by tanggal desc;");
+            }else{
+                $data['list'] = $this->model->getAllQ("SELECT idop_simulator as kode, tanggal, date_format(tanggal, '%d %M %Y') as tgl, kegiatan, waktu_on, waktu_off, keterangan, foto, a.idsimulator, d.nama_simulator, 'Pemanasan' as model, a.kondisi 
+                    FROM osp a, simulator d where a.idsimulator = d.idsimulator and a.tanggal between '".$tgl1."' and '".$tgl2."' and a.idsimulator = '".$idsimualtor."' 
+                    union all 
+                    SELECT idop_simulator as kode, a.tanggal, date_format(a.tanggal, '%d %M %Y') as tgl, a.kegiatan, waktu_on, waktu_off, a.keterangan, foto, b.idsimulator, c.nama_simulator, 'Latihan' as model, a.kondisi 
+                    FROM osl a, suratmasuk b, simulator c where a.idsuratmasuk = b.idsuratmasuk and b.idsimulator = c.idsimulator and a.tanggal between '".$tgl1."' and '".$tgl2."' and b.idsimulator = '".$idsimualtor."' 
+                    order by tanggal desc;");
+            }
+            
             $data['modul'] = $this->modul;
             $data['model'] = $this->model;
             

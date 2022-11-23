@@ -81,10 +81,10 @@
         <main style="font-size: 12px;">
             <table border="0">
                 <tr>
-                    <td style="text-align: center;">MARKAS BESAR ANGKATAN LAUT</td>
+                    <td style="text-align: center;">KOMANDO PEMBINAAN DOKTRIN, PENDIDIKAN DAN LATIHAN TNI AL</td>
                 </tr>
                 <tr>
-                    <td style="text-align: center;">SEKOLAH TINGGI TEKNOLOGI<hr></td>
+                    <td style="text-align: center;">PUSAT LATIHAN ELEKTRONIKA DAN PENGENDALIAN SENJATA<hr></td>
                 </tr>
             </table>
             <p style="text-align: center; font-size: 14px;">JURNAL SAKIT HARSIS</p>
