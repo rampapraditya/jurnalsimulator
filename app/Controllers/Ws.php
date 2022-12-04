@@ -833,10 +833,9 @@ class Ws extends BaseController {
                             'kondisi' => $this->request->getPost('kondisi'),
                             'keterangan' => $this->request->getPost('keterangan'),
                             'foto' => $file_name,
-                            'idusers' => $this->request->getPost('idusers'),
                             'idsuratmasuk' => $this->request->getPost('kode_renlat')
                         );
-                        $kond['idop_simulator'] = $kode;
+                        $kond['idop_simulator'] = $this->request->getPost('kode');
                         $simpan = $this->model->update("osl", $data, $kond);
                         if ($simpan == 1) {
                             $status = "Data tersimpan";
@@ -1183,7 +1182,8 @@ class Ws extends BaseController {
                 'idsakit' => $sakit_simulator->idsakit,
                 'idsim' => $sakit_simulator->idsimulator,
                 'nama_sim' => $sakit_simulator->nama_simulator,
-                'tgl' => $row->tgl,
+                'tgl' => $row->tanggal,
+                'tglf' => $row->tgl,
                 'kerusakan' => $row->kerusakan,
                 'tindakan' => $row->tindakan,
                 'keterangan' => $row->keterangan
@@ -1235,6 +1235,212 @@ class Ws extends BaseController {
 
             $no++;
         }
+        echo json_encode(array("result" => $result));
+    }
+    
+    public function sakitsim() {
+        $result = array();
+        $no = 1;
+        $list = $this->model->getAllQ("select b.idsakit, b.simulator, a.nama_simulator from simulator a, sakit b where a.idsimulator = b.simulator and b.idsakit not in(select idsakit from sakit_harsis);");
+        foreach ($list->getResult() as $row) {
+            array_push($result, array(
+                'idsakit' => $row->idsakit,
+                'no' => $no,
+                'idsim' => $row->simulator,
+                'namasim' => $row->nama_simulator
+            ));
+            $no++;
+        }
+        echo json_encode(array("result" => $result));
+    }
+    
+    public function sakitsimdetil() {
+        $idsakit = $this->request->getPost('idsakit');
+        $result = array();
+        $list = $this->model->getAllQ("SELECT * FROM sakit_detil where idsakit = '".$idsakit."';");
+        foreach ($list->getResult() as $row) {
+            $defimg = base_url() . '/images/noimg.png';
+            if (strlen($row->foto) > 0) {
+                if (file_exists($this->modul->getPathApp().$row->foto)) {
+                    $defimg = base_url().'/uploads/'.$row->foto;
+                }
+            }       
+            array_push($result, array(
+                'foto' => $defimg,
+                'namabarang' => $row->nama_barang,
+                'gejala' => $row->gejala,
+                'kegiatan' => $row->kegiatan
+            ));
+        }
+        echo json_encode(array("result" => $result));
+    }
+    
+    public function simpan_sakit_tanpa_file() {
+        $data = array(
+            'idsakit_harsis' => $this->model->autokode("H","idsakit_harsis","sakit_harsis", 2, 7),
+            'tanggal' => $this->request->getPost('tgl'),
+            'idsakit' => $this->request->getPost('idsakit'),
+            'kerusakan' => $this->request->getPost('kerusakan'),
+            'tindakan' => $this->request->getPost('tindakan'),
+            'keterangan' => $this->request->getPost('keterangan'),
+            'foto' => '',
+            'idusers' => $this->request->getPost('idusers')
+        );
+        $simpan = $this->model->add("sakit_harsis",$data);
+        if($simpan == 1){
+            $status = "Data tersimpan";
+        }else{
+            $status = "Data gagal tersimpan";
+        }
+        
+        $result = array();
+        array_push($result, array('status' => $status));
+        echo json_encode(array("result" => $result));
+    }
+    
+    public function update_sakit_tanpa_file() {
+        $data = array(
+            'tanggal' => $this->request->getPost('tgl'),
+            'idsakit' => $this->request->getPost('idsakit'),
+            'kerusakan' => $this->request->getPost('kerusakan'),
+            'tindakan' => $this->request->getPost('tindakan'),
+            'keterangan' => $this->request->getPost('keterangan'),
+            'idusers' => $this->request->getPost('idusers')
+        );
+        $kond['idsakit_harsis'] = $this->request->getPost('kode');
+        $simpan = $this->model->update("sakit_harsis",$data, $kond);
+        if($simpan == 1){
+            $status = "Data tersimpan";
+        }else{
+            $status = "Data gagal tersimpan";
+        }
+        
+        $result = array();
+        array_push($result, array('status' => $status));
+        echo json_encode(array("result" => $result));
+    }
+    
+    public function simpan_sakit_dengan_file() {
+        $dir = $this->modul->setPathApp();
+        $idusers = $this->request->getPost('idusers');
+
+        if (isset($_FILES['image']['name'])) {
+            $file_name_temp = basename($_FILES['image']['name']);
+            $file_name = preg_replace("/[^a-zA-Z0-9.]/", "", $file_name_temp);
+            $extension = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
+            if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg') {
+                if ($_FILES["image"]["size"] < 15000001) {
+                    $file = $dir . $file_name;
+
+                    if (move_uploaded_file($_FILES['image']['tmp_name'], $file)) {
+                        $data = array(
+                            'idsakit_harsis' => $this->model->autokode("H","idsakit_harsis","sakit_harsis", 2, 7),
+                            'tanggal' => $this->request->getPost('tgl'),
+                            'idsakit' => $this->request->getPost('idsakit'),
+                            'kerusakan' => $this->request->getPost('kerusakan'),
+                            'tindakan' => $this->request->getPost('tindakan'),
+                            'keterangan' => $this->request->getPost('keterangan'),
+                            'foto' => $file_name,
+                            'idusers' => $this->request->getPost('idusers')
+                        );
+                        $simpan = $this->model->add("sakit_harsis", $data);
+                        if ($simpan == 1) {
+                            $status = "Data tersimpan";
+                        } else {
+                            $status = "Data gagal tersimpan";
+                        }
+                    } else {
+                        $status = "Terjadi kesesalahan, silakan coba lagi";
+                    }
+                } else {
+                    $status = "Batas ukuran file 15 MB";
+                }
+            } else {
+                $status = "Hanya mendukung format gambar .png, .jpg and .jpeg";
+            }
+        } else {
+            $status = "Silakan mencoba dengan metode POST";
+        }
+
+        $result = array();
+        array_push($result, array('status' => $status));
+        echo json_encode(array("result" => $result));
+    }
+    
+    public function update_sakit_dengan_file() {
+        $dir = $this->modul->setPathApp();
+        $idusers = $this->request->getPost('idusers');
+
+        if (isset($_FILES['image']['name'])) {
+            $file_name_temp = basename($_FILES['image']['name']);
+            $file_name = preg_replace("/[^a-zA-Z0-9.]/", "", $file_name_temp);
+            $extension = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
+            if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg') {
+                if ($_FILES["image"]["size"] < 15000001) {
+                    $file = $dir . $file_name;
+                    
+                    // hapus terlebih dahulu
+                    $lawas = $this->model->getAllQR("SELECT foto FROM sakit_harsis where idsakit_harsis = '" . $this->request->getPost('kode') . "';")->foto;
+                    if (strlen($lawas) > 0) {
+                        if (file_exists($this->modul->getPathApp() . $lawas)) {
+                            unlink($this->modul->getPathApp() . $lawas);
+                        }
+                    }
+                    
+                    if (move_uploaded_file($_FILES['image']['tmp_name'], $file)) {
+                        $data = array(
+                            'tanggal' => $this->request->getPost('tgl'),
+                            'idsakit' => $this->request->getPost('idsakit'),
+                            'kerusakan' => $this->request->getPost('kerusakan'),
+                            'tindakan' => $this->request->getPost('tindakan'),
+                            'keterangan' => $this->request->getPost('keterangan'),
+                            'foto' => $file_name,
+                            'idusers' => $this->request->getPost('idusers')
+                        );
+                        $kond['idsakit_harsis'] = $this->request->getPost('kode');
+                        $simpan = $this->model->update("sakit_harsis", $data, $kond);
+                        if ($simpan == 1) {
+                            $status = "Data tersimpan";
+                        } else {
+                            $status = "Data gagal tersimpan";
+                        }
+                    } else {
+                        $status = "Terjadi kesesalahan, silakan coba lagi";
+                    }
+                } else {
+                    $status = "Batas ukuran file 15 MB";
+                }
+            } else {
+                $status = "Hanya mendukung format gambar .png, .jpg and .jpeg";
+            }
+        } else {
+            $status = "Silakan mencoba dengan metode POST";
+        }
+
+        $result = array();
+        array_push($result, array('status' => $status));
+        echo json_encode(array("result" => $result));
+    }
+    
+    public function hapus_ssh() {
+        $kode = $this->request->getPost('kode');
+        $lawas = $this->model->getAllQR("SELECT foto FROM sakit_harsis where idsakit_harsis = '" . $kode . "';")->foto;
+        if (strlen($lawas) > 0) {
+            if (file_exists($this->modul->getPathApp() . $lawas)) {
+                unlink($this->modul->getPathApp() . $lawas);
+            }
+        }
+        
+        $kond['idsakit_harsis'] = $kode;
+        $hapus = $this->model->delete("sakit_harsis", $kond);
+        if ($hapus == 1) {
+            $status = "Data terhapus";
+        } else {
+            $status = "Data gagal terhapus";
+        }
+        
+        $result = array();
+        array_push($result, array('status' => $status));
         echo json_encode(array("result" => $result));
     }
 
