@@ -5,7 +5,7 @@
 
     $(document).ready(function () {
         table = $('#tb').DataTable({
-            ajax: "<?php echo base_url(); ?>/jhh/ajaxlist",
+            ajax: "<?php echo base_url(); ?>/jhhnon/ajaxlist",
             ordering: false
         });
     });
@@ -51,9 +51,9 @@
             
             var url = "";
             if (save_method === 'add') {
-                url = "<?php echo base_url(); ?>/jhh/ajax_add";
+                url = "<?php echo base_url(); ?>/jhhnon/ajax_add";
             } else {
-                url = "<?php echo base_url(); ?>/jhh/ajax_edit";
+                url = "<?php echo base_url(); ?>/jhhnon/ajax_edit";
             }
             
             $.ajax({
@@ -85,7 +85,7 @@
     function hapus(id, nama) {
         if (confirm("Apakah anda yakin menghapus harwat harsis nomor " + nama + " ?")) {
             $.ajax({
-                url: "<?php echo base_url(); ?>/jhh/hapus/" + id,
+                url: "<?php echo base_url(); ?>/jhhnon/hapus/" + id,
                 type: "POST",
                 dataType: "JSON",
                 success: function (data) {
@@ -104,7 +104,7 @@
         $('#modal_form').modal('show');
         $('.modal-title').text('Ganti harwat harsis');
         $.ajax({
-            url: "<?php echo base_url(); ?>/jhh/ganti/" + id,
+            url: "<?php echo base_url(); ?>/jhhnon/ganti/" + id,
             type: "POST",
             dataType: "JSON",
             success: function (data) {
@@ -130,13 +130,13 @@
     function show_sakit_harsis(){
         $('#modal_sakit').modal('show');
         tb_sakit = $('#tb_sakit').DataTable({
-            ajax: "<?php echo base_url(); ?>/jhh/ajaxshowsakit",
+            ajax: "<?php echo base_url(); ?>/jhhnon/ajaxshowsakit",
             ordering: false,
             retrieve:true
         });
         tb_sakit.destroy();
         tb_sakit = $('#tb_sakit').DataTable({
-            ajax: "<?php echo base_url(); ?>/jhh/ajaxshowsakit",
+            ajax: "<?php echo base_url(); ?>/jhhnon/ajaxshowsakit",
             ordering: false,
             retrieve:true
         });
@@ -168,7 +168,7 @@
         }else if(tgl2 === ""){
             alert("Tanggal akhir tidak boleh kosong");
         }else{
-            window.open("<?php echo base_url(); ?>/jhh/cetak/" + tgl1 + "/" + tgl2, "_blank");
+            window.open("<?php echo base_url(); ?>/jhhnon/cetak/" + tgl1 + "/" + tgl2, "_blank");
         }
     }
     
@@ -184,10 +184,20 @@
                 <div class="card-body">
                     <h4 class="card-title">JURNAL HARWAT HARSIS</h4>
                     <p class="card-description">Maintenance jurnal perawatan sakit simulator</p>
-
+                    
+                    <?php
+                    if($nmrole == "KOMANDAN" || $nmrole == "WADAN"){
+                        ?>
+                    <button type="button" class="btn btn-secondary" onclick="cetak();">Cetak</button>
+                        <?php
+                    }else{
+                        ?>
                     <button type="button" class="btn btn-primary" onclick="add();">Tambah</button>
                     <button type="button" class="btn btn-secondary" onclick="reload();">Reload</button>
                     <button type="button" class="btn btn-secondary" onclick="cetak();">Cetak</button>
+                        <?php
+                    }
+                    ?>
 
                 </div>
                 <div class="card-body">
@@ -196,13 +206,22 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-									<th>SIMULATOR</th>
+                                    <th>SIMULATOR</th>
                                     <th>TANGGAL</th>
                                     <th>KEGIATAN</th>
                                     <th>PELAKSANA</th>
                                     <th>KETERANGAN</th>
                                     <th>STATUS</th>
+                                    <?php
+                                    if($nmrole == "KOMANDAN" || $nmrole == "WADAN"){
+                                        
+                                    }else{
+                                        ?>
                                     <th style="text-align: center;">AKSI</th>
+                                        <?php
+                                    }
+                                    ?>
+                                    
                                 </tr>
                             </thead>
                             <tbody>

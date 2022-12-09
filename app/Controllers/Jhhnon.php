@@ -6,7 +6,7 @@ use App\Libraries\Modul;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 
-class Jhh extends BaseController {
+class Jhhnon extends BaseController {
     
     private $model;
     private $modul;
@@ -17,7 +17,7 @@ class Jhh extends BaseController {
     }
     
     public function index(){
-        if(session()->get("logged_in")){
+        if(session()->get("logged_no_admin")){
             $data['username'] = session()->get("username");
             $data['nama'] = session()->get("nama");
             $data['role'] = session()->get("role");
@@ -51,9 +51,9 @@ class Jhh extends BaseController {
             
             $data['curdate'] = $this->modul->TanggalSekarang();
             
-            echo view('head', $data);
-            echo view('menu');
-            echo view('harwat_harsis/index');
+            echo view('head_non', $data);
+            echo view('menu_non');
+            echo view('harwat_harsis_non/index');
             echo view('foot');
             
         }else{
@@ -62,7 +62,10 @@ class Jhh extends BaseController {
     }
 
     public function ajaxlist() {
-        if(session()->get("logged_in")){
+        if(session()->get("logged_no_admin")){
+            $role = session()->get("role");
+            $nmrole = $this->model->getAllQR("SELECT nama_role FROM role where idrole = '".$role."';")->nama_role;
+            
             $no = 1;
             $data = array();
             $list = $this->model->getAllQ("SELECT a.*, date_format(a.tanggal, '%d %M %Y') as tgl, b.idsakit FROM harwat_harsis a, sakit_harsis b where a.idsakit_harsis = b.idsakit_harsis;");
@@ -82,10 +85,16 @@ class Jhh extends BaseController {
                 }else{
                     $val[] = "Belum Terverifikasi";
                 }
-                $val[] = '<div style="text-align: center;">'
+                
+                if($nmrole == "KOMANDAN" || $nmrole == "WADAN"){
+                    $val[] = '<div style="text-align: center;"></div>';
+                }else{
+                    $val[] = '<div style="text-align: center;">'
                         . '<button type="button" class="btn btn-outline-primary btn-fw" onclick="ganti('."'".$row->idharwat_harsis."'".')">Ganti</button>&nbsp;'
                         . '<button type="button" class="btn btn-outline-danger btn-fw" onclick="hapus('."'".$row->idharwat_harsis."'".','."'".$no."'".')">Hapus</button>'
                         . '</div>';
+                }
+                
                 $data[] = $val;
                 
                 $no++;
@@ -98,7 +107,7 @@ class Jhh extends BaseController {
     }
     
     public function ajaxshowsakit() {
-        if(session()->get("logged_in")){
+        if(session()->get("logged_no_admin")){
             $no = 1;
             $data = array();
             $list = $this->model->getAllQ("SELECT a.*, b.simulator, date_format(a.tanggal, '%d %M %Y') as tgl FROM sakit_harsis a, sakit b where a.idsakit = b.idsakit order by a.tanggal;");
@@ -134,7 +143,7 @@ class Jhh extends BaseController {
     }
     
     public function ajax_add() {
-        if(session()->get("logged_in")){
+        if(session()->get("logged_no_admin")){
             $idusers = session()->get("username");
             
             $data = array(
@@ -159,7 +168,7 @@ class Jhh extends BaseController {
     }
     
     public function ganti() {
-        if(session()->get("logged_in")){
+        if(session()->get("logged_no_admin")){
             $kode = $this->request->uri->getSegment(3);
             $data = $this->model->getAllQR("SELECT a.*, b.kerusakan, b.tindakan, d.nama_simulator FROM harwat_harsis a, sakit_harsis b, sakit c, simulator d 
             where a.idsakit_harsis = b.idsakit_harsis and a.idharwat_harsis = '".$kode."' and b.idsakit = c.idsakit and c.simulator = d.idsimulator;");
@@ -170,7 +179,7 @@ class Jhh extends BaseController {
     }
     
     public function ajax_edit() {
-        if(session()->get("logged_in")){
+        if(session()->get("logged_no_admin")){
             $idusers = session()->get("username");
             $data = array(
                 'idsakit_harsis' => $this->request->getPost('idsakit'),
@@ -194,7 +203,7 @@ class Jhh extends BaseController {
     }
     
     public function hapus() {
-        if(session()->get("logged_in")){
+        if(session()->get("logged_no_admin")){
             $kond['idharwat_harsis'] = $this->request->uri->getSegment(3);
             $hapus = $this->model->delete("harwat_harsis",$kond);
             if($hapus == 1){
@@ -209,7 +218,7 @@ class Jhh extends BaseController {
     }
     
     public function cetak(){
-        if(session()->get("logged_in")){
+        if(session()->get("logged_no_admin")){
             $tgl1 = $this->request->uri->getSegment(3);
             $tgl2 = $this->request->uri->getSegment(4);
             
@@ -224,7 +233,7 @@ class Jhh extends BaseController {
             $options->setChroot(FCPATH);
             $dompdf = new Dompdf();
             $dompdf->setOptions($options);
-            $dompdf->loadHtml(view('harwat_harsis/pdf', $data));
+            $dompdf->loadHtml(view('harwat_harsis_non/pdf', $data));
             $dompdf->setPaper('A4', 'landscape');
             $dompdf->render();
             $filename = 'JURNAL HARWAT HARSIS';

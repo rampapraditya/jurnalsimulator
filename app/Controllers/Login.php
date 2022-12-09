@@ -48,7 +48,7 @@ class Login extends BaseController {
         $enkrip_pass = $this->modul->enkrip_pass($pass);
         $jml = $this->model->getAllQR("SELECT count(*) as jml FROM users where nrp = '".$user."';")->jml;
         if($jml > 0){
-            $jml1 = $this->model->getAllQR("select count(*) as jml from users where nrp = '".$user."' and pass = '".$enkrip_pass."';")->jml;
+            $jml1 = $this->model->getAllQR("select count(*) as jml from users where nrp = '".$user."' and pass = '".$enkrip_pass."' and idrole in('R00001', 'R00002', 'R00003', 'R00004', 'R00008','R00009');")->jml;
             if($jml1 > 0){
                 $data = $this->model->getAllQR("select idusers, nrp, nama, idrole from users where nrp = '".$user."';");
                 if($data->idrole == "R00001"){

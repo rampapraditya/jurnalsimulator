@@ -4,18 +4,18 @@ namespace App\Controllers;
 use App\Models\Mcustom;
 use App\Libraries\Modul;
 
-class Profile extends BaseController {
+class Profilenon extends BaseController {
     
     private $model;
     private $modul;
     
     public function __construct() {
         $this->model = new Mcustom();
-        $this->modul= new Modul();
+        $this->modul = new Modul();
     }
     
     public function index(){
-        if(session()->get("logged_in")){
+        if(session()->get("logged_no_admin")){
             $data['username'] = session()->get("username");
             $data['nama'] = session()->get("nama");
             $data['role'] = session()->get("role");
@@ -56,7 +56,7 @@ class Profile extends BaseController {
 
             echo view('head_non', $data);
             echo view('menu_non');
-            echo view('profile/index');
+            echo view('profile/non');
             echo view('foot');
             
         }else{
@@ -65,7 +65,7 @@ class Profile extends BaseController {
     }
     
     public function proses() {
-        if(session()->get("logged_in")){
+        if(session()->get("logged_no_admin")){
             if (isset($_FILES['file']['name'])) {
                 if(0 < $_FILES['file']['error']) {
                     $status = "Error during file upload ".$_FILES['file']['error'];

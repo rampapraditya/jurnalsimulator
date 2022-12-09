@@ -172,6 +172,30 @@ class Ws extends BaseController {
             } else {
                 $status = "Verifikasi gagal";
             }
+            
+        } else if ($mode == "ssh") {
+            $data = array(
+                'ver' => 1
+            );
+            $kond['idsakit_harsis'] = $kode;
+            $update = $this->model->update("sakit_harsis", $data, $kond);
+            if ($update == 1) {
+                $status = "Verifikasi sukses";
+            } else {
+                $status = "Verifikasi gagal";
+            }
+            
+        } else if ($mode == "jhh") {
+            $data = array(
+                'ver' => 1
+            );
+            $kond['idharwat_harsis'] = $kode;
+            $update = $this->model->update("harwat_harsis", $data, $kond);
+            if ($update == 1) {
+                $status = "Verifikasi sukses";
+            } else {
+                $status = "Verifikasi gagal";
+            }
         }
 
         $result = array();
@@ -224,6 +248,30 @@ class Ws extends BaseController {
             );
             $kond['idsakit'] = $kode;
             $update = $this->model->update("sakit", $data, $kond);
+            if ($update == 1) {
+                $status = "Batal verifikasi sukses";
+            } else {
+                $status = "Batal verifikasi gagal";
+            }
+            
+        } else if ($mode == "ssh") {
+            $data = array(
+                'ver' => 0
+            );
+            $kond['idsakit_harsis'] = $kode;
+            $update = $this->model->update("sakit_harsis", $data, $kond);
+            if ($update == 1) {
+                $status = "Batal verifikasi sukses";
+            } else {
+                $status = "Batal verifikasi gagal";
+            }
+            
+        }  else if ($mode == "jhh") {
+            $data = array(
+                'ver' => 0
+            );
+            $kond['idharwat_harsis'] = $kode;
+            $update = $this->model->update("harwat_harsis", $data, $kond);
             if ($update == 1) {
                 $status = "Batal verifikasi sukses";
             } else {
@@ -1186,7 +1234,8 @@ class Ws extends BaseController {
                 'tglf' => $row->tgl,
                 'kerusakan' => $row->kerusakan,
                 'tindakan' => $row->tindakan,
-                'keterangan' => $row->keterangan
+                'keterangan' => $row->keterangan,
+                'ver' => $row->ver
             ));
         }
         echo json_encode(array("result" => $result));
@@ -1194,7 +1243,7 @@ class Ws extends BaseController {
 
     public function jhh() {
         $result = array();
-        $list = $this->model->getAllQ("SELECT a.*, date_format(a.tanggal, '%d %M %Y') as tgl, b.idsakit FROM harwat_harsis a, sakit_harsis b where a.idsakit_harsis = b.idsakit_harsis;");
+        $list = $this->model->getAllQ("SELECT a.*, date_format(a.tanggal, '%d %M %Y') as tgl, b.idsakit_harsis, b.idsakit, b.tindakan FROM harwat_harsis a, sakit_harsis b where a.idsakit_harsis = b.idsakit_harsis;");
         foreach ($list->getResult() as $row) {
             $idsim = $this->model->getAllQR("select simulator from sakit where idsakit = '" . $row->idsakit . "';")->simulator;
             $namasim = $this->model->getAllQR("select nama_simulator from simulator where idsimulator = '" . $idsim . "';")->nama_simulator;
@@ -1202,10 +1251,14 @@ class Ws extends BaseController {
             array_push($result, array(
                 'idharwat_harsis' => $row->idharwat_harsis,
                 'namasim' => $namasim,
-                'tgl' => $row->tgl,
+                'tglf' => $row->tgl,
+                'tgl' => $row->tanggal,
                 'kegiatan' => $row->kegiatan,
                 'pelaksanaan' => $row->pelaksanaan,
-                'keterangan' => $row->keterangan
+                'keterangan' => $row->keterangan,
+                'idsakit_harsis' => $row->idsakit_harsis,
+                'tindakan' => $row->tindakan,
+                'ver' => $row->ver
             ));
         }
         echo json_encode(array("result" => $result));
@@ -1436,6 +1489,64 @@ class Ws extends BaseController {
         if ($hapus == 1) {
             $status = "Data terhapus";
         } else {
+            $status = "Data gagal terhapus";
+        }
+        
+        $result = array();
+        array_push($result, array('status' => $status));
+        echo json_encode(array("result" => $result));
+    }
+    
+    public function simpan_jhh() {
+        $data = array(
+            'idharwat_harsis' => $this->model->autokode("H","idharwat_harsis","harwat_harsis", 2, 7),
+            'idsakit_harsis' => $this->request->getPost('idsakit'),
+            'tanggal' => $this->request->getPost('tgl'),
+            'kegiatan' => $this->request->getPost('kegiatan'),
+            'pelaksanaan' => $this->request->getPost('pelaksanaan'),
+            'keterangan' => $this->request->getPost('keterangan'),
+            'idusers' => $this->request->getPost('idusers')
+        );
+        $simpan = $this->model->add("harwat_harsis",$data);
+        if($simpan == 1){
+            $status = "Data tersimpan";
+        }else{
+            $status = "Data gagal tersimpan";
+        }
+        
+        $result = array();
+        array_push($result, array('status' => $status));
+        echo json_encode(array("result" => $result));
+    }
+    
+    public function update_jhh() {
+        $data = array(
+            'idsakit_harsis' => $this->request->getPost('idsakit'),
+            'tanggal' => $this->request->getPost('tgl'),
+            'kegiatan' => $this->request->getPost('kegiatan'),
+            'pelaksanaan' => $this->request->getPost('pelaksanaan'),
+            'keterangan' => $this->request->getPost('keterangan'),
+            'idusers' => $this->request->getPost('idusers')
+        );
+        $kond['idharwat_harsis'] = $this->request->getPost('kode');
+        $simpan = $this->model->update("harwat_harsis",$data, $kond);
+        if($simpan == 1){
+            $status = "Data tersimpan";
+        }else{
+            $status = "Data gagal tersimpan";
+        }
+        
+        $result = array();
+        array_push($result, array('status' => $status));
+        echo json_encode(array("result" => $result));
+    }
+    
+    public function hapus_jhh() {
+        $kond['idharwat_harsis'] = $this->request->getPost('kode');
+        $simpan = $this->model->delete("harwat_harsis",$kond);
+        if($simpan == 1){
+            $status = "Data terhapus";
+        }else{
             $status = "Data gagal terhapus";
         }
         

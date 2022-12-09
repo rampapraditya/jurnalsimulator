@@ -5,7 +5,7 @@
 
     $(document).ready(function () {
         table = $('#tb').DataTable({
-            ajax: "<?php echo base_url(); ?>/jhh/ajaxlist",
+            ajax: "<?php echo base_url(); ?>/sshnon/ajaxlist",
             ordering: false
         });
     });
@@ -18,42 +18,44 @@
         save_method = 'add';
         $('#form')[0].reset();
         $('#modal_form').modal('show');
-        $('.modal-title').text('Tambah harwat harsis');
+        $('.modal-title').text('Tambah sakit simulator harsis');
     }
 
     function save() {
         var kode = document.getElementById('kode').value;
-        var idsakit_harsis = document.getElementById('idsakit_harsis').value;
+        var foto = $('#foto').prop('files')[0];
+        var idsakit = document.getElementById('idsakit').value;
         var tgl = document.getElementById('tgl').value;
-        var kegiatan = document.getElementById('kegiatan').value;
-        var pelaksanaan = document.getElementById('pelaksanaan').value;
+        var kerusakan = document.getElementById('kerusakan').value;
+        var tindakan = document.getElementById('tindakan').value;
         var keterangan = document.getElementById('keterangan').value;
         
-        if (idsakit_harsis === '') {
-            alert("Pilih sakit harsis tidak boleh kosong");
+        if (idsakit === '') {
+            alert("Pilih simulator tidak boleh kosong");
         }else if(tgl === ""){
             alert("Tanggal tidak boleh kosong");
-        }else if(kegiatan === ""){
-            alert("Kegiatan tidak boleh kosong");
-        }else if(pelaksanaan === ""){
-            alert("Pelaksanaan tidak boleh kosong");
+        }else if(kerusakan === ""){
+            alert("Kerusakan tidak boleh kosong");
+        }else if(tindakan === ""){
+            alert("Tindakan tidak boleh kosong");
         } else {
             $('#btnSave').text('Saving...');
             $('#btnSave').attr('disabled', true);
             
             var form_data = new FormData();
             form_data.append('kode', kode);
-            form_data.append('idsakit', idsakit_harsis);
+            form_data.append('idsakit', idsakit);
             form_data.append('tgl', tgl);
-            form_data.append('kegiatan', kegiatan);
-            form_data.append('pelaksanaan', pelaksanaan);
+            form_data.append('kerusakan', kerusakan);
+            form_data.append('tindakan', tindakan);
             form_data.append('keterangan', keterangan);
+            form_data.append('file', foto);
             
             var url = "";
             if (save_method === 'add') {
-                url = "<?php echo base_url(); ?>/jhh/ajax_add";
+                url = "<?php echo base_url(); ?>/sshnon/ajax_add";
             } else {
-                url = "<?php echo base_url(); ?>/jhh/ajax_edit";
+                url = "<?php echo base_url(); ?>/sshnon/ajax_edit";
             }
             
             $.ajax({
@@ -83,9 +85,9 @@
     }
 
     function hapus(id, nama) {
-        if (confirm("Apakah anda yakin menghapus harwat harsis nomor " + nama + " ?")) {
+        if (confirm("Apakah anda yakin menghapus sakit simulator harsis nomor " + nama + " ?")) {
             $.ajax({
-                url: "<?php echo base_url(); ?>/jhh/hapus/" + id,
+                url: "<?php echo base_url(); ?>/sshnon/hapus/" + id,
                 type: "POST",
                 dataType: "JSON",
                 success: function (data) {
@@ -102,20 +104,18 @@
         save_method = 'update';
         $('#form')[0].reset();
         $('#modal_form').modal('show');
-        $('.modal-title').text('Ganti harwat harsis');
+        $('.modal-title').text('Ganti sakit simulator harsis');
         $.ajax({
-            url: "<?php echo base_url(); ?>/jhh/ganti/" + id,
+            url: "<?php echo base_url(); ?>/sshnon/ganti/" + id,
             type: "POST",
             dataType: "JSON",
             success: function (data) {
-                $('[name="kode"]').val(data.idharwat_harsis);
-                $('[name="idsakit_harsis"]').val(data.idsakit_harsis);
-                $('[name="namasim"]').val(data.nama_simulator);
+                $('[name="kode"]').val(data.idsakit_harsis);
+                $('[name="idsakit"]').val(data.idsakit);
+                $('[name="nm_simulator"]').val(data.nama_simulator);
+                $('[name="tgl"]').val(data.tanggal);
                 $('[name="kerusakan"]').val(data.kerusakan);
                 $('[name="tindakan"]').val(data.tindakan);
-                $('[name="tgl"]').val(data.tanggal);
-                $('[name="kegiatan"]').val(data.kegiatan);
-                $('[name="pelaksanaan"]').val(data.pelaksanaan);
                 $('[name="keterangan"]').val(data.keterangan);
             }, error: function (jqXHR, textStatus, errorThrown) {
                 alert('Error get data');
@@ -127,33 +127,30 @@
         $('#modal_form').modal('hide');
     }
     
-    function show_sakit_harsis(){
+    function showsimulator(){
         $('#modal_sakit').modal('show');
         tb_sakit = $('#tb_sakit').DataTable({
-            ajax: "<?php echo base_url(); ?>/jhh/ajaxshowsakit",
+            ajax: "<?php echo base_url(); ?>/sshnon/ajaxshowsakit",
             ordering: false,
             retrieve:true
         });
         tb_sakit.destroy();
         tb_sakit = $('#tb_sakit').DataTable({
-            ajax: "<?php echo base_url(); ?>/jhh/ajaxshowsakit",
+            ajax: "<?php echo base_url(); ?>/sshnon/ajaxshowsakit",
             ordering: false,
             retrieve:true
         });
     }
     
-    function pilih(idsakit, namasim, kerusakan, tindakan){
-        $('[name="idsakit_harsis"]').val(idsakit);
-        $('[name="namasim"]').val(namasim);
-        $('[name="kerusakan"]').val(kerusakan);
-        $('[name="tindakan"]').val(tindakan);
+    function pilih(idsakit, namasimulator){
+        $('[name="idsakit"]').val(idsakit);
+        $('[name="nm_simulator"]').val(namasimulator);
         $('#modal_sakit').modal('hide');
     }
     
     function cm_sakit(){
         $('#modal_sakit').modal('hide');
     }
-    
     
     function cetak(){
         $('#form_cetak')[0].reset();
@@ -168,7 +165,7 @@
         }else if(tgl2 === ""){
             alert("Tanggal akhir tidak boleh kosong");
         }else{
-            window.open("<?php echo base_url(); ?>/jhh/cetak/" + tgl1 + "/" + tgl2, "_blank");
+            window.open("<?php echo base_url(); ?>/sshnon/cetak/" + tgl1 + "/" + tgl2, "_blank");
         }
     }
     
@@ -182,13 +179,23 @@
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">JURNAL HARWAT HARSIS</h4>
-                    <p class="card-description">Maintenance jurnal perawatan sakit simulator</p>
-
+                    <h4 class="card-title">JURNAL SAKIT HARSIS</h4>
+                    <p class="card-description">Maintenance jurnal sakit divisi harsis</p>
+                    
+                    <?php
+                    if($nmrole == "KOMANDAN" || $nmrole == "WADAN"){
+                        ?>                    
+                    <button type="button" class="btn btn-secondary" onclick="cetak();">Cetak</button>
+                        <?php
+                    }else{
+                        ?>
                     <button type="button" class="btn btn-primary" onclick="add();">Tambah</button>
                     <button type="button" class="btn btn-secondary" onclick="reload();">Reload</button>
                     <button type="button" class="btn btn-secondary" onclick="cetak();">Cetak</button>
-
+                        <?php
+                    }
+                    ?>
+                    
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -196,13 +203,23 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-									<th>SIMULATOR</th>
+                                    <th>FOTO</th>
+                                    <th>SIMULATOR</th>
                                     <th>TANGGAL</th>
-                                    <th>KEGIATAN</th>
-                                    <th>PELAKSANA</th>
+                                    <th>KERUSAKAN</th>
+                                    <th>TINDAKAN</th>
                                     <th>KETERANGAN</th>
                                     <th>STATUS</th>
+                                    <?php
+                                    if($nmrole == "KOMANDAN" || $nmrole == "WADAN"){
+                                        
+                                    }else{
+                                        ?>
                                     <th style="text-align: center;">AKSI</th>
+                                        <?php
+                                    }
+                                    ?>
+                                    
                                 </tr>
                             </thead>
                             <tbody>
@@ -228,32 +245,28 @@
                 <form id="form" class="form-horizontal">
                     <input type="hidden" name="kode" id="kode">
                     <div class="form-group">
-                        <label>SAKIT</label>
+                        <label>FOTO</label>
+                        <input id="foto" name="foto" class="form-control" type="file" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label>SIMULATOR</label>
                         <div class="input-group mb-3">
-                            <input type="hidden" name="idsakit_harsis" id="idsakit_harsis">
-                            <input type="text" class="form-control" readonly id="namasim" name="namasim">
-                            <button class="btn btn-sm btn-outline-secondary" type="button" onclick="show_sakit_harsis()">...</button>
+                            <input type="hidden" name="idsakit" id="idsakit">
+                            <input type="text" class="form-control" readonly id="nm_simulator" name="nm_simulator">
+                            <button class="btn btn-sm btn-outline-secondary" type="button" onclick="showsimulator()">...</button>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label>KERUSAKAN</label>
-                        <input id="kerusakan" name="kerusakan" class="form-control" type="text" autocomplete="off" readonly>
-                    </div>
-                    <div class="form-group">
-                        <label>TINDAKAN</label>
-                        <input id="tindakan" name="tindakan" class="form-control" type="text" autocomplete="off" readonly>
                     </div>
                     <div class="form-group">
                         <label>TANGGAL</label>
                         <input id="tgl" name="tgl" class="form-control" type="date" autocomplete="off" value="<?php echo $curdate ?>">
                     </div>
                     <div class="form-group">
-                        <label>KEGIATAN</label>
-                        <input id="kegiatan" name="kegiatan" class="form-control" type="text" autocomplete="off">
+                        <label>KERUSAKAN</label>
+                        <input id="kerusakan" name="kerusakan" class="form-control" type="text" autocomplete="off">
                     </div>
                     <div class="form-group">
-                        <label>PELAKSANA</label>
-                        <input id="pelaksanaan" name="pelaksanaan" class="form-control" type="text" autocomplete="off">
+                        <label>TINDAKAN</label>
+                        <input id="tindakan" name="tindakan" class="form-control" type="text" autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label>KETERANGAN</label>
@@ -273,7 +286,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5>Data Sakit Harsis</h5>
+                <h5>Data Sakit Simulator</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="cm_sakit();">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -284,12 +297,8 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>FOTO</th>
                                 <th>SIMULATOR</th>
-                                <th>TANGGAL</th>
-                                <th>KERUSAKAN</th>
-                                <th>TINDAKAN</th>
-                                <th>KETERANGAN</th>
+                                <th style="text-align: center;">DETIL</th>
                                 <th style="text-align: center;">AKSI</th>
                             </tr>
                         </thead>

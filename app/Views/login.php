@@ -101,6 +101,8 @@
                         success: function (data) {
                             if (data.status === "ok") {
                                 window.location.href = "<?php echo base_url(); ?>/home";
+                            }else if (data.status === "ok_no_admin") {    
+                                window.location.href = "<?php echo base_url(); ?>/homenoadmin";
                             } else {
                                 alert(data.status);
                             }

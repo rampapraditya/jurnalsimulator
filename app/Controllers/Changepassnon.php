@@ -4,7 +4,7 @@ namespace App\Controllers;
 use App\Models\Mcustom;
 use App\Libraries\Modul;
 
-class Changepass extends BaseController {
+class Changepassnon extends BaseController {
     
     private $model;
     private $modul;
@@ -15,7 +15,7 @@ class Changepass extends BaseController {
     }
     
     public function index(){
-        if(session()->get("logged_in")){
+        if(session()->get("logged_no_admin")){
             $data['username'] = session()->get("username");
             $data['nama'] = session()->get("nama");
             $data['role'] = session()->get("role");
@@ -72,9 +72,9 @@ class Changepass extends BaseController {
                 $data['logo'] = base_url().'/images/noimg.png';
             }
 
-            echo view('head', $data);
-            echo view('menu');
-            echo view('changepass/index');
+            echo view('head_non', $data);
+            echo view('menu_non');
+            echo view('changepass/non');
             echo view('foot');
             
         }else{
@@ -83,7 +83,7 @@ class Changepass extends BaseController {
     }
     
     public function proses() {
-        if(session()->get("logged_in")){
+        if(session()->get("logged_no_admin")){
             $idusers = session()->get("username");
             // cek
             $pass_lama = $this->model->getAllQR("SELECT pass FROM users where idusers = '".$idusers."';")->pass;
@@ -107,5 +107,4 @@ class Changepass extends BaseController {
             $this->modul->halaman('login');
         }
     }
-    
 }

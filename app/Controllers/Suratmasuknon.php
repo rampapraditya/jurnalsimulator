@@ -5,7 +5,7 @@ use App\Models\Mcustom;
 use App\Libraries\Modul;
 use Dompdf\Dompdf;
 
-class Suratmasuk extends BaseController {
+class Suratmasuknon extends BaseController {
     
     private $model;
     private $modul;
@@ -16,7 +16,7 @@ class Suratmasuk extends BaseController {
     }
     
     public function index(){
-        if(session()->get("logged_in")){
+        if(session()->get("logged_no_admin")){
             $data['username'] = session()->get("username");
             $data['nama'] = session()->get("nama");
             $data['role'] = session()->get("role");
@@ -50,9 +50,9 @@ class Suratmasuk extends BaseController {
             
             $data['curdate'] = $this->modul->TanggalSekarang();
 
-            echo view('head', $data);
-            echo view('menu');
-            echo view('suratmasuk/index');
+            echo view('head_non', $data);
+            echo view('menu_non');
+            echo view('suratmasuk_non/index');
             echo view('foot');
             
         }else{
@@ -61,7 +61,10 @@ class Suratmasuk extends BaseController {
     }
 
     public function ajaxlist() {
-        if(session()->get("logged_in")){
+        if(session()->get("logged_no_admin")){
+            $role = session()->get("role");
+            $nmrole = $this->model->getAllQR("SELECT nama_role FROM role where idrole = '".$role."';")->nama_role;
+            
             $no = 1;
             $data = array();
             $list = $this->model->getAllQ("SELECT suratmasuk.*, users.nrp, users.nama, simulator.nama_simulator, date_format(tanggal, '%d %M %Y') as tgl FROM suratmasuk
@@ -97,10 +100,15 @@ class Suratmasuk extends BaseController {
                     }
                 }
                 
-                $val[] = '<div style="text-align: center;">'
+                if($nmrole == "KOMANDAN" || $nmrole == "WADAN"){
+                    $val[] = '<div style="text-align: center;"></div>';
+                }else{
+                    $val[] = '<div style="text-align: center;">'
                         . '<button type="button" class="btn btn-outline-primary btn-fw" onclick="ganti('."'".$row->idsuratmasuk."'".')">Ganti</button>&nbsp;'
                         . '<button type="button" class="btn btn-outline-danger btn-fw" onclick="hapus('."'".$row->idsuratmasuk."'".','."'".$no."'".')">Hapus</button>'
                         . '</div>';
+                }
+                
                 $data[] = $val;
                 
                 $no++;
@@ -113,7 +121,7 @@ class Suratmasuk extends BaseController {
     }
     
     public function ajax_add() {
-        if(session()->get("logged_in")){
+        if(session()->get("logged_no_admin")){
             $idusers = session()->get("username");
             $data = array(
                 'idsuratmasuk' => $this->model->autokode("S","idsuratmasuk","suratmasuk", 2, 7),
@@ -139,7 +147,7 @@ class Suratmasuk extends BaseController {
     }
     
     public function ganti(){
-        if(session()->get("logged_in")){
+        if(session()->get("logged_no_admin")){
             $idsimulator = $this->request->uri->getSegment(3);
             $tersimpan = $this->model->getAllQR("SELECT * FROM suratmasuk where idsuratmasuk = '".$idsimulator."';");
             if(strlen($tersimpan->idsimulator) > 0){
@@ -168,7 +176,7 @@ class Suratmasuk extends BaseController {
     }
     
     public function ajax_edit() {
-        if(session()->get("logged_in")){
+        if(session()->get("logged_no_admin")){
             $data = array(
                 'idsimulator' => $this->request->getPost('kode_sim'),
                 'tanggal' => $this->request->getPost('tanggal'),
@@ -192,7 +200,7 @@ class Suratmasuk extends BaseController {
     }
     
     public function hapus() {
-        if(session()->get("logged_in")){
+        if(session()->get("logged_no_admin")){
             $kond['idsuratmasuk'] = $this->request->uri->getSegment(3);
             $hapus = $this->model->delete("suratmasuk",$kond);
             if($hapus == 1){
@@ -207,7 +215,7 @@ class Suratmasuk extends BaseController {
     }
     
     public function ajaxsim() {
-        if(session()->get("logged_in")){
+        if(session()->get("logged_no_admin")){
             $data = array();
             $list = $this->model->getAll("simulator");
             foreach ($list->getResult() as $row) {
@@ -228,7 +236,7 @@ class Suratmasuk extends BaseController {
     }
     
     public function cetak(){
-        if(session()->get("logged_in")){
+        if(session()->get("logged_no_admin")){
             $tgl1 = $this->request->uri->getSegment(3);
             $tgl2 = $this->request->uri->getSegment(4);
             $data['tgl1'] = $this->model->getAllQR("select date_format('".$tgl1."', '%d %M %Y') as tgl;")->tgl;
@@ -238,7 +246,7 @@ class Suratmasuk extends BaseController {
                 LEFT JOIN simulator ON suratmasuk.idsimulator = simulator.idsimulator where suratmasuk.tanggal between '".$tgl1."' and '".$tgl2."';");
             
             $dompdf = new Dompdf();
-            $dompdf->loadHtml(view('suratmasuk/pdf', $data));
+            $dompdf->loadHtml(view('suratmasuk_non/pdf', $data));
             $dompdf->setPaper('A4', 'landscape');
             $dompdf->render();
             $filename = 'SuratMasuk';
