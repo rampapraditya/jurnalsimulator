@@ -565,6 +565,32 @@ class Ws extends BaseController {
         );
         $simpan = $this->model->add("suratmasuk", $data);
         if ($simpan == 1) {
+            // mencari nama sim
+            // format tgl
+            $tglf = $this->model->getAllQR("select date_format('".$this->request->getPost('tanggal')."','%d %M %Y') as tglf;")->tglf;
+            // kirim pesan ke perwira renlat
+            $list1 = $this->model->getAllQ("select fcm from users where idrole = 'R00002' and nrp like '%P';");
+            foreach ($list1->getResult() as $row) {
+                if(strlen($row->fcm) > 0){
+                    $this->kirim_notif($row->fcm, "Rencana Latihan", "Pemberitahuan rencana latihan pada tanggal " . $tglf);
+                }
+            }
+            // kirim ke semua anggata opslat
+            $list2 = $this->model->getAllQ("select fcm from users where idrole = 'R00003';");
+            foreach ($list2->getResult() as $row) {
+                if(strlen($row->fcm) > 0){
+                    $this->kirim_notif($row->fcm, "Rencana Latihan", "Pemberitahuan rencana latihan pada tanggal " . $tglf);
+                }
+            }
+            
+            // kirim ke semua anggota duksopslat
+            $list3 = $this->model->getAllQ("select fcm from users where idrole = 'R00004';");
+            foreach ($list3->getResult() as $row) {
+                if(strlen($row->fcm) > 0){
+                    $this->kirim_notif($row->fcm, "Rencana Latihan", "Pemberitahuan rencana latihan pada tanggal " . $tglf);
+                }
+            }
+            
             $status = "Data tersimpan";
         } else {
             $status = "Data gagal tersimpan";
@@ -662,6 +688,18 @@ class Ws extends BaseController {
         );
         $simpan = $this->model->add("osp", $data);
         if ($simpan == 1) {
+            // mencari simulator
+            $nama_sim = $this->model->getAllQR("select nama_simulator from simulator where idsimulator = '".$this->request->getPost('simulator')."';")->nama_simulator;
+
+            $tglf = $this->model->getAllQR("select date_format('".$this->request->getPost('tanggal')."','%d %M %Y') as tglf;")->tglf;
+            // kirim ke semua perwira opslat
+            $list1 = $this->model->getAllQ("select fcm from users where idrole = 'R00003' and nrp like '%P';");
+            foreach ($list1->getResult() as $row) {
+                if(strlen($row->fcm) > 0){
+                    $this->kirim_notif($row->fcm, "Operasional Latihan", "Pemberitahuan operasional latihan pada tanggal " . $tglf. " , simulator " . $nama_sim);
+                }
+            }
+                            
             $status = "Data tersimpan";
         } else {
             $status = "Data gagal tersimpan";
@@ -698,6 +736,18 @@ class Ws extends BaseController {
                         );
                         $simpan = $this->model->add("osp", $data);
                         if ($simpan == 1) {
+                            // mencari simulator
+                            $nama_sim = $this->model->getAllQR("select nama_simulator from simulator where idsimulator = '".$this->request->getPost('simulator')."';")->nama_simulator;
+                            
+                            $tglf = $this->model->getAllQR("select date_format('".$this->request->getPost('tanggal')."','%d %M %Y') as tglf;")->tglf;
+                            // kirim ke semua perwira opslat
+                            $list1 = $this->model->getAllQ("select fcm from users where idrole = 'R00003' and nrp like '%P';");
+                            foreach ($list1->getResult() as $row) {
+                                if(strlen($row->fcm) > 0){
+                                    $this->kirim_notif($row->fcm, "Operasional Latihan", "Pemberitahuan operasional latihan pada tanggal " . $tglf. " , simulator " . $nama_sim);
+                                }
+                            }
+            
                             $status = "Data tersimpan";
                         } else {
                             $status = "Data gagal tersimpan";
@@ -793,6 +843,18 @@ class Ws extends BaseController {
         );
         $simpan = $this->model->add("osl", $data);
         if ($simpan == 1) {
+            // mencari simulator
+            $nama_sim = $this->model->getAllQR("select b.nama_simulator from suratmasuk a, simulator b where a.idsimulator = b.idsimulator and a.idsuratmasuk = '".$this->request->getPost('kode_renlat')."';")->nama_simulator;
+
+            $tglf = $this->model->getAllQR("select date_format('".$this->request->getPost('tanggal')."','%d %M %Y') as tglf;")->tglf;
+            // kirim ke semua perwira opslat
+            $list1 = $this->model->getAllQ("select fcm from users where idrole = 'R00003' and nrp like '%P';");
+            foreach ($list1->getResult() as $row) {
+                if(strlen($row->fcm) > 0){
+                    $this->kirim_notif($row->fcm, "Operasional Latihan", "Pemberitahuan operasional latihan pada tanggal " . $tglf. " , simulator " . $nama_sim);
+                }
+            }
+                            
             $status = "Data tersimpan";
         } else {
             $status = "Data gagal tersimpan";
@@ -829,6 +891,19 @@ class Ws extends BaseController {
                         );
                         $simpan = $this->model->add("osl", $data);
                         if ($simpan == 1) {
+                            
+                            // mencari simulator
+                            $nama_sim = $this->model->getAllQR("select b.nama_simulator from suratmasuk a, simulator b where a.idsimulator = b.idsimulator and a.idsuratmasuk = '".$this->request->getPost('kode_renlat')."';")->nama_simulator;
+                            
+                            $tglf = $this->model->getAllQR("select date_format('".$this->request->getPost('tanggal')."','%d %M %Y') as tglf;")->tglf;
+                            // kirim ke semua perwira opslat
+                            $list1 = $this->model->getAllQ("select fcm from users where idrole = 'R00003' and nrp like '%P';");
+                            foreach ($list1->getResult() as $row) {
+                                if(strlen($row->fcm) > 0){
+                                    $this->kirim_notif($row->fcm, "Operasional Latihan", "Pemberitahuan operasional latihan pada tanggal " . $tglf. " , simulator " . $nama_sim);
+                                }
+                            }
+                            
                             $status = "Data tersimpan";
                         } else {
                             $status = "Data gagal tersimpan";
@@ -1152,6 +1227,27 @@ class Ws extends BaseController {
         );
         $simpan = $this->model->add("sakit", $data);
         if ($simpan == 1) {
+            
+            $nama_sim = $this->model->getAllQR("select nama_simulator from simulator where idsimulator = '".$this->request->getPost('idsim')."';")->nama_simulator;
+
+            $tglf = $this->model->getAllQR("select date_format('".$this->request->getPost('tanggal')."','%d %M %Y') as tglf;")->tglf;
+            // kirim ke semua perwira opslat
+            $list1 = $this->model->getAllQ("select fcm from users where idrole = 'R00003' and nrp like '%P';");
+            foreach ($list1->getResult() as $row) {
+                if(strlen($row->fcm) > 0){
+                    $this->kirim_notif($row->fcm, "Sakit Simulator", "Pemberitahuan sakit simulator ". $nama_sim ." pada tanggal " . $tglf);
+                }
+            }
+            
+            // kirim ke anggota duk
+            $list2 = $this->model->getAllQ("select fcm from users where idrole = 'R00004' and nrp not like '%P';");
+            foreach ($list2->getResult() as $row) {
+                if(strlen($row->fcm) > 0){
+                    $this->kirim_notif($row->fcm, "Sakit Simulator", "Pemberitahuan sakit simulator ". $nama_sim ." pada tanggal " . $tglf);
+                }
+            }
+            
+            
             $status = "Date tersimpan";
         } else {
             $status = "Date gagal tersimpan";
@@ -1341,6 +1437,27 @@ class Ws extends BaseController {
         );
         $simpan = $this->model->add("sakit_harsis",$data);
         if($simpan == 1){
+            
+            $nama_sim = $this->model->getAllQR("select nama_simulator from sakit a, simulator b where a.simulator = b.idsimulator and a.idsakit = '".$this->request->getPost('idsakit')."';")->nama_simulator;
+
+            $tglf = $this->model->getAllQR("select date_format('".$this->request->getPost('tgl')."','%d %M %Y') as tglf;")->tglf;
+            // kirim ke semua perwira duk
+            $list1 = $this->model->getAllQ("select fcm from users where idrole = 'R00004' and nrp like '%P';");
+            foreach ($list1->getResult() as $row) {
+                if(strlen($row->fcm) > 0){
+                    $this->kirim_notif($row->fcm, "Sakit harsis", "Pemberitahuan sakit harsis ".$nama_sim." pada tanggal ".$tglf." dengan kerusakan "
+                            .$this->request->getPost('kerusakan')." , dengan tindakan ".$this->request->getPost('tindakan')." ( ".$this->request->getPost('keterangan')." )");
+                }
+            }
+            // kirim ke anggota renlat
+            $list2 = $this->model->getAllQ("select fcm from users where idrole = 'R00002' and nrp not like '%P';");
+            foreach ($list2->getResult() as $row) {
+                if(strlen($row->fcm) > 0){
+                    $this->kirim_notif($row->fcm, "Sakit harsis", "Pemberitahuan sakit harsis ".$nama_sim." pada tanggal ".$tglf." dengan kerusakan "
+                            .$this->request->getPost('kerusakan')." , dengan tindakan ".$this->request->getPost('tindakan')." ( ".$this->request->getPost('keterangan')." )");
+                }
+            }
+            
             $status = "Data tersimpan";
         }else{
             $status = "Data gagal tersimpan";
@@ -1398,6 +1515,26 @@ class Ws extends BaseController {
                         );
                         $simpan = $this->model->add("sakit_harsis", $data);
                         if ($simpan == 1) {
+                            $nama_sim = $this->model->getAllQR("select nama_simulator from sakit a, simulator b where a.simulator = b.idsimulator and a.idsakit = '".$this->request->getPost('idsakit')."';")->nama_simulator;
+
+                            $tglf = $this->model->getAllQR("select date_format('".$this->request->getPost('tgl')."','%d %M %Y') as tglf;")->tglf;
+                            // kirim ke semua perwira duk
+                            $list1 = $this->model->getAllQ("select fcm from users where idrole = 'R00004' and nrp like '%P';");
+                            foreach ($list1->getResult() as $row) {
+                                if(strlen($row->fcm) > 0){
+                                    $this->kirim_notif($row->fcm, "Sakit harsis", "Pemberitahuan sakit harsis ".$nama_sim." pada tanggal ".$tglf." dengan kerusakan "
+                                            .$this->request->getPost('kerusakan')." , dengan tindakan ".$this->request->getPost('tindakan')." ( ".$this->request->getPost('keterangan')." )");
+                                }
+                            }
+                            // kirim ke anggota renlat
+                            $list2 = $this->model->getAllQ("select fcm from users where idrole = 'R00002' and nrp not like '%P';");
+                            foreach ($list2->getResult() as $row) {
+                                if(strlen($row->fcm) > 0){
+                                    $this->kirim_notif($row->fcm, "Sakit harsis", "Pemberitahuan sakit harsis ".$nama_sim." pada tanggal ".$tglf." dengan kerusakan "
+                                            .$this->request->getPost('kerusakan')." , dengan tindakan ".$this->request->getPost('tindakan')." ( ".$this->request->getPost('keterangan')." )");
+                                }
+                            }
+            
                             $status = "Data tersimpan";
                         } else {
                             $status = "Data gagal tersimpan";
@@ -1509,6 +1646,39 @@ class Ws extends BaseController {
         );
         $simpan = $this->model->add("harwat_harsis",$data);
         if($simpan == 1){
+            // mencari idsakit
+            $idsakit = $this->model->getAllQR("SELECT idsakit FROM sakit_harsis where idsakit_harsis = '".$this->request->getPost('idsakit')."';")->idsakit;
+            $nama_sim = $this->model->getAllQR("select b.nama_simulator from sakit a, simulator b where a.simulator = b.idsimulator and a.idsakit = '".$idsakit."';")->nama_simulator;
+
+            $tglf = $this->model->getAllQR("select date_format('".$this->request->getPost('tgl')."','%d %M %Y') as tglf;")->tglf;
+            // kirim ke semua perwira duk
+            $list1 = $this->model->getAllQ("select fcm from users where idrole = 'R00004' and nrp like '%P';");
+            foreach ($list1->getResult() as $row) {
+                if(strlen($row->fcm) > 0){
+                    $this->kirim_notif($row->fcm, "Harwat harsis", "Pemberitahuan harwat harsis simulator ".$nama_sim." pada tanggal "
+                            .$tglf." dengan kegiatan ".$this->request->getPost('kegiatan')." dilaksanakan oleh ".$this->request->getPost('pelaksanaan')." (".$this->request->getPost('keterangan').")");
+                }
+            }
+            
+            // anggota renlat
+            $list2 = $this->model->getAllQ("select fcm from users where idrole = 'R00002' and nrp not like '%P';");
+            foreach ($list2->getResult() as $row) {
+                if(strlen($row->fcm) > 0){
+                    $this->kirim_notif($row->fcm, "Harwat harsis", "Pemberitahuan harwat harsis simulator ".$nama_sim." pada tanggal "
+                            .$tglf." dengan kegiatan ".$this->request->getPost('kegiatan')." dilaksanakan oleh ".$this->request->getPost('pelaksanaan')." (".$this->request->getPost('keterangan').")");
+                }
+            }
+            
+            
+            // anggota opslat
+            $list3 = $this->model->getAllQ("select fcm from users where idrole = 'R00003' and nrp not like '%P';");
+            foreach ($list3->getResult() as $row) {
+                if(strlen($row->fcm) > 0){
+                    $this->kirim_notif($row->fcm, "Harwat harsis", "Pemberitahuan harwat harsis simulator ".$nama_sim." pada tanggal "
+                            .$tglf." dengan kegiatan ".$this->request->getPost('kegiatan')." dilaksanakan oleh ".$this->request->getPost('pelaksanaan')." (".$this->request->getPost('keterangan').")");
+                }
+            }
+            
             $status = "Data tersimpan";
         }else{
             $status = "Data gagal tersimpan";
@@ -1554,5 +1724,66 @@ class Ws extends BaseController {
         array_push($result, array('status' => $status));
         echo json_encode(array("result" => $result));
     }
+    
+    public function updateFCM() {
+        $data = array(
+            'fcm' => $this->request->getPost('fcm')
+        );
+        $kond['idusers'] = $this->request->getPost('idusers');
+        $update = $this->model->update("users", $data, $kond);
+        if ($update == 1) {
+            $status = "Data tersimpan";
+        } else {
+            $status = "Data gagal tersimpan";
+        }
 
+        $result = array();
+        array_push($result, array('status' => $status));
+        echo json_encode(array("result" => $result));
+    }
+    
+    public function coba(){
+        echo $this->kirim_notif("cOjxr6cYFJE:APA91bFEq2W5t7ReECXjjdaatNVMuBGmtZ5ODD1UgkRJXSOVHqoGuVXD2QzQmqQ4zhTR6L_3ha_dWx87yumLBCK0X-FEa_a_IkVbFKhUZtLZdTAcg0LIOaWFObq4wkQkmbCBgAq2eY11", "Judul", "Pesan");
+    }
+    
+    private function kirim_notif($token, $judul, $message) {
+        $res = array();
+        $res['title'] = $judul;
+        $res['body'] = $message;
+
+        $fields = array(
+            'to' => $token,
+            'notification' => $res
+        );
+
+        // Set POST variables
+        $url = 'https://fcm.googleapis.com/fcm/send';
+        $server_key = "AAAAw3YN7F0:APA91bGsG-kXIp2KEvLr36pU_uzLBaEFEazlxO2T742fU4tgdlpy4Ka0V1Epx3P-sy4Ss_fc-enhXqZ2M2G6VNe1LwEgvFiWNmfbz8NacmhkXByDLjiynypS-LVma6_ioKqqnvVhjPhC";
+
+        $headers = array(
+            'Authorization: key=' . $server_key,
+            'Content-Type: application/json'
+        );
+        // Open connection
+        $ch = curl_init();
+
+        // Set the url, number of POST vars, POST data
+        curl_setopt($ch, CURLOPT_URL, $url);
+
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        // Disabling SSL Certificate support temporarly
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
+
+        // Execute post
+        $result = curl_exec($ch);
+        // Close connection
+        curl_close($ch);
+
+        return $result;
+    }
 }
