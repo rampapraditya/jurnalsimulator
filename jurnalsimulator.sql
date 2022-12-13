@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.7
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Dec 09, 2022 at 06:52 PM
--- Server version: 10.3.37-MariaDB-cll-lve
--- PHP Version: 7.4.33
+-- Host: 127.0.0.1:3306
+-- Generation Time: Dec 13, 2022 at 01:24 AM
+-- Server version: 5.7.31
+-- PHP Version: 7.4.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -19,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `dinforma_jurnalsimulator`
+-- Database: `jurnalsimulator`
 --
 
 -- --------------------------------------------------------
@@ -28,11 +27,14 @@ SET time_zone = "+00:00";
 -- Table structure for table `divisi`
 --
 
-CREATE TABLE `divisi` (
+DROP TABLE IF EXISTS `divisi`;
+CREATE TABLE IF NOT EXISTS `divisi` (
   `iddivisi` varchar(6) NOT NULL,
   `nama_divisi` varchar(45) NOT NULL,
-  `idrole` varchar(6) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `idrole` varchar(6) CHARACTER SET utf8mb4 NOT NULL,
+  PRIMARY KEY (`iddivisi`),
+  KEY `FK_divisi_department` (`idrole`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `divisi`
@@ -62,23 +64,27 @@ INSERT INTO `divisi` (`iddivisi`, `nama_divisi`, `idrole`) VALUES
 -- Table structure for table `harwat_harsis`
 --
 
-CREATE TABLE `harwat_harsis` (
+DROP TABLE IF EXISTS `harwat_harsis`;
+CREATE TABLE IF NOT EXISTS `harwat_harsis` (
   `idharwat_harsis` varchar(6) NOT NULL,
   `idsakit_harsis` varchar(6) NOT NULL,
   `tanggal` date NOT NULL,
   `kegiatan` varchar(150) DEFAULT NULL,
   `pelaksanaan` varchar(150) DEFAULT NULL,
   `keterangan` varchar(150) DEFAULT NULL,
-  `idusers` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `ver` float NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `idusers` varchar(20) CHARACTER SET utf8mb4 NOT NULL,
+  `ver` float NOT NULL DEFAULT '0',
+  PRIMARY KEY (`idharwat_harsis`),
+  KEY `FK_harwat_harsis_users` (`idusers`),
+  KEY `FK_harwat_harsis_sakit` (`idsakit_harsis`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `harwat_harsis`
 --
 
 INSERT INTO `harwat_harsis` (`idharwat_harsis`, `idsakit_harsis`, `tanggal`, `kegiatan`, `pelaksanaan`, `keterangan`, `idusers`, `ver`) VALUES
-('H00001', 'H00001', '2022-12-06', 'Pembongkaran rumah Trackball', 'Harsis', 'Normal', 'U00056', 1);
+('H00001', 'H00001', '2022-12-06', 'Pembongkaran rumah Trackball', 'Harsis', 'Normal', 'U00092', 1);
 
 -- --------------------------------------------------------
 
@@ -86,22 +92,24 @@ INSERT INTO `harwat_harsis` (`idharwat_harsis`, `idsakit_harsis`, `tanggal`, `ke
 -- Table structure for table `identitas`
 --
 
-CREATE TABLE `identitas` (
-  `kode` varchar(6) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL DEFAULT '0',
-  `instansi` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `slogan` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+DROP TABLE IF EXISTS `identitas`;
+CREATE TABLE IF NOT EXISTS `identitas` (
+  `kode` varchar(6) CHARACTER SET latin1 NOT NULL DEFAULT '0',
+  `instansi` varchar(255) CHARACTER SET latin1 NOT NULL,
+  `slogan` varchar(100) CHARACTER SET latin1 DEFAULT NULL,
   `tahun` float DEFAULT NULL,
-  `pimpinan` varchar(150) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
-  `alamat` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
-  `kdpos` varchar(7) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
-  `tlp` varchar(15) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
-  `fax` varchar(35) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
-  `website` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
-  `email` varchar(150) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
-  `logo` longtext CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
-  `lat` varchar(45) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
-  `lon` varchar(45) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `pimpinan` varchar(150) CHARACTER SET latin1 DEFAULT NULL,
+  `alamat` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
+  `kdpos` varchar(7) CHARACTER SET latin1 DEFAULT NULL,
+  `tlp` varchar(15) CHARACTER SET latin1 DEFAULT NULL,
+  `fax` varchar(35) CHARACTER SET latin1 DEFAULT NULL,
+  `website` varchar(100) CHARACTER SET latin1 DEFAULT NULL,
+  `email` varchar(150) CHARACTER SET latin1 DEFAULT NULL,
+  `logo` longtext CHARACTER SET latin1,
+  `lat` varchar(45) CHARACTER SET latin1 DEFAULT NULL,
+  `lon` varchar(45) CHARACTER SET latin1 DEFAULT NULL,
+  PRIMARY KEY (`kode`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `identitas`
@@ -116,10 +124,12 @@ INSERT INTO `identitas` (`kode`, `instansi`, `slogan`, `tahun`, `pimpinan`, `ala
 -- Table structure for table `jabatan`
 --
 
-CREATE TABLE `jabatan` (
+DROP TABLE IF EXISTS `jabatan`;
+CREATE TABLE IF NOT EXISTS `jabatan` (
   `idjabatan` varchar(6) NOT NULL,
-  `nama_jabatan` varchar(45) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `nama_jabatan` varchar(45) NOT NULL,
+  PRIMARY KEY (`idjabatan`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `jabatan`
@@ -299,10 +309,12 @@ INSERT INTO `jabatan` (`idjabatan`, `nama_jabatan`) VALUES
 -- Table structure for table `korps`
 --
 
-CREATE TABLE `korps` (
+DROP TABLE IF EXISTS `korps`;
+CREATE TABLE IF NOT EXISTS `korps` (
   `idkorps` varchar(6) NOT NULL,
-  `nama_korps` varchar(45) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `nama_korps` varchar(45) NOT NULL,
+  PRIMARY KEY (`idkorps`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `korps`
@@ -359,7 +371,8 @@ INSERT INTO `korps` (`idkorps`, `nama_korps`) VALUES
 -- Table structure for table `osl`
 --
 
-CREATE TABLE `osl` (
+DROP TABLE IF EXISTS `osl`;
+CREATE TABLE IF NOT EXISTS `osl` (
   `idop_simulator` varchar(6) NOT NULL,
   `tanggal` date NOT NULL,
   `kegiatan` varchar(65) NOT NULL,
@@ -368,10 +381,13 @@ CREATE TABLE `osl` (
   `kondisi` varchar(45) NOT NULL COMMENT 'normal, sakit',
   `keterangan` text NOT NULL,
   `foto` varchar(150) NOT NULL,
-  `idusers` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `idusers` varchar(20) CHARACTER SET utf8mb4 NOT NULL,
   `idsuratmasuk` varchar(6) NOT NULL,
-  `ver` float NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci COMMENT='latihan';
+  `ver` float NOT NULL DEFAULT '0',
+  PRIMARY KEY (`idop_simulator`),
+  KEY `FK_osl_users` (`idusers`),
+  KEY `FK_osl_suratmasuk` (`idsuratmasuk`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='latihan';
 
 --
 -- Dumping data for table `osl`
@@ -379,8 +395,7 @@ CREATE TABLE `osl` (
 
 INSERT INTO `osl` (`idop_simulator`, `tanggal`, `kegiatan`, `waktu_on`, `waktu_off`, `kondisi`, `keterangan`, `foto`, `idusers`, `idsuratmasuk`, `ver`) VALUES
 ('L00001', '2022-11-24', 'Latihan tim anjungan', '08:00', '10:00', 'NORMAL', '', '1669259489_0f2df0122e630c090283.jpg', 'U00001', 'S00001', 1),
-('L00002', '2022-11-04', 'Lattek siswa Pusdiklapa', '08:00', '16:00', 'SAKIT', '', '1669259791_e594beb2a71d381073f9.jpg', 'U00001', 'S00001', 0),
-('L00003', '2022-12-08', 'Lattek siswa Dikmata', '8:40', '10:0', 'NORMAL', '', 'U000911670478978723.png', 'U00025', 'S00003', 0);
+('L00002', '2022-11-04', 'Lattek siswa Pusdiklapa', '08:00', '16:00', 'SAKIT', '', '1669259791_e594beb2a71d381073f9.jpg', 'U00001', 'S00001', 0);
 
 -- --------------------------------------------------------
 
@@ -388,7 +403,8 @@ INSERT INTO `osl` (`idop_simulator`, `tanggal`, `kegiatan`, `waktu_on`, `waktu_o
 -- Table structure for table `osp`
 --
 
-CREATE TABLE `osp` (
+DROP TABLE IF EXISTS `osp`;
+CREATE TABLE IF NOT EXISTS `osp` (
   `idop_simulator` varchar(6) NOT NULL,
   `tanggal` date NOT NULL,
   `kegiatan` varchar(65) NOT NULL,
@@ -397,10 +413,13 @@ CREATE TABLE `osp` (
   `kondisi` varchar(45) NOT NULL COMMENT 'normal, sakit',
   `keterangan` text NOT NULL,
   `foto` varchar(150) NOT NULL,
-  `idusers` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `idusers` varchar(20) CHARACTER SET utf8mb4 NOT NULL,
   `idsimulator` varchar(6) NOT NULL,
-  `ver` float NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci COMMENT='pemanasan';
+  `ver` float NOT NULL DEFAULT '0',
+  PRIMARY KEY (`idop_simulator`),
+  KEY `FK_operasional_simulator_pemanasan_users` (`idusers`),
+  KEY `FK_osp_sim` (`idsimulator`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='pemanasan';
 
 --
 -- Dumping data for table `osp`
@@ -415,11 +434,13 @@ INSERT INTO `osp` (`idop_simulator`, `tanggal`, `kegiatan`, `waktu_on`, `waktu_o
 -- Table structure for table `pangkat`
 --
 
-CREATE TABLE `pangkat` (
+DROP TABLE IF EXISTS `pangkat`;
+CREATE TABLE IF NOT EXISTS `pangkat` (
   `idpangkat` varchar(6) NOT NULL,
   `nama_pangkat` varchar(45) NOT NULL,
-  `mode` varchar(45) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `mode` varchar(45) NOT NULL,
+  PRIMARY KEY (`idpangkat`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `pangkat`
@@ -472,10 +493,12 @@ INSERT INTO `pangkat` (`idpangkat`, `nama_pangkat`, `mode`) VALUES
 -- Table structure for table `role`
 --
 
-CREATE TABLE `role` (
+DROP TABLE IF EXISTS `role`;
+CREATE TABLE IF NOT EXISTS `role` (
   `idrole` varchar(6) NOT NULL,
-  `nama_role` varchar(45) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `nama_role` varchar(45) NOT NULL,
+  PRIMARY KEY (`idrole`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `role`
@@ -499,15 +522,18 @@ INSERT INTO `role` (`idrole`, `nama_role`) VALUES
 -- Table structure for table `sakit`
 --
 
-CREATE TABLE `sakit` (
-  `idsakit` varchar(6) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+DROP TABLE IF EXISTS `sakit`;
+CREATE TABLE IF NOT EXISTS `sakit` (
+  `idsakit` varchar(6) CHARACTER SET utf8mb4 NOT NULL,
   `simulator` varchar(45) NOT NULL,
   `model` varchar(45) NOT NULL,
-  `idusers` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `idusers` varchar(20) CHARACTER SET utf8mb4 NOT NULL,
   `tanggal` date NOT NULL,
   `kd_rujukan` varchar(45) NOT NULL,
-  `ver` float NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `ver` float NOT NULL DEFAULT '0',
+  PRIMARY KEY (`idsakit`),
+  KEY `FK_sakit_users` (`idusers`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `sakit`
@@ -515,7 +541,7 @@ CREATE TABLE `sakit` (
 
 INSERT INTO `sakit` (`idsakit`, `simulator`, `model`, `idusers`, `tanggal`, `kd_rujukan`, `ver`) VALUES
 ('S00001', 'S00001', 'Latihan', 'U00025', '2022-11-07', 'L00003', 1),
-('S00002', 'S00002', 'Sakit', 'U00091', '2022-12-04', '', 0);
+('S00002', 'S00009', 'Sakit', 'U00091', '2022-12-04', '', 0);
 
 -- --------------------------------------------------------
 
@@ -523,15 +549,18 @@ INSERT INTO `sakit` (`idsakit`, `simulator`, `model`, `idusers`, `tanggal`, `kd_
 -- Table structure for table `sakit_detil`
 --
 
-CREATE TABLE `sakit_detil` (
+DROP TABLE IF EXISTS `sakit_detil`;
+CREATE TABLE IF NOT EXISTS `sakit_detil` (
   `idsakit_detil` varchar(6) NOT NULL,
-  `idsakit` varchar(6) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `idsakit` varchar(6) CHARACTER SET utf8mb4 NOT NULL,
   `nama_barang` varchar(45) NOT NULL,
   `gejala` varchar(100) NOT NULL,
   `kegiatan` varchar(100) NOT NULL,
   `keterangan` varchar(250) NOT NULL,
-  `foto` varchar(150) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `foto` varchar(150) NOT NULL,
+  PRIMARY KEY (`idsakit_detil`),
+  KEY `FK_sakit_detil_key` (`idsakit`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `sakit_detil`
@@ -548,24 +577,28 @@ INSERT INTO `sakit_detil` (`idsakit_detil`, `idsakit`, `nama_barang`, `gejala`, 
 -- Table structure for table `sakit_harsis`
 --
 
-CREATE TABLE `sakit_harsis` (
+DROP TABLE IF EXISTS `sakit_harsis`;
+CREATE TABLE IF NOT EXISTS `sakit_harsis` (
   `idsakit_harsis` varchar(6) NOT NULL,
   `tanggal` date NOT NULL,
-  `idsakit` varchar(6) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `idsakit` varchar(6) CHARACTER SET utf8mb4 NOT NULL,
   `kerusakan` varchar(150) NOT NULL,
   `tindakan` varchar(150) NOT NULL,
   `keterangan` varchar(150) NOT NULL,
   `foto` varchar(150) NOT NULL,
-  `idusers` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `ver` float NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `idusers` varchar(20) CHARACTER SET utf8mb4 NOT NULL,
+  `ver` float NOT NULL DEFAULT '0',
+  PRIMARY KEY (`idsakit_harsis`),
+  KEY `FK_sakit_harsis_users` (`idusers`),
+  KEY `FK_sakit_harsis_sakit` (`idsakit`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `sakit_harsis`
 --
 
 INSERT INTO `sakit_harsis` (`idsakit_harsis`, `tanggal`, `idsakit`, `kerusakan`, `tindakan`, `keterangan`, `foto`, `idusers`, `ver`) VALUES
-('H00001', '2022-12-06', 'S00001', 'Trackball error tidak bisa digerakkan', 'Pembersihan Trackball', 'Kondisi masih belum bisa digerakkan', '', 'U00056', 1);
+('H00001', '2022-12-06', 'S00001', 'Trackball error tidak bisa digerakkan', 'Pembersihan Trackball', 'Kondisi masih belum bisa digerakkan', '', 'U00092', 1);
 
 -- --------------------------------------------------------
 
@@ -573,12 +606,14 @@ INSERT INTO `sakit_harsis` (`idsakit_harsis`, `tanggal`, `idsakit`, `kerusakan`,
 -- Table structure for table `simulator`
 --
 
-CREATE TABLE `simulator` (
+DROP TABLE IF EXISTS `simulator`;
+CREATE TABLE IF NOT EXISTS `simulator` (
   `idsimulator` varchar(6) NOT NULL,
   `nama_simulator` varchar(45) NOT NULL,
   `letak` varchar(150) NOT NULL,
-  `tahun` varchar(4) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `tahun` varchar(4) NOT NULL,
+  PRIMARY KEY (`idsimulator`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `simulator`
@@ -606,18 +641,22 @@ INSERT INTO `simulator` (`idsimulator`, `nama_simulator`, `letak`, `tahun`) VALU
 -- Table structure for table `suratmasuk`
 --
 
-CREATE TABLE `suratmasuk` (
+DROP TABLE IF EXISTS `suratmasuk`;
+CREATE TABLE IF NOT EXISTS `suratmasuk` (
   `idsuratmasuk` varchar(6) NOT NULL,
-  `idusers` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `idusers` varchar(20) CHARACTER SET utf8mb4 NOT NULL,
   `idsimulator` varchar(6) NOT NULL,
   `tanggal` date NOT NULL,
   `nosurat` varchar(45) NOT NULL,
   `dari` varchar(65) NOT NULL,
   `perihal` varchar(65) NOT NULL,
-  `keterangan` text DEFAULT NULL,
+  `keterangan` text,
   `mode` varchar(45) NOT NULL,
-  `ver` float NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `ver` float NOT NULL DEFAULT '0',
+  PRIMARY KEY (`idsuratmasuk`),
+  KEY `FK_suratmasuk_users` (`idusers`),
+  KEY `FK_suratmasuk_simulator` (`idsimulator`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `suratmasuk`
@@ -634,7 +673,8 @@ INSERT INTO `suratmasuk` (`idsuratmasuk`, `idusers`, `idsimulator`, `tanggal`, `
 -- Table structure for table `users`
 --
 
-CREATE TABLE `users` (
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE IF NOT EXISTS `users` (
   `idusers` varchar(20) NOT NULL,
   `nrp` varchar(15) NOT NULL,
   `pass` varchar(45) NOT NULL,
@@ -646,8 +686,12 @@ CREATE TABLE `users` (
   `iddivisi` varchar(6) DEFAULT NULL,
   `idjabatan` varchar(6) DEFAULT NULL,
   `email` varchar(45) NOT NULL,
-  `fcm` varchar(150) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `fcm` varchar(150) NOT NULL,
+  PRIMARY KEY (`idusers`),
+  KEY `FK_users_role` (`idrole`),
+  KEY `FK_users_korps` (`idkorps`),
+  KEY `FK_users_pangkat` (`idpangkat`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `users`
@@ -742,119 +786,9 @@ INSERT INTO `users` (`idusers`, `nrp`, `pass`, `nama`, `idrole`, `idkorps`, `idp
 ('U00087', '80746', 'aGtq', 'Yudi Ariyanto', 'R00005', 'K00029', 'P00015', '', 'D00019', 'J00162', '', ''),
 ('U00088', '81532', 'aGtq', 'Jaimun', 'R00002', 'K00011', 'P00017', '', 'D00003', 'J00166', '', ''),
 ('U00089', '117271', 'aGtq', 'Muflikhun Najib', 'R00003', 'K00019', 'P00015', '', 'D00005', 'J00066', 'muflikhunn1@gmail.com', ''),
-('U00090', '111', 'aGtq', '111', 'R00002', 'K00014', 'P00018', '', '-', '-', '123', ''),
+('U00090', '111', 'aGtq', '111', 'R00002', 'K00014', 'P00018', '', '-', '-', '123', 'fOB5DjTz3F0:APA91bGMdIITwR0x88_sCIXJ2ohFX3RLr0TLJpaZnWcTppTSYDW_B_jF-jDRvsFA8ZwSlh1wqg_vg4u0SvM62kr_tYAak-Crc_5twWWyT_SfP39Cb1oLoVXpLyXPH_ibIWSSEyG5EA'),
 ('U00091', '222', 'aGtq', '222', 'R00003', 'K00016', 'P00013', '', '-', '-', '123', ''),
 ('U00092', '333', 'aGtq', '333', 'R00004', 'K00015', 'P00018', '', '-', '-', '123', '');
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `divisi`
---
-ALTER TABLE `divisi`
-  ADD PRIMARY KEY (`iddivisi`),
-  ADD KEY `FK_divisi_department` (`idrole`);
-
---
--- Indexes for table `harwat_harsis`
---
-ALTER TABLE `harwat_harsis`
-  ADD PRIMARY KEY (`idharwat_harsis`),
-  ADD KEY `FK_harwat_harsis_users` (`idusers`),
-  ADD KEY `FK_harwat_harsis_sakit` (`idsakit_harsis`);
-
---
--- Indexes for table `identitas`
---
-ALTER TABLE `identitas`
-  ADD PRIMARY KEY (`kode`);
-
---
--- Indexes for table `jabatan`
---
-ALTER TABLE `jabatan`
-  ADD PRIMARY KEY (`idjabatan`);
-
---
--- Indexes for table `korps`
---
-ALTER TABLE `korps`
-  ADD PRIMARY KEY (`idkorps`);
-
---
--- Indexes for table `osl`
---
-ALTER TABLE `osl`
-  ADD PRIMARY KEY (`idop_simulator`),
-  ADD KEY `FK_osl_users` (`idusers`),
-  ADD KEY `FK_osl_suratmasuk` (`idsuratmasuk`);
-
---
--- Indexes for table `osp`
---
-ALTER TABLE `osp`
-  ADD PRIMARY KEY (`idop_simulator`),
-  ADD KEY `FK_operasional_simulator_pemanasan_users` (`idusers`),
-  ADD KEY `FK_osp_sim` (`idsimulator`);
-
---
--- Indexes for table `pangkat`
---
-ALTER TABLE `pangkat`
-  ADD PRIMARY KEY (`idpangkat`);
-
---
--- Indexes for table `role`
---
-ALTER TABLE `role`
-  ADD PRIMARY KEY (`idrole`);
-
---
--- Indexes for table `sakit`
---
-ALTER TABLE `sakit`
-  ADD PRIMARY KEY (`idsakit`),
-  ADD KEY `FK_sakit_users` (`idusers`);
-
---
--- Indexes for table `sakit_detil`
---
-ALTER TABLE `sakit_detil`
-  ADD PRIMARY KEY (`idsakit_detil`),
-  ADD KEY `FK_sakit_detil_key` (`idsakit`);
-
---
--- Indexes for table `sakit_harsis`
---
-ALTER TABLE `sakit_harsis`
-  ADD PRIMARY KEY (`idsakit_harsis`),
-  ADD KEY `FK_sakit_harsis_users` (`idusers`),
-  ADD KEY `FK_sakit_harsis_sakit` (`idsakit`);
-
---
--- Indexes for table `simulator`
---
-ALTER TABLE `simulator`
-  ADD PRIMARY KEY (`idsimulator`);
-
---
--- Indexes for table `suratmasuk`
---
-ALTER TABLE `suratmasuk`
-  ADD PRIMARY KEY (`idsuratmasuk`),
-  ADD KEY `FK_suratmasuk_users` (`idusers`),
-  ADD KEY `FK_suratmasuk_simulator` (`idsimulator`);
-
---
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`idusers`),
-  ADD KEY `FK_users_role` (`idrole`),
-  ADD KEY `FK_users_korps` (`idkorps`),
-  ADD KEY `FK_users_pangkat` (`idpangkat`);
 
 --
 -- Constraints for dumped tables
